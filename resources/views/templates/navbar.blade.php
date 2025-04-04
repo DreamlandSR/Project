@@ -7,7 +7,7 @@
                 alt="Logo SMKN7 Jember"
                 loading="lazy"
             />
-            <small class="fs-6 ml-2">SMKN 7 Jember</small>
+            <small class="fs-6 ml-2">Batik Bondowoso</small>
         </a>
         <button
             class="navbar-toggler"

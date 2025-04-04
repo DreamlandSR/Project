@@ -49,7 +49,7 @@ class HomeController extends Controller
 
     public function product() {
         $data = [
-            'judul' => 'Features',
+            'judul' => 'Product',
             'css' => ['nav.css', 'styles.css', 'ionicons.min.css'],
             'minimal_header' => true,
             'js' => 'script.js'

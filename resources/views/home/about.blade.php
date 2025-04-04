@@ -12,9 +12,9 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xxl-6">
                     <div class="text-center my-3">
-                        <h1 class="fw-bolder mb-3">Visi dan Misi kami sebagai pengajar SMKN 7 Jember</h1>
+                        <h1 class="fw-bolder mb-3">Visi dan Misi kami sebagai pengembang Batik</h1>
                         <p class="lead fw-normal text-muted mb-4">
-                        Mewujudkan generasi unggul, berkarakter, dan berdaya saing global melalui pendidikan berkualitas yang inovatif, berbasis teknologi, serta berlandaskan nilai-nilai moral, dengan menanamkan disiplin, kreativitas, tanggung jawab, toleransi, dan semangat kebangsaan dalam lingkungan belajar yang aman, nyaman, dan inklusif.</p>
+                            "Mewujudkan batik berkualitas yang inovatif dan berdaya saing global, dengan tetap menjaga nilai tradisi serta mengembangkan kreativitas, tanggung jawab, dan semangat pelestarian budaya dalam setiap helai kain batik yang dihasilkan."</p>
                         <a class="btn btn-primary btn-lg" href="#scroll-target">Read our story</a>
                     </div>
                 </div>
