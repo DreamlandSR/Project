@@ -133,7 +133,7 @@
                             Batik kopi ijen merupakan batik khas Bondowoso yang kami kelola, kami menerapkan pembuatan batik
                             dengan cara tradisional yaitu dengan menggunakan canting, dengan ciri khas biji kopi ijen.
                         </p>
-                        <a href="#" class="btn btn-primary">Learn more</a>
+                        <a href="#" class="btn btn-primary mb-3">Learn more</a>
                     </div>
 
                     <!-- Bagian Gambar / Carousel -->
@@ -205,78 +205,87 @@
 
 
                 <div class="row gx-5 slide-in">
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" style="height: 185px; object-fit: cover;"
-                                src="{{ asset('/img/background.jpeg') }}" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-3">News</div>
-                                <h5 class="card-title mb-2 fw-bold">Admin</h5></a>
-                                <p class="card-text mb-0">Panduan penggunaan untuk admin mulai dari cara menambahkan akun,
-                                    kelas, menambahkan mata pelajaran, melihat jumlah data akun. <br><a
-                                        href="{{ asset('/home/guide') }}">lihat selengkapnya</a></p>
-                            </div>
-                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                <div class="d-flex align-items-end justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                            alt="..." />
-                                        <div class="small">
-                                            <div class="fw-bold">Kelly Rowan</div>
-                                            <div class="text-muted">March 12, 2023 &middot; 6 min read</div>
-                                        </div>
-                                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-auto shadow-sm border-0">
+                            <!-- Gambar utama -->
+                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+
+                            <!-- Konten di bawah gambar -->
+                            <div class="card-body">
+                                <!-- Judul dan rating di satu baris -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
+                                    </span>
                                 </div>
+                                <!-- Lokasi -->
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" style="height: 185px; object-fit: cover;"
-                                src="{{ asset('/img/Frieren.jpeg') }}" alt="..." />
-                            <div class="card-body p-4" style="min-height: 150px;">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-3">Media</div>
-                                <h5 class="card-title mb-2 fw-bold">Guru</h5>
-                                <p class="card-text mb-0">Panduan penggunaan untuk guru mulai dari memberikan tugas,
-                                    materi, ujian serta tugas guru juga bisa memberikan komentar. <br> <a
-                                        href="{{ asset('/home/guide') }}">lihat selengkapnya</a></p>
-                            </div>
-                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                <div class="d-flex align-items-end justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                            alt="..." />
-                                        <div class="small">
-                                            <div class="fw-bold">Josiah Barclay</div>
-                                            <div class="text-muted">March 23, 2023 &middot; 4 min read</div>
-                                        </div>
-                                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-auto shadow-sm border-0">
+                            <!-- Gambar utama -->
+                            <img class="card-img-top rounded" src="{{ asset('/img/frieren.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+
+                            <!-- Konten di bawah gambar -->
+                            <div class="card-body">
+                                <!-- Judul dan rating di satu baris -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
+                                    </span>
                                 </div>
+                                <!-- Lokasi -->
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" style="height: 185px; object-fit: cover;"
-                                src="{{ asset('/img/Foto2.jpeg') }}" alt="..." />
-                            <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-3">News</div>
-                                <h5 class="card-title mb-2 fw-bold">Siswa</h5>
-                                <p class="card-text mb-0">Panduan penggunaan siswa untuk mengetahui bagaimana cara
-                                    mengumpulkan tugas, melakukan ujian melaporkan keluhan. <br> <a
-                                        href="{{ asset('/home/guide') }}">lihat selengkapnya</a></p>
-                            </div>
-                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                <div class="d-flex align-items-end justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                        <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d"
-                                            alt="..." />
-                                        <div class="small">
-                                            <div class="fw-bold">Evelyn Martinez</div>
-                                            <div class="text-muted">April 2, 2023 &middot; 10 min read</div>
-                                        </div>
-                                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-auto shadow-sm border-0">
+                            <!-- Gambar utama -->
+                            <img class="card-img-top rounded" src="{{ asset('/img/Foto2.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+
+                            <!-- Konten di bawah gambar -->
+                            <div class="card-body">
+                                <!-- Judul dan rating di satu baris -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
+                                    </span>
                                 </div>
+                                <!-- Lokasi -->
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                        <div class="card h-auto shadow-sm border-0">
+                            <!-- Gambar utama -->
+                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+
+                            <!-- Konten di bawah gambar -->
+                            <div class="card-body">
+                                <!-- Judul dan rating di satu baris -->
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
+                                    <span class="badge bg-primary">
+                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
+                                    </span>
+                                </div>
+                                <!-- Lokasi -->
+                                <p class="text-muted mb-0">
+                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
+                                </p>
                             </div>
                         </div>
                     </div>
