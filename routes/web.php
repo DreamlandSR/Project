@@ -20,4 +20,9 @@ route::get('/', [HomeController::class, 'index'])->name('index');
 route::get('/about', [HomeController::class, 'about'])->name('about');
 route::get('/product', [HomeController::class, 'product'])->name('product');
 
+//route admin
+route::get('/AdminPage', function() {
+    return view('dashboard.admin');
+});
+
 require __DIR__.'/auth.php';

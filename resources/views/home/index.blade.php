@@ -13,7 +13,7 @@
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-8 col-xl-7 col-xxl-6">
                         <div class="my-5 text-center text-xl-start">
-                            <h1 class="display-5 fw-bolder text-white mb-2 text-start">Batik Bondowoso</h1>
+                            <h1 class="display-5 fw-bolder text-white mb-2 text-start">Griya Batik</h1>
                             <p class="lead fw-normal text-white-50 mb-4 pr-5" style="text-align: justify; font-size: 20px;">
                                 platform e-learning terbaru untuk mendukung pengalaman belajar yang lebih modern,
                                 interaktif, dan fleksibel. Melalui aplikasi ini, siswa, guru, dan admin dapat berkolaborasi

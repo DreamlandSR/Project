@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
             <img
-                src="{{ asset('/img/logo.png') }}"
+                src="{{ asset('/img/griya batik_bru.png') }}"
                 height="35"
                 alt="Logo SMKN7 Jember"
                 loading="lazy"
             />
-            <small class="fs-6 ml-2">Batik Bondowoso</small>
+            <small class="fs-6 ml-2">Griya Batik</small>
         </a>
         <button
             class="navbar-toggler"
