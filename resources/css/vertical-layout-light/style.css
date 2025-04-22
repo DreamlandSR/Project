@@ -13815,8 +13815,9 @@ input[type="button"].btn-block {
 
 .card-body {
   flex: 1 1 auto;
-  min-height: 1px;
+  min-height: 2px;
   padding: 1.25rem;
+
 }
 
 .card-title {
@@ -20204,14 +20205,18 @@ code {
 }
 
 .card-people {
-  position: relative;
-  padding-top: 20px;
-}
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  }
 
-.card-people img {
-  border-radius: 20px;
-  width: 100%;
-}
+  .card-people img {
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
 .card-people .weather-info {
   position: absolute;
@@ -30047,6 +30052,13 @@ div.tagsinput span.tag a {
   .sidebar-icon-only .sidebar .nav .nav-item .collapse {
     display: none;
   }
+
+  .sidebar-icon-only .sidebar .nav .collapse,
+  .sidebar-icon-only .sidebar .nav .sub-menu {
+   display: none !important;
+  }
+
+
   .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link .menu-title {
     display: -webkit-flex;
     display: flex;
