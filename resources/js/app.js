@@ -4,7 +4,7 @@ window.$ = window.jQuery = $;
 import Popper from 'popper.js/dist/umd/popper';
 window.Popper = Popper;
 
-import 'bootstrap'; 
+import 'bootstrap';
 
 import DataTable from 'datatables.net-bs4';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.css';
