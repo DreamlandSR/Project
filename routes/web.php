@@ -25,4 +25,20 @@ route::get('/AdminPage', function() {
     return view('dashboard.admin');
 });
 
+route::get('/ProductPage', function() {
+    return view("dashboard.product");
+});
+
+route::get('/ProfilePage', function() {
+    return view("dashboard.profile");
+});
+
+route::get('/PengirimanPage', function() {
+    return view('dashboard.pengiriman');
+});
+
+route::get('/PengaturanPage', function() {
+    return view('dashboard.pengaturan');
+});
+
 require __DIR__.'/auth.php';

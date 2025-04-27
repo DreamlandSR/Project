@@ -25,6 +25,7 @@ import './settings';
 import './todolist';
 import './dashboard';
 import './Chart.roundedBarCharts';
+import '../css/vertical-layout-light/style.css';
 
 import Alpine from 'alpinejs';
 window.Alpine = Alpine;

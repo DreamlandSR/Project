@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import path from 'path';
-import inject from '@rollup/plugin-inject'; // ✅ tambahkan ini
+import inject from '@rollup/plugin-inject';
 
 export default defineConfig({
     plugins: [
@@ -10,8 +10,8 @@ export default defineConfig({
             refresh: true,
         }),
         inject({
-            $: 'jquery',         // ✅ expose jQuery sebagai $
-            jQuery: 'jquery',    // ✅ expose jQuery sebagai jQuery
+            $: 'jquery',
+            jQuery: 'jquery',
         }),
     ],
     resolve: {
@@ -19,9 +19,9 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'resources/js'),
         },
     },
-
-    server: {
-        host: '127.0.0.1',
-        port: 5174, // Ganti port ini agar tidak bentrok
+    assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.eot'], // ✅ Tambahkan ini
+    
+    css: {
+        url: false, // <<<<< ✅ Tambahkan ini
     },
 });
