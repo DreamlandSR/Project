@@ -8,20 +8,20 @@
     <main class="flex-shrink-0">
 
         <!-- Header-->
-        <header class="bg-dark py-5 fade-in">
+        <header class="py-5 fade-in">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-lg-8 col-xl-7 col-xxl-6">
                         <div class="my-5 text-center text-xl-start">
-                            <h1 class="display-5 fw-bolder text-white mb-2 text-start">Griya Batik</h1>
-                            <p class="lead fw-normal text-white-50 mb-4 pr-5" style="text-align: justify; font-size: 20px;">
+                            <h1 class="display-5 fw-bolder text-black mb-2 text-start">Griya Batik</h1>
+                            <p class="lead fw-normal text-black mb-4 pr-5" style="text-align:left; font-size: 18px;">
                                 platform e-learning terbaru untuk mendukung pengalaman belajar yang lebih modern,
                                 interaktif, dan fleksibel. Melalui aplikasi ini, siswa, guru, dan admin dapat berkolaborasi
                                 dalam satu sistem yang terintegrasi.
                             </p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login">Get Started</a>
-                                <a class="btn btn-outline-light btn-lg px-4" href="guide">Learn More</a>
+                                <a class="btn btn-light btn-lg px-4" href="guide">Learn More</a>
                             </div>
                         </div>
                     </div>

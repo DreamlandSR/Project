@@ -159,6 +159,80 @@
     background-color: #ffc107;
 }
 
+/* --- Favorite Product Card Custom Styling --- */
+.product-favorite-card {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.product-favorite-list {
+    max-height: 250px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #6c5ce7 #f1f1f1;
+}
+
+.product-favorite-list::-webkit-scrollbar {
+    width: 6px;
+}
+.product-favorite-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.product-favorite-list::-webkit-scrollbar-thumb {
+    background-color: #6c5ce7;
+    border-radius: 10px;
+}
+
+/* List Item Favorite */
+.product-item {
+    border: none;
+    transition: background 0.3s ease;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.product-item:hover {
+    background-color: #f5f7fa;
+}
+
+/* Rank Badge Favorite */
+.rank-badge {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 3px 6px rgba(108, 92, 231, 0.5);
+}
+
+/* Product Image Favorite */
+.product-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+    transform: scale(1.1);
+}
+
+/* Title khusus untuk Product Favorite */
+.product-favorite-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d3436;
+}
+
+
 @media (max-width: 768px) {
     .grid-container {
         column-count: 2;
