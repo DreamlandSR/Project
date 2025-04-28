@@ -10130,6 +10130,19 @@ pre code {
   }
 }
 
+table {
+    table-layout: fixed; /* Biar semua kolom ikut aturan lebar */
+    width: 100%; /* Biar tabel tetap memenuhi kontainer */
+}
+td, th {
+    word-wrap: break-word;
+    white-space: normal;
+    max-width: 200px;
+    overflow-wrap: break-word; /* tambahan ekstra biar makin aman */
+    padding: 8px; /* opsional: biar kelihatan lebih rapi */
+}
+
+
 .table, .jsgrid .jsgrid-table {
   width: 100%;
   margin-bottom: 1rem;
@@ -19694,7 +19707,7 @@ html {
 }
 
 .container-scroller {
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 pre {

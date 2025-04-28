@@ -25,7 +25,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/Penga') }}">
+            <a class="nav-link" href="{{ url('/PengaturanPage') }}">
                 <i class="icon-grid-2 menu-icon"></i>
                 <span class="menu-title">Pengaturan</span>
             </a>

@@ -74,7 +74,7 @@
                                                     <td>10</td>
                                                     <td>75.000</td>
                                                     <td>Kain Katun</td>
-                                                    <td>...</td>
+                                                    <td><i class="ti-more"></i></td>
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
@@ -87,7 +87,7 @@
                                                     <td>25</td>
                                                     <td>125.000</td>
                                                     <td>Kain Sutra</td>
-                                                    <td>...</td>
+                                                    <td><i class="ti-more"></i></td>
                                                 </tr>
                                                 <tr>
                                                     <td>3</td>
@@ -100,7 +100,7 @@
                                                     <td>15</td>
                                                     <td>215.000</td>
                                                     <td>Kain Katun</td>
-                                                    <td>...</td>
+                                                    <td><i class="ti-more"></i></td>
                                                 </tr>
                                                 <!-- Tambahkan data produk lainnya sesuai kebutuhan -->
                                             </tbody>
