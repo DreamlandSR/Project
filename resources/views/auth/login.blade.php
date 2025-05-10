@@ -1,71 +1,98 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('Silakan login untuk melanjutkan.') }}
+@extends('layout')
+
+@section('content')
+<div class="container-scroller">
+  <div class="container-fluid page-body-wrapper full-page-wrapper">
+    <div class="content-wrapper d-flex align-items-center auth px-0">
+      <div class="row w-100 mx-0">
+        <div class="col-lg-8 mx-auto">
+          <div class="auth-form-light d-flex flex-wrap p-4" style="border-radius: 10px;">
+
+            {{-- Form column --}}
+            <div class="col-12 col-md-6 pl-4">
+              <div class="brand-logo mb-4">
+                <img src="{{ asset('img/Asset 6.png') }}"
+                     alt="logo" class="img-fluid" style="max-width: 150px;">
+              </div>
+              <h4 class="mb-1">Hai, Selamat datang</h4>
+              <p class="text-muted mb-4">Login untuk melanjutkan</p>
+
+              @if ($errors->any())
+                <div class="alert alert-danger">
+                  <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endif
+
+              @if (session('success'))
+                  <div class="alert alert-success mt-3">
+                    {{ session('success') }}
+                  </div>
+                @endif
+
+              <form method="POST" action="{{ route('login') }}">
+                @csrf
+
+                <div class="mt-4">
+                    <input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" placeholder="Email"
+                        type="email" name="email" value="{{ old('email', session('email')) }}" required autofocus />
+                </div>
+
+                <div class="my-4">
+                    <input id="password" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" placeholder="Password"
+                        type="password" name="password" required />
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <label class="form-check-label text-muted">
+                            <input type="checkbox" class="form-check-input">
+                            Remember me
+                        </label>
+                    </div>
+                  @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="small text-decoration-none">
+                      Forgot password?
+                    </a>
+                  @endif
+                </div>
+
+                <div class="mb-3">
+                  <button type="submit"
+                          class="btn btn-primary btn-lg w-100 rounded"
+                          style="padding: 12px 0;">
+                    Login
+                  </button>
+                </div>
+
+                <div class="text-center">
+                  <small>
+                    Belum punya akun?
+                    <a href="{{ route('register') }}">Daftar</a>
+                  </small>
+                </div>
+              </form>
+            </div>
+
+            {{-- Gambar column (hilang di mobile) --}}
+            <div class="col-12 col-md-6 d-none d-md-flex pl-4 pt-1 pr-1 justify-content-center align-items-center">
+
+                <div class="w-100 h-100 rounded overflow-hidden" style="position: relative; background-color: #f5f5f5;">
+                  <img src="{{ asset('img/Screen.jpg') }}"
+                       alt="Batik Cicilia"
+                       class="img-fluid w-100 h-100"
+                       style="object-fit: cover; position: absolute; top: 0; left: 0;">
+                </div>
+              </div>
+
+
+          </div>
+        </div>
+      </div>
     </div>
-
-    @if ($errors->any())
-        <div class="mb-4">
-            <ul class="list-disc list-inside text-sm text-red-600">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-            <input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500" 
-                type="email" name="email" 
-                value="{{ old('email', session('email')) }}" 
-                required autofocus />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-            <input id="password" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:ring-green-500 focus:border-green-500" 
-                type="password" name="password" 
-                value="{{ session('password') }}"
-                required />
-        </div>
-
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-between mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
-                {{ __('Belum punya akun?') }}
-            </a>
-        </div>
-
-        <div class="flex justify-end mt-4">
-            <button type="submit" 
-                class="ml-4 inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-sm text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
-                {{ __('Log in') }}
-            </button>
-        </div>
-
-        @if (session('success'))
-    <div class="mb-4 font-medium text-sm text-green-600">
-        {{ session('success') }}
-    </div>
-@endif
-    </form>
-</x-guest-layout>
+  </div>
+</div>
+@endsection

@@ -13,21 +13,22 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'nama' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'no_hp' => ['required', 'string', 'max:20'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'nama' => $request->nama,
             'email' => $request->email,
+            'no_hp' => $request->no_hp,
             'password' => bcrypt($request->password),
+            'role' => 'admin',
         ]);
 
-        // Jangan login langsung
-        // Auth::login($user);
 
-        // Simpan email dan password sementara di session
+
         Session::flash('email', $request->email);
         Session::flash('password', $request->password);
 

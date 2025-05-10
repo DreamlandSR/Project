@@ -13,15 +13,20 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles;
 
+    public $timestamps = true;  // Aktifkan timestamps
+    const UPDATED_AT = null;    // Nonaktifkan updated_at
+
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'email',
         'password',
+        'no_hp',
+        'role',
     ];
 
     /**
