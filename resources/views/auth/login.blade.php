@@ -13,7 +13,7 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="GET" action="{{ url ('AdminPage') }}">
         @csrf
 
         <!-- Email Address -->

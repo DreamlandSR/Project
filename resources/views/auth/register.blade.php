@@ -19,13 +19,19 @@
         <!-- Name -->
         <div>
             <label for="name" class="block text-sm font-medium text-gray-700">Nama</label>
-            <input id="name" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" type="text" name="name" value="{{ old('name') }}" required autofocus />
+            <input id="nama" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" type="text" name="name" value="{{ old('name') }}" required autofocus />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" type="email" name="email" value="{{ old('email') }}" required />
+        </div>
+
+        <!-- Phone -->
+        <div class="mt-4">
+            <label for="no_hp" class="block text-sm font-medium text-gray-700">Nomor Handphone</label>
+            <input id="no_hp" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" type="no_hp" name="no_hp" value="{{ old('no_hp') }}" required />
         </div>
 
         <!-- Password -->

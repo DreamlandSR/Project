@@ -15,14 +15,13 @@
                         <div class="my-5 text-center text-xl-start">
                             <h1 class="display-5 fw-bolder text-black mb-2 text-start">Griya Batik</h1>
                             <p class="lead fw-normal text-black mb-4 pr-5" style="text-align:left; font-size: 18px;">
-                                platform e-learning terbaru untuk mendukung pengalaman belajar yang lebih modern,
-                                interaktif, dan fleksibel. Melalui aplikasi ini, siswa, guru, dan admin dapat berkolaborasi
-                                dalam satu sistem yang terintegrasi.
+                                UMKM Batik Disabilitas Bondowoso memberdayakan penyandang disabilitas melalui karya batik berkualitas, 
+                                melestarikan budaya sambil mendorong kemandirian ekonomi.
                             </p>
-                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                            {{-- <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login">Get Started</a>
                                 <a class="btn btn-light btn-lg px-4" href="guide">Learn More</a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -32,15 +31,15 @@
                             data-interval="6000">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('/img/Frieren.jpeg') }}" class="d-block w-100 rounded"
+                                    <img src="{{ asset('/img/Batik karanganyar.jpg') }}" class="d-block w-100 rounded"
                                         alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/biru.jpeg') }}" class="d-block w-100 rounded"
+                                    <img src="{{ asset('/img/Batik Cicilia.jpg') }}" class="d-block w-100 rounded"
                                         alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded"
+                                    <img src="{{ asset('/img/Batik Kembang Kusuma.jpg') }}" class="d-block w-100 rounded"
                                         alt="... ">
                                 </div>
                             </div>
@@ -65,7 +64,7 @@
             <div class="container px-5 my-5 slide-in">
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h2 class="fw-bolder mb-0">Fitur yang ada pada Website</h2>
+                        <h2 class="fw-bolder mb-0">Fitur Unggulan pada Website Kami</h2>
                     </div>
                     <div class="col-lg-8">
                         <div class="row px-3">
@@ -73,33 +72,31 @@
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-collection"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Pengumpulan tugas</h2>
-                                <p class="mb-0">Melakukan pengumpulan tugas yang diberikan oleh masing - masing guru.</p>
+                                <h2 class="h5 fw-bold">Galeri Produk</h2>
+                                <p class="mb-0">Lihat koleksi eksklusif batik hasil karya tangan-tangan berbakat penyandang disabilitas.</p>
                             </div>
                             <div class="col-12 col-md-6 mb-5 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-building"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Quiz</h2>
-                                <p class="mb-0">Pengerjaan quiz (ujian) untuk mengukur kemampuan dari masing - masing
-                                    siswa.</p>
+                                <h2 class="h5 fw-bold">Pengiriman Produk</h2>
+                                <p class="mb-0">Pengiriman ke seluruh wilayah Indonesia dengan menggunakan pengemasan aman dan ramah lingkungan.</p>
                             </div>
                             <div class="col-12 col-md-6 mb-5 mb-md-0 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-toggles2"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Materi Pembelajaran Interaktif</h2>
-                                <p class="mb-0">Dengan adanya E - learning ini memudahkan pemberian materi untuk siswa.
-                                </p>
+                                <h2 class="h5 fw-bold">Pemesanan Produk</h2>
+                                <p class="mb-0">Pesan batik pilihan Anda dengan mudah langsung dari website, mendukung kreativitas lokal.</p>
                             </div>
-                            <div class="col-12 col-md-6 h-100">
+                            {{-- <div class="col-12 col-md-6 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-toggles2"></i>
                                 </div>
                                 <h2 class="h5 fw-bold">Jadwal dan Kalender Pembelajaran</h2>
                                 <p class="mb-0">Adanya jadwal memudahkan siswa untuk mengetahui pembelajaran setiap
                                     harinya.</p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
