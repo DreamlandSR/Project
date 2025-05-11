@@ -35,8 +35,11 @@
                                                 Informasi Akun</li>
                                             <li class="list-group-item border-bottom py-3" style="font-size: 16px;">Panduan
                                             </li>
-                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">Lupa
-                                                Password</li>
+                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">
+                                                <a href="{{ route('password.request') }}"
+                                                    style="text-decoration: none; color: inherit;">Lupa Password</a>
+                                            </li>
+
                                         </ul>
 
                                         <!-- Buttons -->

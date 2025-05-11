@@ -36,12 +36,10 @@
                                         alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/biru.jpeg') }}" class="d-block w-100 rounded"
-                                        alt="...">
+                                    <img src="{{ asset('/img/biru.jpeg') }}" class="d-block w-100 rounded" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded"
-                                        alt="... ">
+                                    <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded" alt="... ">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -190,7 +188,7 @@
         </div>
 
         <!-- Blog preview section-->
-        <section class="py-5 my-5">
+        <section class="py-5 my-5 slide-in">
             <div class="px-5 slide-in">
                 <div class="row align-items-center">
                     <div class="col-lg-8 col-xl-6">
@@ -204,11 +202,12 @@
                 </div>
 
 
-                <div class="row gx-5 slide-in">
+                <div class="row gx-5 slide-in mb-4">
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card h-auto shadow-sm border-0">
                             <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}"
+                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
 
                             <!-- Konten di bawah gambar -->
                             <div class="card-body">
@@ -229,7 +228,8 @@
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card h-auto shadow-sm border-0">
                             <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/frieren.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+                            <img class="card-img-top rounded" src="{{ asset('/img/frieren.jpeg') }}"
+                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
 
                             <!-- Konten di bawah gambar -->
                             <div class="card-body">
@@ -250,7 +250,8 @@
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card h-auto shadow-sm border-0">
                             <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/Foto2.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+                            <img class="card-img-top rounded" src="{{ asset('/img/Foto2.jpeg') }}"
+                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
 
                             <!-- Konten di bawah gambar -->
                             <div class="card-body">
@@ -271,7 +272,8 @@
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                         <div class="card h-auto shadow-sm border-0">
                             <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}" style="height: 200px; object-fit: cover;" alt="Batik Kopi">
+                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}"
+                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
 
                             <!-- Konten di bawah gambar -->
                             <div class="card-body">
@@ -292,27 +294,36 @@
                 </div>
 
                 <!-- Call to action-->
-                <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5 slide-in">
-                    <div
-                        class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                        <div class="mb-4 mb-xl-0">
-                            <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
-                            <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
+                <div class="py-5">
+                    <div class="row align-items-center">
+                        <!-- Kiri -->
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h4><strong>Download Sekarang juga !</strong></h4>
+                            <h4><strong><span class="text-primary">Pembayaran</span> bisa lewat sini</strong></h4>
+                            <p>Pembayaran bisa menggunakan Aplikasi kami pada tombol download di samping →</p>
                         </div>
-                        <div class="ms-xl-4">
-                            <div class="input-group mb-2">
-                                <input class="form-control" type="text" placeholder="Email address..."
-                                    aria-label="Email address..." aria-describedby="button-newsletter" />
-                                <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign
-                                    up</button>
+
+                        <!-- Kanan -->
+                        <div class="col-12 col-md-4 ms-md-auto">
+                            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 border rounded shadow-sm bg-light p-4">
+                              <!-- Kiri: Teks -->
+                              <div class="text-center text-md-start">
+                                <h5><strong>For Android</strong></h5>
+                                <p class="mb-2 text-muted">Android 8.0+</p>
+                                <a href="{{ url('downloads/Healthy.pdf') }}" class="btn btn-primary" download>Download</a>
+                              </div>
+
+                              <!-- Kanan: QR Code -->
+                              <div>
+                                <img src="{{ asset('img/qrcode.png') }}" alt="QR Code"
+                                     class="img-fluid" style="max-width: 100px;">
+                              </div>
                             </div>
-                            <div class="small text-white-50">We care about privacy, and will never share your data.</div>
                         </div>
                     </div>
-                </aside>
+                </div>
             </div>
         </section>
-
     </main>
 
     @include('templates.main_footer')

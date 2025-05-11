@@ -2,13 +2,12 @@
 
 
 @section('content')
-
-@include('layouts.sections.navbar')
+    @include('layouts.sections.navbar')
 
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper">
 
-@include('layouts.sections.sidebar')
+            @include('layouts.sections.sidebar')
 
             <!-- partial -->
             <div class="main-panel">
@@ -17,37 +16,41 @@
                         <div class="col-md-6 mb-4">
                             <div class="card tale-bg">
                                 <div class="card-people mt-auto position-relative overflow-hidden">
-                                    <div id="batikCarousel" class="carousel carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+                                    <div id="batikCarousel" class="carousel carousel-fade" data-bs-ride="carousel"
+                                        data-bs-interval="5000">
                                         <div class="carousel-inner">
-                                          <div class="carousel-item active">
-                                            <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded" style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen">
-                                            <div class="carousel-caption d-none d-md-block">
-                                              <h5>Batik Kopi Ijen</h5>
-                                              <p>Keindahan batik dengan nuansa kopi yang klasik.</p>
+                                            <div class="carousel-item active">
+                                                <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded"
+                                                    style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5>Batik Kopi Ijen</h5>
+                                                    <p>Keindahan batik dengan nuansa kopi yang klasik.</p>
+                                                </div>
                                             </div>
-                                          </div>
 
-                                          <div class="carousel-item">
-                                            <img src="{{ asset('/img/frieren.jpeg') }}" class="d-block w-100 rounded" style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen 2">
-                                            <div class="carousel-caption d-none d-md-block">
-                                              <h5>Batik Kopi Ijen 2</h5>
-                                              <p>Sentuhan baru pada motif batik tradisional.</p>
+                                            <div class="carousel-item">
+                                                <img src="{{ asset('/img/frieren.jpeg') }}" class="d-block w-100 rounded"
+                                                    style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen 2">
+                                                <div class="carousel-caption d-none d-md-block">
+                                                    <h5>Batik Kopi Ijen 2</h5>
+                                                    <p>Sentuhan baru pada motif batik tradisional.</p>
+                                                </div>
                                             </div>
-                                          </div>
                                         </div>
 
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#batikCarousel" data-bs-slide="prev">
-                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#batikCarousel"
+                                            data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#batikCarousel" data-bs-slide="next">
-                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#batikCarousel"
+                                            data-bs-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         </button>
-                                      </div>
+                                    </div>
 
 
                                     <!-- Weather Info -->
-                                    <div class="weather-info position-absolute"
-                                        style="top: 30px; right: 20px; z-index: 2;">
+                                    <div class="weather-info position-absolute" style="top: 30px; right: 20px; z-index: 2;">
                                         <div class="d-flex align-items-center">
                                             <div>
                                                 <h2 class="mb-0 font-weight-normal">
@@ -70,9 +73,9 @@
                                 <div class="col-md-6 mb-4 stretch-card transparent">
                                     <div class="card card-tale">
                                         <div class="card-body">
-                                            <p class="mb-4">Total Pengunjung</p>
-                                            <p class="fs-30 mb-2">2409</p>
-                                            <p>15.00% (30 days)</p>
+                                            <p class="mb-4">Total Omset</p>
+                                            <p class="fs-30 mb-2">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
+                                            <p>{{ $growthPembayaran }}% (30 days)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -80,8 +83,8 @@
                                     <div class="card card-dark-blue">
                                         <div class="card-body">
                                             <p class="mb-4">Product</p>
-                                            <p class="fs-30 mb-2">35</p>
-                                            <p>7.00% (30 days)</p>
+                                            <p class="fs-30 mb-2">{{ $totalProduk }}</p>
+                                            <p>{{ $growthProduk }}% (30 days)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -91,8 +94,8 @@
                                     <div class="card card-light-blue">
                                         <div class="card-body">
                                             <p class="mb-4">Total Register</p>
-                                            <p class="fs-30 mb-2">415</p>
-                                            <p>18.40% (30 days)</p>
+                                            <p class="fs-30 mb-2">{{ $totalRegister }}</p>
+                                            <p>{{ $growthRegister }}% (30 days)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -100,13 +103,14 @@
                                     <div class="card card-light-danger">
                                         <div class="card-body">
                                             <p class="mb-4">Sold Product</p>
-                                            <p class="fs-30 mb-2">380</p>
-                                            <p>25.14% (30 days)</p>
+                                            <p class="fs-30 mb-2">{{ $totalSold }}</p>
+                                            <p>{{ $growthSold }}% (30 days)</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                     <div class="row">
                         <div class="col-md-6 grid-margin stretch-card">

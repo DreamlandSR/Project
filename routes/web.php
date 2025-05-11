@@ -5,17 +5,31 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\OtpResetController;
+use App\Http\Controllers\AdminController;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//route reset password (otp)
+Route::get('/verify-otp', [OtpResetController::class, 'showVerifyForm'])->name('otp.verify.form');
+Route::post('/verify-otp', [OtpResetController::class, 'verifyOtp'])->name('otp.verify');
+Route::get('/reset-password/{email}', [OtpResetController::class, 'showResetPasswordForm'])->name('password.reset.form');
+Route::post('/reset-password/{email}', [OtpResetController::class, 'resetPassword'])->name('otp.reset.password');
+Route::get('/forgot-password-otp', [OtpResetController::class, 'showRequestForm'])->name('otp.request');
+Route::post('/send-otp', [OtpResetController::class, 'sendOtp'])->name('otp.send');
+
 
 //route Home
 route::get('/', [HomeController::class, 'index'])->name('index');
@@ -32,9 +46,7 @@ Route::get('/register', [RegisteredUserController::class, 'create'])->name('regi
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 //route admin
-route::get('/AdminPage', function() {
-    return view('dashboard.admin');
-});
+Route::middleware('auth')->get('/AdminPage', [AdminController::class, 'index'])->name('admin');
 
 route::get('/ProductPage', function() {
     return view("dashboard.product");
@@ -51,5 +63,7 @@ route::get('/PengirimanPage', function() {
 route::get('/PengaturanPage', function() {
     return view('dashboard.pengaturan');
 });
+
+route::get('forgotPassword', [PasswordResetLinkController::class, 'create'])->name('forgot-password');
 
 require __DIR__.'/auth.php';
