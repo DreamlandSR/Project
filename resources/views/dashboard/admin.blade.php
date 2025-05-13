@@ -309,102 +309,52 @@
                                                             <div class="col-md-6 border-right">
                                                                 <div class="table-responsive mb-3 mb-md-0 mt-3">
                                                                     <table class="table table-borderless report-table">
-                                                                        <tr>
-                                                                            <td class="text-muted">Illinois</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-primary"
-                                                                                        role="progressbar"
-                                                                                        style="width: 70%"
-                                                                                        aria-valuenow="70"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">713</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Washington</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-warning"
-                                                                                        role="progressbar"
-                                                                                        style="width: 30%"
-                                                                                        aria-valuenow="30"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">583</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Mississippi</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-danger"
-                                                                                        role="progressbar"
-                                                                                        style="width: 95%"
-                                                                                        aria-valuenow="95"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">924</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">California</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-info"
-                                                                                        role="progressbar"
-                                                                                        style="width: 60%"
-                                                                                        aria-valuenow="60"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">664</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Maryland</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-primary"
-                                                                                        role="progressbar"
-                                                                                        style="width: 40%"
-                                                                                        aria-valuenow="40"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">560</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Alaska</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-danger"
-                                                                                        role="progressbar"
-                                                                                        style="width: 75%"
-                                                                                        aria-valuenow="75"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">793</h5>
-                                                                            </td>
-                                                                        </tr>
+                                                                        @if (isset($produkTerlaris))
+                                                                            @foreach ($produkTerlaris as $produk)
+                                                                                <tr>
+                                                                                    <td class="text-muted">
+                                                                                        {{ $produk->nama_produk }}</td>
+                                                                                    <td class="w-100 px-0">
+                                                                                        <div
+                                                                                            class="progress progress-md mx-4">
+                                                                                            @php
+                                                                                                $persen = min(
+                                                                                                    100,
+                                                                                                    ($produk->total_terjual /
+                                                                                                        $produkTerlaris->max(
+                                                                                                            'total_terjual',
+                                                                                                        )) *
+                                                                                                        100,
+                                                                                                );
+                                                                                                $warna = [
+                                                                                                    'bg-primary',
+                                                                                                    'bg-warning',
+                                                                                                    'bg-danger',
+                                                                                                    'bg-info',
+                                                                                                ][$loop->index % 4];
+                                                                                            @endphp
+                                                                                            <div class="progress-bar {{ $warna }}"
+                                                                                                role="progressbar"
+                                                                                                style="width: {{ $persen }}%"
+                                                                                                aria-valuenow="{{ $persen }}"
+                                                                                                aria-valuemin="0"
+                                                                                                aria-valuemax="100"></div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <h5 class="font-weight-bold mb-0">
+                                                                                            {{ $produk->total_terjual }}
+                                                                                        </h5>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        @else
+                                                                            <!-- Tampilan untuk data statistik (jika produk terlaris tidak ada) -->
+                                                                            <tr>
+                                                                                <td colspan="3" class="text-center">
+                                                                                    Tidak ada data produk terlaris.</td>
+                                                                            </tr>
+                                                                        @endif
                                                                     </table>
                                                                 </div>
                                                             </div>

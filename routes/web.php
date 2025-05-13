@@ -10,16 +10,20 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\OtpResetController;
 use App\Http\Controllers\AdminController;
 
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/terlaris', [AdminController::class, 'produkTerlaris'])->name('admin.terlaris');
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    Route::patch('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 });
 
 //route reset password (otp)
@@ -48,22 +52,22 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 //route admin
 Route::middleware('auth')->get('/AdminPage', [AdminController::class, 'index'])->name('admin');
 
-route::get('/ProductPage', function() {
+route::get('/ProductPage', function () {
     return view("dashboard.product");
 });
 
-route::get('/ProfilePage', function() {
+route::get('/ProfilePage', function () {
     return view("dashboard.profile");
 });
 
-route::get('/PengirimanPage', function() {
+route::get('/PengirimanPage', function () {
     return view('dashboard.pengiriman');
 });
 
-route::get('/PengaturanPage', function() {
+route::get('/PengaturanPage', function () {
     return view('dashboard.pengaturan');
 });
 
 route::get('forgotPassword', [PasswordResetLinkController::class, 'create'])->name('forgot-password');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

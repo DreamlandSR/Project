@@ -57,7 +57,6 @@
                                         <a href="{{ route('otp.request') }}" class="small text-decoration-none">
                                             Forgot password?
                                         </a>
-
                                     </div>
 
                                     <div class="mb-3">
