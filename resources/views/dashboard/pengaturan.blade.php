@@ -31,18 +31,28 @@
 
                                         <!-- List Group -->
                                         <ul class="list-group list-group-flush text-left mb-4">
-                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">Detail
-                                                Informasi Akun</li>
-                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">Panduan
+                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">
+                                                <a href="{{ url('/ProfilePage') }}"
+                                                    style="text-decoration: none; color: inherit;">Detail Informasi Akun</a>
                                             </li>
-                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">Lupa
-                                                Password</li>
+                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">
+                                                <a href="{{ url('downloads/Healthy.pdf') }}"
+                                                    style="text-decoration: none; color: inherit;">Panduan</a>
+                                            </li>
+                                            <li class="list-group-item border-bottom py-3" style="font-size: 16px;">
+                                                <a href="{{ route('otp.request') }}"
+                                                    style="text-decoration: none; color: inherit;">Lupa Password</a>
+                                            </li>
+
                                         </ul>
 
                                         <!-- Buttons -->
                                         <div class="d-flex justify-content-start pb-2"> <!-- Align kiri -->
-                                            <button class="btn btn-primary btn-sm mr-3 px-4">Keluar</button>
-                                            <button class="btn btn-outline-secondary btn-sm px-4">Cancel</button>
+                                            <form method="POST" action="{{ route('logout') }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary btn-sm mr-3 px-4">Keluar</button>
+                                            </form>
+                                             <a href="{{ url ('/AdminPage') }}"><button class="btn btn-outline-secondary btn-sm px-4">Cancel</button></a>
                                         </div>
 
                                     </div>

@@ -2,59 +2,57 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    public function update(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $request->validate([
+            'nama' => 'required|string|max:100',
+            'email' => 'required|email',
+            'no_hp' => 'nullable|string|max:20',
         ]);
+
+        $user->nama = $request->input('nama');
+        $user->email = $request->input('email');
+        $user->no_hp = $request->input('no_hp');
+
+        $user->save();
+
+        return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+
+
+    public function updatePhoto(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        // Hapus lama
+        if ($user->avatar && Storage::disk('public')->exists('avatars/' . $user->avatar)) {
+            Storage::disk('public')->delete('avatars/' . $user->avatar);
         }
 
-        $request->user()->save();
+        $file = $request->file('avatar');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('avatars', $filename, 'public');
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
+        $user->avatar = $filename;
+        $user->save();
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return Redirect::back()->with('success', 'Foto profil diperbarui.');
     }
 }
