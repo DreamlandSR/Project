@@ -92,7 +92,6 @@
                             Logout
                         </button>
                     </form>
-
                 </div>
             </li>
             <li class="nav-item nav-settings d-none d-lg-flex">

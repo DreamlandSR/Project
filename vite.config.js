@@ -19,9 +19,9 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'resources/js'),
         },
     },
-    assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.eot'], // ✅ Tambahkan ini
-    
+    assetsInclude: ['**/*.woff', '**/*.woff2', '**/*.ttf', '**/*.eot'],
+
     css: {
-        url: false, // <<<<< ✅ Tambahkan ini
+        url: false,
     },
 });
