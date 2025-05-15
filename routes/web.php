@@ -9,6 +9,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\OtpResetController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PengirimanController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 
 // Route::get('/dashboard', function () {
@@ -18,6 +21,11 @@ use App\Http\Controllers\AdminController;
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/terlaris', [AdminController::class, 'produkTerlaris'])->name('admin.terlaris');
 
+
+//route Product
+Route::get('/ProductPage', [ProductController::class, 'index'])->name('products.index');
+Route::get('/product-image/{id}', [ProductController::class, 'showImage'])->name('product.image');
+Route::resource('/dashboard/products', ProductController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,22 +60,46 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 //route admin
 Route::middleware('auth')->get('/AdminPage', [AdminController::class, 'index'])->name('admin');
 
-route::get('/ProductPage', function () {
-    return view("dashboard.product");
-});
+Route::get('PesananPage', [OrderController::class, 'index'])->name('pesanan.page');
 
 route::get('/ProfilePage', function () {
     return view("dashboard.profile");
 });
 
-route::get('/PengirimanPage', function () {
-    return view('dashboard.pengiriman');
-});
+Route::get('/PengirimanPage', [PengirimanController::class, 'index'])->name('pengiriman.index');
+Route::resource('/dashboard/pengiriman', PengirimanController::class);
+
 
 route::get('/PengaturanPage', function () {
     return view('dashboard.pengaturan');
 });
 
 route::get('forgotPassword', [PasswordResetLinkController::class, 'create'])->name('forgot-password');
+
+// Debug route - Hanya untuk testing (hapus setelah selesai)
+Route::get('/debug-image-data/{id}', function ($id) {
+    $image = App\Models\ProductImages::find($id);
+
+    if (!$image) {
+        return response()->json(['error' => 'Image not found'], 404);
+    }
+
+    // Ambil 4 byte pertama untuk deteksi signature
+    $firstBytes = substr($image->image_product, 0, 4);
+    $hexSignature = bin2hex($firstBytes);
+
+    return response()->json([
+        'id' => $image->id,
+        'product_id' => $image->product_id,
+        'size_bytes' => strlen($image->image_product),
+        'mime_type' => $image->mime_type,
+        'hex_signature' => $hexSignature,
+        'expected_format' => match (true) {
+            str_starts_with($hexSignature, 'ffd8ff') => 'JPEG',
+            str_starts_with($hexSignature, '89504e47') => 'PNG',
+            default => 'UNKNOWN/TIDAK DIKENAL'
+        }
+    ]);
+});
 
 require __DIR__ . '/auth.php';
