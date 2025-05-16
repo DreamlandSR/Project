@@ -10,9 +10,9 @@
                         {{-- Form Section --}}
                         <div class="col-12 col-md-6 px-4 py-5">
                             {{-- Logo --}}
-                            <div class="mb-5 d-flex justify-content-center">
+                            <div class="brand-logo mb-4">
                                 <img src="{{ asset('img/Asset 6.png') }}" alt="logo" class="img-fluid"
-                                    style="max-width: 100px;">
+                                    style="max-width: 150px;">
                             </div>
 
                             {{-- Title and back button --}}
@@ -40,14 +40,15 @@
                             <form method="POST" action="{{ route('otp.send') }}">
                                 @csrf
 
-                                <div class="mb-4">
-                                    <input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
-                                        placeholder="Email" type="email" name="email"
-                                        value="{{ old('email', session('email')) }}" required autofocus />
+                                <div class="mb-3">
+                                    <input id="email" type="email" name="email"
+                                        class="form-control form-control-sm rounded shadow-sm" placeholder="Email"
+                                        value="{{ old('email', session('email')) }}" required autofocus>
                                 </div>
 
+
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded"
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded shadow-sm"
                                         style="padding: 12px 0;">
                                         Send code
                                     </button>

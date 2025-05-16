@@ -24,27 +24,24 @@ class OtpResetController extends Controller
 
     public function sendOtp(Request $request)
     {
-        // Validasi email
         $request->validate(['email' => 'required|email']);
 
-        // Cari user berdasarkan email
         $user = DB::table('users')->where('email', $request->email)->first();
 
         if (!$user) {
             return back()->withErrors(['email' => 'Email tidak ditemukan.']);
         }
 
-        // Generate OTP
         $otp = rand(100000, 999999);
 
-        // Simpan OTP ke database
         DB::table('users')->where('email', $request->email)->update([
             'otp' => $otp,
         ]);
 
-        // Kirim OTP via email
-        Mail::raw("Kode OTP Anda adalah: $otp", function ($message) use ($request) {
-            $message->to($request->email)->subject('Reset Password OTP');
+        // Kirim email menggunakan blade template
+        Mail::send('emails.otp', ['otp' => $otp], function ($message) use ($request) {
+            $message->to($request->email)
+                ->subject('Kode OTP Reset Password');
         });
 
         return redirect()->route('otp.verify.form', ['email' => $request->email]);
@@ -82,7 +79,7 @@ class OtpResetController extends Controller
     public function resetPassword(Request $request, $email)
     {
         $request->validate([
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $user = DB::table('users')->where('email', $email)->first();

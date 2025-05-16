@@ -54,7 +54,7 @@
                                 <div class="mb-3">
                                     <label for="namaDepan" class="form-label text-primary">Nama</label>
                                     <input type="text" class="form-control" name="name" id="namaDepan"
-                                        value="{{ old('name', Auth::user()->name) }}">
+                                        value="{{ old('name', Auth::user()->nama) }}">
                                     @error('name')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror
@@ -72,7 +72,7 @@
                                 <div class="mb-4">
                                     <label for="phone" class="form-label text-primary">Nomor Handphone</label>
                                     <input type="text" class="form-control" name="phone" id="phone"
-                                        value="{{ old('phone', Auth::user()->phone ?? '') }}">
+                                        value="{{ old('phone', Auth::user()->no_hp ?? '') }}">
                                     @error('phone')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror

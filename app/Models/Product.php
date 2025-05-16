@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'products';
+
     use HasFactory;
 
     protected $fillable = ['nama', 'deskripsi', 'harga', 'stok_id', 'status', 'rating'];
@@ -20,6 +22,11 @@ class Product extends Model
     }
     public function images()
     {
-        return $this->hasMany(productimages::class);
+        return $this->hasMany(ProductImages::class, 'product_id');
+    }
+
+    public function mainImage()
+    {
+        return $this->hasOne(ProductImages::class, 'product_id')->where('is_main', 1);
     }
 }

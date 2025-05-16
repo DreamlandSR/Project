@@ -41,16 +41,19 @@
                                 @csrf
                                 <input type="hidden" name="email" value="{{ request('email') }}">
 
-                                <div class="mb-4">
-                                    <input id="otp" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
-                                        placeholder="Kode OTP" type="text" name="otp" required />
+                                <div class="mb-3">
+                                    <input id="otp" type="text" name="otp"
+                                        class="form-control form-control-sm rounded shadow-sm" placeholder="Kode OTP"
+                                        required>
+
                                     @error('otp')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
 
+
                                 <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded"
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 rounded shadow-sm"
                                         style="padding: 12px 0;">
                                         Verifikasi
                                     </button>

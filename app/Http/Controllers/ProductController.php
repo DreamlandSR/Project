@@ -20,6 +20,14 @@ class ProductController extends Controller
         return view('dashboard.product', compact('products'));
     }
 
+    //landing page
+    public function showGallery()
+    {
+        $products = Product::with('mainImage')->orderBy('id', 'asc')->get();
+        return view('home.product', compact('products'));
+    }
+
+
 
     public function create()
     {

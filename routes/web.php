@@ -47,6 +47,8 @@ Route::post('/send-otp', [OtpResetController::class, 'sendOtp'])->name('otp.send
 route::get('/', [HomeController::class, 'index'])->name('index');
 route::get('/about', [HomeController::class, 'about'])->name('about');
 route::get('/product', [HomeController::class, 'product'])->name('product');
+Route::get('/galeri', [ProductController::class, 'showGallery'])->name('produk.galeri');
+
 
 //route login
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');

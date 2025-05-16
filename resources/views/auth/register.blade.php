@@ -31,45 +31,46 @@
                                     @csrf
 
                                     <!-- Name -->
-                                    <div>
-                                        <input id="nama" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
+                                    <div class="mb-3">
+                                        <input id="nama" class="form-control form-control-sm rounded shadow-sm"
                                             placeholder="Nama" type="text" name="nama" value="{{ old('nama') }}"
-                                            required autofocus />
+                                            required autofocus>
                                     </div>
 
-                                    <!-- Email Address -->
-                                    <div class="mt-3">
-                                        <input id="email" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
+                                    <!-- Email -->
+                                    <div class="mb-3">
+                                        <input id="email" class="form-control form-control-sm rounded shadow-sm"
                                             placeholder="Email" type="email" name="email" value="{{ old('email') }}"
-                                            required />
+                                            required>
                                     </div>
 
                                     <!-- Phone Number -->
-                                    <div class="mt-3">
-                                        <input id="no_hp" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
+                                    <div class="mb-3">
+                                        <input id="no_hp" class="form-control form-control-sm rounded shadow-sm"
                                             placeholder="Nomor Telepon" type="number" name="no_hp"
-                                            value="{{ old('no_hp') }}" required />
+                                            value="{{ old('no_hp') }}" required>
                                     </div>
 
-
                                     <!-- Password -->
-                                    <div class="mt-3">
-                                        <input id="password" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm"
+                                    <div class="mb-3">
+                                        <input id="password" class="form-control form-control-sm rounded shadow-sm"
                                             placeholder="Password" type="password" name="password" required
-                                            autocomplete="new-password" />
+                                            autocomplete="new-password">
                                     </div>
 
                                     <!-- Confirm Password -->
-                                    <div class="mt-3">
+                                    <div class="mb-3">
                                         <input id="password_confirmation"
-                                            class="block mt-1 w-full rounded-md border-gray-300 shadow-sm" type="password"
-                                            placeholder="Konfirmasi Password" name="password_confirmation" required />
+                                            class="form-control form-control-sm rounded shadow-sm"
+                                            placeholder="Konfirmasi Password" type="password" name="password_confirmation"
+                                            required>
                                     </div>
 
+
                                     <div class="my-4">
-                                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded"
+                                        <button type="submit" class="btn btn-primary btn-lg w-100 rounded shadow-sm"
                                             style="padding: 12px 0;">
-                                            Login
+                                            Daftar
                                         </button>
                                     </div>
 

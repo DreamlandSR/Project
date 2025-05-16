@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+    use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -48,13 +49,18 @@ class HomeController extends Controller
     }
 
     public function product() {
-        $data = [
-            'judul' => 'Product',
-            'css' => ['nav.css', 'styles.css', 'ionicons.min.css'],
-            'minimal_header' => true,
-            'js' => 'script.js'
-        ];
+    $products = Product::with('mainImage')->orderBy('id', 'asc')->get();
 
-        return view('home.product', $data);
-    }
+    $data = [
+        'judul' => 'Product',
+        'css' => ['nav.css', 'styles.css', 'ionicons.min.css'],
+        'minimal_header' => true,
+        'js' => 'script.js',
+        'products' => $products
+    ];
+
+    return view('home.product', $data);
+}
+
+
 }
