@@ -38,11 +38,11 @@
                                             </div>
                                         </div>
 
-                                        <button class="carousel-control-prev" type="button" data-bs-target="#batikCarousel"
+                                        <button class="carousel-control-prev" style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);" type="button" data-bs-target="#batikCarousel"
                                             data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         </button>
-                                        <button class="carousel-control-next" type="button" data-bs-target="#batikCarousel"
+                                        <button class="carousel-control-next" style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);" type="button" data-bs-target="#batikCarousel"
                                             data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         </button>

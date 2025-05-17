@@ -121,44 +121,55 @@
 
             <div class="container my-5">
                 <div class="row align-items-center">
-                    <!-- Bagian Teks -->
+                    <!-- Teks -->
                     <div class="col-md-6">
-                        <h2 class="fw-bold">Batik Kopi Ijen</h2>
-                        <p class="text-muted">
-                            <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
-                        </p>
-                        <p>
-                            Batik kopi ijen merupakan batik khas Bondowoso yang kami kelola, kami menerapkan pembuatan batik
-                            dengan cara tradisional yaitu dengan menggunakan canting, dengan ciri khas biji kopi ijen.
-                        </p>
-                        <a href="#" class="btn btn-primary mb-3">Learn more</a>
+                        <div id="productText" class="fade-in">
+                            <h2 class="fw-bold" id="productName">{{ $products[0]->nama }}</h2>
+                            <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> Bondowoso</p>
+                            <p id="productDesc">{{ $products[0]->deskripsi }}</p>
+                            <a href="#" class="btn btn-primary mb-3">Learn more</a>
+                        </div>
                     </div>
 
-                    <!-- Bagian Gambar / Carousel -->
+                    <!-- Carousel Gambar -->
                     <div class="col-md-6">
-                        <div id="batikCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded"
-                                        alt="Batik Kopi Ijen">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="{{ asset('/img/frieren.jpeg') }}" class="d-block w-100 rounded"
-                                        alt="Batik Kopi Ijen 2">
-                                </div>
+                                @foreach ($products as $index => $product)
+                                    @php
+                                        $image = $product->images->first();
+                                        $base64 = $image ? base64_encode($image->image_product) : null;
+                                        $mime = $image
+                                            ? (new \finfo(FILEINFO_MIME_TYPE))->buffer($image->image_product)
+                                            : null;
+                                    @endphp
+                                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}"
+                                        data-name="{{ $product->nama }}" data-description="{{ $product->deskripsi }}">
+                                        @if ($image)
+                                            <img src="data:{{ $mime }};base64,{{ $base64 }}"
+                                                class="img-square d-block w-100" alt="Product Image">
+                                        @else
+                                            <img src="{{ asset('img/kamira.png') }}" class="img-square d-block w-100"
+                                                alt="Default Image">
+                                        @endif
+                                    </div>
+                                @endforeach
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#batikCarousel"
+
+                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                                 data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-prev-icon"></span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#batikCarousel"
+                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel"
                                 data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-next-icon"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
         <!-- Testimonial section-->
@@ -195,133 +206,47 @@
                         <h2 class="fw-bolder">Batik Populer</h2>
                         <p class="lead fw-normal text-muted mb-5">Batik populer khas Bondowoso</p>
                     </div>
-                    <div class="col text-end"> <!-- Membuat ikon berada di kanan -->
-                        <i class="bi bi-arrow-left-circle-fill fs-2 me-2"></i>
-                        <i class="bi bi-arrow-right-circle-fill fs-2"></i>
+                    <div class="col text-end">
+                        <i class="bi bi-arrow-left-circle-fill fs-2 me-2" id="prevBtn" style="cursor: pointer;"></i>
+                        <i class="bi bi-arrow-right-circle-fill fs-2" id="nextBtn" style="cursor: pointer;"></i>
                     </div>
                 </div>
 
+                <div id="carouselContainer" class="d-flex overflow-hidden">
+                    @foreach ($products as $product)
+                        @php
+                            $image = $product->images->first();
+                            $base64 = $image ? base64_encode($image->image_product) : null;
+                            $mime = $image ? (new \finfo(FILEINFO_MIME_TYPE))->buffer($image->image_product) : null;
+                        @endphp
 
-                <div class="row gx-5 slide-in mb-4">
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-auto shadow-sm border-0">
-                            <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}"
-                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
-
-                            <!-- Konten di bawah gambar -->
-                            <div class="card-body">
-                                <!-- Judul dan rating di satu baris -->
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
-                                    </span>
+                        <div class="product-card me-3 mx-3" style="flex: 0 0 22%;">
+                            <div class="card h-100 shadow-sm">
+                                @if ($image)
+                                    <img class="card-img-top rounded"
+                                        src="data:{{ $mime }};base64,{{ $base64 }}"
+                                        style="height: 200px; object-fit: cover;" alt="{{ $product->nama }}">
+                                @else
+                                    <img class="card-img-top rounded" src="{{ asset('/img/default.jpg') }}"
+                                        style="height: 200px; object-fit: cover;" alt="Default Image">
+                                @endif
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <h5 class="card-title fw-bold mb-0 fs-6">{{ $product->nama }}</h5>
+                                        <span class="badge bg-primary">
+                                            <i
+                                                class="bi bi-star-fill text-warning me-1"></i>{{ $product->rating ?? '0' }}
+                                        </span>
+                                    </div>
+                                    <p class="text-muted mb-0">
+                                        <i class="bi bi-geo-alt-fill"></i> {{ $product->lokasi ?? 'Bondowoso' }}
+                                    </p>
                                 </div>
-                                <!-- Lokasi -->
-                                <p class="text-muted mb-0">
-                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
-                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-auto shadow-sm border-0">
-                            <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/frieren.jpeg') }}"
-                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
-
-                            <!-- Konten di bawah gambar -->
-                            <div class="card-body">
-                                <!-- Judul dan rating di satu baris -->
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
-                                    </span>
-                                </div>
-                                <!-- Lokasi -->
-                                <p class="text-muted mb-0">
-                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-auto shadow-sm border-0">
-                            <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/Foto2.jpeg') }}"
-                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
-
-                            <!-- Konten di bawah gambar -->
-                            <div class="card-body">
-                                <!-- Judul dan rating di satu baris -->
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
-                                    </span>
-                                </div>
-                                <!-- Lokasi -->
-                                <p class="text-muted mb-0">
-                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                        <div class="card h-auto shadow-sm border-0">
-                            <!-- Gambar utama -->
-                            <img class="card-img-top rounded" src="{{ asset('/img/background.jpeg') }}"
-                                style="height: 200px; object-fit: cover;" alt="Batik Kopi">
-
-                            <!-- Konten di bawah gambar -->
-                            <div class="card-body">
-                                <!-- Judul dan rating di satu baris -->
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="card-title fw-bold mb-0">Batik Kopi</h5>
-                                    <span class="badge bg-primary">
-                                        <i class="bi bi-star-fill text-warning me-1"></i>4.7
-                                    </span>
-                                </div>
-                                <!-- Lokasi -->
-                                <p class="text-muted mb-0">
-                                    <i class="bi bi-geo-alt-fill"></i> Blindungan, Bondowoso
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
-                <!-- Call to action-->
-                <div class="py-5">
-                    <div class="row align-items-center">
-                        <!-- Kiri -->
-                        <div class="col-md-6 mb-4 mb-md-0">
-                            <h4><strong>Download Sekarang juga !</strong></h4>
-                            <h4><strong><span class="text-primary">Pembayaran</span> bisa lewat sini</strong></h4>
-                            <p>Pembayaran bisa menggunakan Aplikasi kami pada tombol download di samping →</p>
-                        </div>
-
-                        <!-- Kanan -->
-                        <div class="col-12 col-md-4 ms-md-auto">
-                            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 border rounded shadow-sm bg-light p-4">
-                              <!-- Kiri: Teks -->
-                              <div class="text-center text-md-start">
-                                <h5><strong>For Android</strong></h5>
-                                <p class="mb-2 text-muted">Android 8.0+</p>
-                                <a href="{{ url('downloads/Healthy.pdf') }}" class="btn btn-primary" download>Download</a>
-                              </div>
-
-                              <!-- Kanan: QR Code -->
-                              <div>
-                                <img src="{{ asset('img/qrcode.png') }}" alt="QR Code"
-                                     class="img-fluid" style="max-width: 100px;">
-                              </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
     </main>

@@ -4,6 +4,9 @@
 
 <?php if (!isset($data['minimal_footer']) || !$data['minimal_footer']): ?>
     <!-- plugins:js -->
+    {{-- carousel js --}}
+    <script src="{{ asset('js/carousel.js') }}"></script>
+
     <script src="{{ asset('/vendors/js/vendor.bundle.base.js') }}"></script>
     <!-- End inject -->
     <!-- Plugin js for this page -->
