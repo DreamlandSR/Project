@@ -38,12 +38,14 @@
                                             </div>
                                         </div>
 
-                                        <button class="carousel-control-prev" style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);" type="button" data-bs-target="#batikCarousel"
-                                            data-bs-slide="prev">
+                                        <button class="carousel-control-prev"
+                                            style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);"
+                                            type="button" data-bs-target="#batikCarousel" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                         </button>
-                                        <button class="carousel-control-next" style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);" type="button" data-bs-target="#batikCarousel"
-                                            data-bs-slide="next">
+                                        <button class="carousel-control-next"
+                                            style="border: none; outline: none; background-color: rgba(0, 0, 0, 0);"
+                                            type="button" data-bs-target="#batikCarousel" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         </button>
                                     </div>
@@ -149,55 +151,20 @@
                                     <p class="font-weight-500 mb-4">Daftar produk batik terfavorit bulan ini.</p>
 
                                     <ul class="list-group list-group-flush product-favorite-list">
-                                        <!-- Item 1 -->
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center product-item">
-                                            <div class="d-flex align-items-center">
-                                                <span class="rank-badge">1</span>
-                                                <span class="font-weight-bold ml-2">Batik Kopi Ijen</span>
-                                            </div>
-                                            <img src="img/Foto.jpeg" alt="Batik Kopi Ijen" class="product-image">
-                                        </li>
-
-                                        <!-- Item 2 -->
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center product-item">
-                                            <div class="d-flex align-items-center">
-                                                <span class="rank-badge">2</span>
-                                                <span class="font-weight-bold ml-2">Batik Singkong</span>
-                                            </div>
-                                            <img src="img/Frieren.jpeg" alt="Batik Singkong" class="product-image">
-                                        </li>
-
-                                        <!-- Item 3 -->
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center product-item">
-                                            <div class="d-flex align-items-center">
-                                                <span class="rank-badge">3</span>
-                                                <span class="font-weight-bold ml-2">Batik Singa Raja</span>
-                                            </div>
-                                            <img src="img/Foto2.jpeg" alt="Batik Singa Raja" class="product-image">
-                                        </li>
-
-                                        <!-- Tambahan -->
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center product-item">
-                                            <div class="d-flex align-items-center">
-                                                <span class="rank-badge">4</span>
-                                                <span class="font-weight-bold ml-2">Batik Kopi Ijen</span>
-                                            </div>
-                                            <img src="img/Kamira.jpg" alt="Batik Kopi Ijen" class="product-image">
-                                        </li>
-
-                                        <li
-                                            class="list-group-item d-flex justify-content-between align-items-center product-item">
-                                            <div class="d-flex align-items-center">
-                                                <span class="rank-badge">5</span>
-                                                <span class="font-weight-bold ml-2">Batik Kopi Ijen</span>
-                                            </div>
-                                            <img src="img/background.jpeg" alt="Batik Kopi Ijen" class="product-image">
-                                        </li>
+                                        @foreach ($productFavorite as $index => $produk)
+                                            <li
+                                                class="list-group-item d-flex justify-content-between align-items-center product-item">
+                                                <div class="d-flex align-items-center">
+                                                    <span class="rank-badge">{{ $index + 1 }}</span>
+                                                    <span class="font-weight-bold ml-2">{{ $produk->nama_produk }}</span>
+                                                </div>
+                                                <img src="{{ $produk->image_base64 }}" alt="{{ $produk->nama_produk }}"
+                                                    class="product-image"
+                                                    style="width: 50px; height: 50px; object-fit: cover;">
+                                            </li>
+                                        @endforeach
                                     </ul>
+
                                 </div>
                             </div>
                         </div>
@@ -296,9 +263,11 @@
                                                         class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
                                                         <div class="ml-xl-4 mt-3">
                                                             <p class="card-title">Detailed Reports</p>
-                                                            <h1 class="text-primary">$34040</h1>
-                                                            <h3 class="font-weight-500 mb-xl-4 text-primary">North America
+                                                            <h3 class="text-primary font-weight-bold mb-3 fs-3">
+                                                                Rp {{ number_format($totalOmsetKeseluruhan, 0, ',', '.') }}
                                                             </h3>
+                                                            <h6 class="font-weight-bold mb-xl-4 text-primary fs-4">Total
+                                                                Omset Keseluruhan</h6>
                                                             <p class="mb-2 mb-xl-0">The total number of sessions within the
                                                                 date range. It is the period time a user is actively engaged
                                                                 with your website, page or app, etc</p>
@@ -309,184 +278,67 @@
                                                             <div class="col-md-6 border-right">
                                                                 <div class="table-responsive mb-3 mb-md-0 mt-3">
                                                                     <table class="table table-borderless report-table">
-                                                                        @if (isset($produkTerlaris))
+                                                                        @if (isset($produkTerlaris) && count($produkTerlaris))
                                                                             @foreach ($produkTerlaris as $produk)
+                                                                                @php
+                                                                                    $persen = min(
+                                                                                        100,
+                                                                                        ($produk->total_terjual /
+                                                                                            $produkTerlaris->max(
+                                                                                                'total_terjual',
+                                                                                            )) *
+                                                                                            100,
+                                                                                    );
+                                                                                    $warna = [
+                                                                                        'bg-primary',
+                                                                                        'bg-warning',
+                                                                                        'bg-danger',
+                                                                                        'bg-info',
+                                                                                    ][$loop->index % 4];
+                                                                                @endphp
                                                                                 <tr>
-                                                                                    <td class="text-muted">
-                                                                                        {{ $produk->nama_produk }}</td>
-                                                                                    <td class="w-100 px-0">
+                                                                                    <td colspan="3">
                                                                                         <div
-                                                                                            class="progress progress-md mx-4">
-                                                                                            @php
-                                                                                                $persen = min(
-                                                                                                    100,
-                                                                                                    ($produk->total_terjual /
-                                                                                                        $produkTerlaris->max(
-                                                                                                            'total_terjual',
-                                                                                                        )) *
-                                                                                                        100,
-                                                                                                );
-                                                                                                $warna = [
-                                                                                                    'bg-primary',
-                                                                                                    'bg-warning',
-                                                                                                    'bg-danger',
-                                                                                                    'bg-info',
-                                                                                                ][$loop->index % 4];
-                                                                                            @endphp
+                                                                                            class="d-flex justify-content-between">
+                                                                                            <span
+                                                                                                class="text-muted text-truncate d-block"
+                                                                                                style="max-width: 70%;">
+                                                                                                {{ $produk->nama_produk }}
+                                                                                            </span>
+                                                                                            <h6
+                                                                                                class="font-weight-bold mb-0">
+                                                                                                {{ $produk->total_terjual }}
+                                                                                            </h6>
+                                                                                        </div>
+                                                                                        <div
+                                                                                            class="progress progress-sm mt-1">
                                                                                             <div class="progress-bar {{ $warna }}"
                                                                                                 role="progressbar"
                                                                                                 style="width: {{ $persen }}%"
                                                                                                 aria-valuenow="{{ $persen }}"
                                                                                                 aria-valuemin="0"
-                                                                                                aria-valuemax="100"></div>
+                                                                                                aria-valuemax="100">
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <h5 class="font-weight-bold mb-0">
-                                                                                            {{ $produk->total_terjual }}
-                                                                                        </h5>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach
                                                                         @else
-                                                                            <!-- Tampilan untuk data statistik (jika produk terlaris tidak ada) -->
                                                                             <tr>
                                                                                 <td colspan="3" class="text-center">
-                                                                                    Tidak ada data produk terlaris.</td>
+                                                                                    Tidak ada data produk terlaris.
+                                                                                </td>
                                                                             </tr>
                                                                         @endif
                                                                     </table>
                                                                 </div>
                                                             </div>
+
+
+                                                            {{-- chart --}}
                                                             <div class="col-md-6 mt-3">
                                                                 <canvas id="north-america-chart"></canvas>
                                                                 <div id="north-america-legend"></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="carousel-item">
-                                                <div class="row">
-                                                    <div
-                                                        class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
-                                                        <div class="ml-xl-4 mt-3">
-                                                            <p class="card-title">Detailed Reports</p>
-                                                            <h1 class="text-primary">$34040</h1>
-                                                            <h3 class="font-weight-500 mb-xl-4 text-primary">North America
-                                                            </h3>
-                                                            <p class="mb-2 mb-xl-0">The total number of sessions within the
-                                                                date range. It is the period time a user is actively engaged
-                                                                with your website, page or app, etc</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-12 col-xl-9">
-                                                        <div class="row">
-                                                            <div class="col-md-6 border-right">
-                                                                <div class="table-responsive mb-3 mb-md-0 mt-3">
-                                                                    <table class="table table-borderless report-table">
-                                                                        <tr>
-                                                                            <td class="text-muted">Illinois</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-primary"
-                                                                                        role="progressbar"
-                                                                                        style="width: 70%"
-                                                                                        aria-valuenow="70"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">713</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Washington</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-warning"
-                                                                                        role="progressbar"
-                                                                                        style="width: 30%"
-                                                                                        aria-valuenow="30"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">583</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Mississippi</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-danger"
-                                                                                        role="progressbar"
-                                                                                        style="width: 95%"
-                                                                                        aria-valuenow="95"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">924</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">California</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-info"
-                                                                                        role="progressbar"
-                                                                                        style="width: 60%"
-                                                                                        aria-valuenow="60"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">664</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Maryland</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-primary"
-                                                                                        role="progressbar"
-                                                                                        style="width: 40%"
-                                                                                        aria-valuenow="40"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">560</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="text-muted">Alaska</td>
-                                                                            <td class="w-100 px-0">
-                                                                                <div class="progress progress-md mx-4">
-                                                                                    <div class="progress-bar bg-danger"
-                                                                                        role="progressbar"
-                                                                                        style="width: 75%"
-                                                                                        aria-valuenow="75"
-                                                                                        aria-valuemin="0"
-                                                                                        aria-valuemax="100"></div>
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                <h5 class="font-weight-bold mb-0">793</h5>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-6 mt-3">
-                                                                <canvas id="south-america-chart"></canvas>
-                                                                <div id="south-america-legend"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -510,21 +362,6 @@
                     </div>
                 </div>
                 <!-- content-wrapper ends -->
-                <!-- partial:partials/_footer.html -->
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.
-                            Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a>
-                            from BootstrapDash. All rights reserved.</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-                            <i class="ti-heart text-danger ml-1"></i></span>
-                    </div>
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a
-                                href="https://www.themewagon.com/" target="_blank">Themewagon</a></span>
-                    </div>
-                </footer>
-                <!-- partial -->
             </div>
             <!-- main-panel ends -->
         </div>
