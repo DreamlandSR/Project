@@ -29,8 +29,10 @@ class ProfileController extends Controller
         return redirect()->route('profile.edit')->with('success', 'Profil berhasil diperbarui.');
     }
 
-
-
+    public function edit()
+{
+    return view('dashboard.profile'); // Ganti dengan nama view kamu
+}
 
     public function updatePhoto(Request $request)
     {

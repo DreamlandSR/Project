@@ -28,11 +28,11 @@ Route::get('/product-image/{id}', [ProductController::class, 'showImage'])->name
 Route::resource('/dashboard/products', ProductController::class);
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit'); // << TAMBAHKAN INI
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
     Route::patch('/profile/photo', [ProfileController::class, 'updatePhoto'])->name('profile.photo.update');
 });
+
 
 //route reset password (otp)
 Route::get('/verify-otp', [OtpResetController::class, 'showVerifyForm'])->name('otp.verify.form');
@@ -63,6 +63,12 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::middleware('auth')->get('/AdminPage', [AdminController::class, 'index'])->name('admin');
 
 Route::get('PesananPage', [OrderController::class, 'index'])->name('pesanan.page');
+Route::get('/order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');
+Route::put('/order/{order}', [OrderController::class, 'update'])->name('order.update');
+Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('order.destroy');
+
+//Route Detail pesanan
+Route::get('DetailOrder', [OrderController::class, 'detailOrder'])->name('detail.page');
 
 route::get('/ProfilePage', function () {
     return view("dashboard.profile");

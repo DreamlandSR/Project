@@ -21,7 +21,7 @@
 
                                         <!-- Preview Foto -->
                                         <img src="{{ asset('storage/avatars/' . (Auth::user()->avatar ?? 'kamira.jpg')) }}"
-                                            class="rounded-circle img-fluid mb-2"
+                                            class="rounded-circle img-fluid mb-4"
                                             style="width: 100px; height: 100px; object-fit: cover;" alt="Profile Photo"
                                             id="preview">
 
@@ -30,7 +30,7 @@
                                             onchange="document.getElementById('photoForm').submit();">
 
                                         <!-- Tombol -->
-                                        <button type="button" class="btn btn-outline-primary btn-sm mt-2"
+                                        <button type="button" class="btn btn-outline-primary btn-sm"
                                             onclick="document.getElementById('photoInput').click();">
                                             Ganti Foto
                                         </button>
@@ -44,18 +44,18 @@
                             @endif
 
                             <!-- Form Profil -->
-                            <hr class="my-4">
-                            <h5 class="fw-bold mb-3">Data Diri</h5>
+                            <hr class="my-2">
+                            <h5 class="fw-bold my-4">Data Diri</h5>
 
                             <form action="{{ route('profile.update') }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
                                 <div class="mb-3">
-                                    <label for="namaDepan" class="form-label text-primary">Nama</label>
-                                    <input type="text" class="form-control" name="name" id="namaDepan"
-                                        value="{{ old('name', Auth::user()->nama) }}">
-                                    @error('name')
+                                    <label for="nama" class="form-label text-primary">Nama</label>
+                                    <input type="text" class="form-control" name="nama" id="nama"
+                                        value="{{ old('nama', Auth::user()->nama) }}">
+                                    @error('nama')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -70,20 +70,20 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="phone" class="form-label text-primary">Nomor Handphone</label>
-                                    <input type="text" class="form-control" name="phone" id="phone"
-                                        value="{{ old('phone', Auth::user()->no_hp ?? '') }}">
-                                    @error('phone')
+                                    <label for="no_hp" class="form-label text-primary">Nomor Handphone</label>
+                                    <input type="text" class="form-control" name="no_hp" id="no_hp"
+                                        value="{{ old('no_hp', Auth::user()->no_hp ?? '') }}">
+                                    @error('no_hp')
                                         <div class="text-danger small">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <!-- Tombol Simpan & Cancel -->
                                 <div class="d-flex gap-2">
                                     <button type="submit" class="btn btn-primary px-4">Simpan</button>
                                     <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary px-4">Cancel</a>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

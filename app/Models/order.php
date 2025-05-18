@@ -11,6 +11,9 @@ class Order extends Model
 
     protected $table = 'orders'; // sesuai dengan nama tabel di database
 
+    // Di dalam model Order.php
+    public $timestamps = false;
+
     protected $fillable = [
         'user_id',
         'waktu_order',
@@ -35,5 +38,10 @@ class Order extends Model
     public function pengirimans()
     {
         return $this->hasMany(Pengiriman::class, 'order_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 }

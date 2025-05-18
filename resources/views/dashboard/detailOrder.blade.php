@@ -16,7 +16,7 @@
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
                                 <div class="mb-2 mb-md-0">
-                                    <h3 class="fw-bold mb-0" style="color: #000;">Status Pengiriman</h3>
+                                    <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
 
 
@@ -43,87 +43,29 @@
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>Tanggal Pesan</th>
-                                                    <th>Alamat</th>
-                                                    <th>Metode Pengiriman</th>
-                                                    <th>Catatan</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th>Nama Pembeli</th>
+                                                    <th>Nama Produk</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Harga</th>
+                                                    <th>Total Harga</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($orders as $index => $order)
+                                                @foreach ($orderItems as $index => $item)
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $order->user->nama ?? 'Tidak Diketahui' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
+                                                        <td>{{ $item->order->user->nama ?? 'Tidak Diketahui' }}</td>
+                                                        <td>{{ $item->product->nama ?? 'Produk tidak ditemukan' }}
                                                         </td>
-                                                        <td>{{ $order->alamat_pemesanan }}</td>
-                                                        <td>{{ $order->metode_pengiriman ?? '-' }}</td>
-                                                        <td>{{ $order->notes ?? '-' }}</td>
-                                                        <td>
-                                                            @php
-                                                                $badgeClass = match ($order->status) {
-                                                                    'pending' => 'badge-warning', // Merah: Belum dibayar
-                                                                    'paid' => 'badge-primary', // Biru: Sudah dibayar
-                                                                    'shipped' => 'badge-info', // Biru muda: Sedang dikirim
-                                                                    'completed' => 'badge-success', // Hijau: Selesai
-                                                                    'cancelled' => 'badge-danger', // Abu-abu gelap: Dibatalkan
-                                                                };
-                                                            @endphp
-
-                                                            <label
-                                                                class="badge {{ $badgeClass }}">{{ ucfirst($order->status) }}</label>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('order.edit', $order->id) }}"
-                                                                class="btn btn-sm btn-primary">Edit</a>
-                                                            <form action="{{ route('order.destroy', $order->id) }}"
-                                                                method="POST" style="display:inline-block;">
-                                                                @csrf @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger"
-                                                                    onclick="return confirm('Yakin hapus produk ini?')">Hapus</button>
-                                                            </form>
-                                                        </td>
+                                                        <td>{{ $item->kuantitas }}</td>
+                                                        <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+                                                        <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
                                                     </tr>
-
-                                                    <!-- Modal Konfirmasi Hapus -->
-                                                    <div class="modal fade" id="deleteModal{{ $order->id }}"
-                                                        tabindex="-1" role="dialog"
-                                                        aria-labelledby="deleteModalLabel{{ $order->id }}"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <form action="{{ route('order.destroy', $order->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title"
-                                                                            id="deleteModalLabel{{ $order->id }}">
-                                                                            Konfirmasi Hapus</h5>
-                                                                        <button type="button" class="close"
-                                                                            data-dismiss="modal" aria-label="Tutup">
-                                                                            <span aria-hidden="true">&times;</span>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        Apakah Anda yakin ingin menghapus pesanan ini?
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Batal</button>
-                                                                        <button type="submit" class="btn btn-danger">Ya,
-                                                                            Hapus</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 @endforeach
                                             </tbody>
                                         </table>
+
+
                                     </div>
 
 
