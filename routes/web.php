@@ -12,7 +12,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
-
+use App\Http\Controllers\PaymentController;
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -71,6 +71,10 @@ Route::delete('/order/{order}', [OrderController::class, 'destroy'])->name('orde
 
 //Route Detail pesanan
 Route::get('DetailOrder', [OrderController::class, 'detailOrder'])->name('detail.page');
+
+//Route Payment
+Route::get('PaymentPage', [PaymentController::class, 'index'])->name('payment.page');
+
 
 route::get('/ProfilePage', function () {
     return view("dashboard.profile");

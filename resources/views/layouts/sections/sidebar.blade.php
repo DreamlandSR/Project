@@ -25,9 +25,15 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/PengirimanPage') }}">
-                <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title">Pengiriman</span>
+            <a class="nav-link" href="{{ url('/PaymentPage') }}">
+                <i class="icon-layout menu-icon"></i>
+                <span class="menu-title">Payment</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ url('/DetailOrder') }}">
+                <i class="icon-columns menu-icon"></i>
+                <span class="menu-title">Detail Pesanan</span>
             </a>
         </li>
         <li class="nav-item">
@@ -37,9 +43,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/DetailOrder') }}">
-                <i class="icon-columns menu-icon"></i>
-                <span class="menu-title">Detail Pesanan</span>
+            <a class="nav-link" href="{{ url('/PengirimanPage') }}">
+                <i class="icon-bar-graph menu-icon"></i>
+                <span class="menu-title">Pengiriman</span>
             </a>
         </li>
         <li class="nav-item">

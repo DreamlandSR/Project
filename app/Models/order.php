@@ -27,7 +27,7 @@ class Order extends Model
     /**
      * Relasi ke user (many-to-one)
      */
-    
+
 
     public function user()
     {

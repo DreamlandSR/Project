@@ -20,20 +20,22 @@
                                         @method('PATCH')
 
                                         <!-- Preview Foto -->
-                                        <img src="{{ asset('img/' . (Auth::user()->avatar ?? 'kamira.jpg')) }}"
+                                        <img
+                                            src="{{ asset(empty(Auth::user()->avatar) ? 'img/kamira.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
                                             class="rounded-circle img-fluid mb-4"
                                             style="width: 100px; height: 100px; object-fit: cover;" alt="Profile Photo"
                                             id="preview">
 
-                                        <!-- Input file tersembunyi -->
-                                        <input type="file" name="avatar" id="photoInput" class="d-none" accept="image/*"
-                                            onchange="document.getElementById('photoForm').submit();">
 
-                                        <!-- Tombol -->
-                                        <button type="button" class="btn btn-outline-primary btn-sm"
-                                            onclick="document.getElementById('photoInput').click();">
-                                            Ganti Foto
-                                        </button>
+                                            <!-- Input file tersembunyi -->
+                                            <input type="file" name="avatar" id="photoInput" class="d-none"
+                                                accept="image/*" onchange="document.getElementById('photoForm').submit();">
+
+                                            <!-- Tombol -->
+                                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                                onclick="document.getElementById('photoInput').click();">
+                                                Ganti Foto
+                                            </button>
                                     </form>
                                 </div>
                             </div>
