@@ -20,16 +20,30 @@
                                 </div>
 
 
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
-                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
-                                        <select class="form-select border-0 bg-transparent pe-3">
-                                            <option selected>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                        </select>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                    {{-- Informasi jumlah data yang ditampilkan --}}
+                                    <div class="text-muted mr-5">
+                                        Menampilkan {{ $orders->firstItem() }} - {{ $orders->lastItem() }} dari total
+                                        {{ $orders->total() }} data
                                     </div>
+
+                                    {{-- Dropdown pilih jumlah per halaman --}}
+                                    <form method="GET" id="perPageForm">
+                                        <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
+                                            <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
+                                            <select name="per_page" class="form-select border-0 bg-transparent pe-3"
+                                                onchange="document.getElementById('perPageForm').submit()">
+                                                <option value="10" {{ $orders->perPage() == 10 ? 'selected' : '' }}>10
+                                                </option>
+                                                <option value="25" {{ $orders->perPage() == 25 ? 'selected' : '' }}>25
+                                                </option>
+                                                <option value="50" {{ $orders->perPage() == 50 ? 'selected' : '' }}>50
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </form>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -39,44 +53,46 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table align-middle text-center">
+                                        <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>Tanggal Pesan</th>
-                                                    <th>Alamat</th>
-                                                    <th>Metode Pengiriman</th>
-                                                    <th>Catatan</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
+                                                    <th class="col-no">No</th>
+                                                    <th class="col-nama">Nama</th>
+                                                    <th class="col-tanggal">Tanggal Pesan</th>
+                                                    <th class="col-alamat">Alamat</th>
+                                                    <th class="col-metode">Metode Pengiriman</th>
+                                                    <th class="col-catatan">Catatan</th>
+                                                    <th class="col-status">Status</th>
+                                                    <th class="col-action">Action</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
                                                 @foreach ($orders as $index => $order)
                                                     <tr>
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $order->user->nama ?? 'Tidak Diketahui' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
+                                                        <td>{{ $orders->firstItem() + $index }}</td>
+                                                        <td class="col-nama">{{ $order->user->nama ?? 'Tidak Diketahui' }}
                                                         </td>
-                                                        <td>{{ $order->alamat_pemesanan }}</td>
-                                                        <td>{{ $order->metode_pengiriman ?? '-' }}</td>
-                                                        <td>{{ $order->notes ?? '-' }}</td>
-                                                        <td>
+                                                        <td class="col-tanggal">
+                                                            {{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
+                                                        </td>
+                                                        <td class="col-alamat">{{ $order->alamat_pemesanan }}</td>
+                                                        <td class="col-metode">{{ $order->metode_pengiriman ?? '-' }}</td>
+                                                        <td class="col-catatan">{{ $order->notes ?? '-' }}</td>
+                                                        <td class="col-status">
                                                             @php
                                                                 $badgeClass = match ($order->status) {
-                                                                    'pending' => 'badge-warning', // Merah: Belum dibayar
-                                                                    'paid' => 'badge-primary', // Biru: Sudah dibayar
-                                                                    'shipped' => 'badge-info', // Biru muda: Sedang dikirim
-                                                                    'completed' => 'badge-success', // Hijau: Selesai
-                                                                    'cancelled' => 'badge-danger', // Abu-abu gelap: Dibatalkan
+                                                                    'pending' => 'badge-warning',
+                                                                    'paid' => 'badge-primary',
+                                                                    'shipped' => 'badge-info',
+                                                                    'completed' => 'badge-success',
+                                                                    'cancelled' => 'badge-danger',
                                                                 };
                                                             @endphp
-
                                                             <label
                                                                 class="badge {{ $badgeClass }}">{{ ucfirst($order->status) }}</label>
                                                         </td>
-                                                        <td>
+                                                        <td class="col-action">
                                                             <a href="{{ route('order.edit', $order->id) }}"
                                                                 class="btn btn-sm btn-primary">Edit</a>
                                                             <form action="{{ route('order.destroy', $order->id) }}"
@@ -87,6 +103,7 @@
                                                             </form>
                                                         </td>
                                                     </tr>
+
 
                                                     <!-- Modal Konfirmasi Hapus -->
                                                     <div class="modal fade" id="deleteModal{{ $order->id }}"
@@ -127,49 +144,43 @@
                                     </div>
 
 
+
                                     <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-                                        <button
-                                            class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2">
-                                            <i class="ti-angle-left me-1"></i> Kembali
-                                        </button>
 
-                                        <nav class="my-2">
-                                            <ul class="pagination mb-0">
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">01</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link rounded bg-primary text-white border-0"
-                                                        href="#">02</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">03</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">04</a>
-                                                </li>
-                                                <li class="page-item disabled">
-                                                    <span class="page-link border-0 bg-transparent text-muted">...</span>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">10</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">11</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        {{-- Tombol Kembali --}}
+                                        @if ($orders->onFirstPage())
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </span>
+                                        @else
+                                            <a href="{{ $orders->previousPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </a>
+                                        @endif
 
-                                        <button
-                                            class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
-                                            Selanjutnya <i class="ti-angle-right ms-1"></i>
-                                        </button>
+
+                                        {{-- Navigasi Angka --}}
+                                        <div>
+                                            {{ $orders->links('pagination::bootstrap-4') }}
+                                        </div>
+
+                                        {{-- Tombol Selanjutnya --}}
+                                        @if ($orders->hasMorePages())
+                                            <a href="{{ $orders->nextPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </a>
+                                        @else
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none ms-2 disabled">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </span>
+                                        @endif
+
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -177,17 +188,6 @@
 
                 </div>
                 <!-- content-wrapper ends -->
-
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.
-                            Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a>
-                            from BootstrapDash. All rights reserved.</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-                            <i class="ti-heart text-danger ml-1"></i></span>
-                    </div>
-                </footer>
-                <!-- partial -->
             </div>
             <!-- main-panel ends -->
         </div>

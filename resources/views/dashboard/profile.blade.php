@@ -20,7 +20,7 @@
                                         @method('PATCH')
 
                                         <!-- Preview Foto -->
-                                        <img src="{{ asset('storage/avatars/' . (Auth::user()->avatar ?? 'kamira.jpg')) }}"
+                                        <img src="{{ asset('img/' . (Auth::user()->avatar ?? 'kamira.jpg')) }}"
                                             class="rounded-circle img-fluid mb-4"
                                             style="width: 100px; height: 100px; object-fit: cover;" alt="Profile Photo"
                                             id="preview">

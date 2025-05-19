@@ -66,13 +66,6 @@
                                                 Login
                                             </button>
                                         </div>
-
-                                        <div class="text-center">
-                                            <small>
-                                                Belum punya akun?
-                                                <a href="{{ route('register') }}">Daftar</a>
-                                            </small>
-                                        </div>
                                     </form>
                                 </div>
 

@@ -14,7 +14,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'no_hp' => ['required', 'string', 'max:20'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -33,5 +33,14 @@ class RegisteredUserController extends Controller
         Session::flash('password', $request->password);
 
         return redirect()->route('login')->with('success', 'Pendaftaran berhasil. Silakan login.');
+    }
+
+    public function create()
+    {
+        if (Auth::check()) {
+            return redirect('/AdminPage'); // user sudah login, redirect
+        }
+
+        return view('auth.register'); // user belum login, tampilkan form register
     }
 }

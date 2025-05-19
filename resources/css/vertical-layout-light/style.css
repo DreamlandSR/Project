@@ -24878,6 +24878,31 @@ dl li {
   padding-top: 0;
 }
 
+
+    .custom-table {
+        table-layout: fixed;
+        font-size: 0.8rem; /* font kecil tapi masih terbaca */
+    }
+
+    .custom-table th,
+    .custom-table td {
+        padding: 0.5rem;
+        vertical-align: middle;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    /* Atur lebar tiap kolom agar proporsional */
+    .col-no { width: 40px; }
+    .col-nama { width: 120px; }
+    .col-tanggal { width: 100px; }
+    .col-alamat { width: 200px; }
+    .col-metode { width: 120px; }
+    .col-catatan { width: 200px; }
+    .col-status { width: 100px; }
+    .col-action { width: 200px; }
+
+
 .tab-content.tab-content-custom-pill {
   border: 0;
   padding-left: 0;

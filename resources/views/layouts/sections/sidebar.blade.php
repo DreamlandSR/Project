@@ -7,6 +7,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ url('/register') }}">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Daftar Akun</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url('/ProfilePage') }}">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title">Profile</span>

@@ -10,8 +10,14 @@ class AuthenticatedSessionController extends Controller
 {
     public function create()
     {
-        return view('auth.login');
+        if (Auth::check()) {
+            return redirect('/AdminPage'); // user sudah login, redirect
+        }
+
+        return view('auth.login'); // user belum login, tampilkan form login
     }
+
+
 
     public function store(Request $request)
     {

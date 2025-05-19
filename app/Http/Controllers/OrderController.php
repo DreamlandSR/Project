@@ -12,9 +12,10 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::with('user')->get(); // pastikan relasi ke user disiapkan
+        $orders = Order::with('user')->paginate(5); // Ubah 5 jika ingin jumlah per halaman berbeda
         return view('dashboard.pesanan', compact('orders'));
     }
+
 
     public function edit($id)
     {
