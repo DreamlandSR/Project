@@ -42,12 +42,10 @@
                                                 class="form-control form-control-sm rounded shadow-sm" placeholder="Email"
                                                 value="{{ old('email', session('email')) }}" required autofocus>
                                         </div>
-
                                         <div class="mb-3">
                                             <input id="password" type="password" name="password"
                                                 class="form-control form-control-sm rounded shadow-sm" placeholder="Password" required>
                                         </div>
-
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div class="form-check">
                                                 <label class="form-check-label text-muted">
@@ -75,7 +73,7 @@
 
                                     <div class="w-100 h-100 rounded overflow-hidden"
                                         style="position: relative; background-color: #f5f5f5;">
-                                        <img src="{{ asset('img/Screen.jpg') }}" alt="Batik Cicilia"
+                                        <img src="{{ asset('img/Batik 2.jpg') }}" alt="Batik Cicilia"
                                             class="img-fluid w-100 h-100"
                                             style="object-fit: cover; position: absolute; top: 0; left: 0;">
                                     </div>

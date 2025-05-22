@@ -56,7 +56,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 //route register
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
     Route::post('/register', [RegisteredUserController::class, 'store']);
 });
@@ -89,31 +89,5 @@ route::get('/PengaturanPage', function () {
 });
 
 route::get('forgotPassword', [PasswordResetLinkController::class, 'create'])->name('forgot-password');
-
-// Debug route - Hanya untuk testing (hapus setelah selesai)
-Route::get('/debug-image-data/{id}', function ($id) {
-    $image = App\Models\ProductImages::find($id);
-
-    if (!$image) {
-        return response()->json(['error' => 'Image not found'], 404);
-    }
-
-    // Ambil 4 byte pertama untuk deteksi signature
-    $firstBytes = substr($image->image_product, 0, 4);
-    $hexSignature = bin2hex($firstBytes);
-
-    return response()->json([
-        'id' => $image->id,
-        'product_id' => $image->product_id,
-        'size_bytes' => strlen($image->image_product),
-        'mime_type' => $image->mime_type,
-        'hex_signature' => $hexSignature,
-        'expected_format' => match (true) {
-            str_starts_with($hexSignature, 'ffd8ff') => 'JPEG',
-            str_starts_with($hexSignature, '89504e47') => 'PNG',
-            default => 'UNKNOWN/TIDAK DIKENAL'
-        }
-    ]);
-});
 
 require __DIR__ . '/auth.php';

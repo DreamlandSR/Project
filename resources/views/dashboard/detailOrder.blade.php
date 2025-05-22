@@ -70,47 +70,33 @@
 
 
                                     <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-                                        <button
-                                            class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2">
-                                            <i class="ti-angle-left me-1"></i> Kembali
-                                        </button>
 
-                                        <nav class="my-2">
-                                            <ul class="pagination mb-0">
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">01</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link rounded bg-primary text-white border-0"
-                                                        href="#">02</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">03</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">04</a>
-                                                </li>
-                                                <li class="page-item disabled">
-                                                    <span class="page-link border-0 bg-transparent text-muted">...</span>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">10</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">11</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
+                                        {{-- Tombol Kembali --}}
+                                        @if ($orderItems->onFirstPage())
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </span>
+                                        @else
+                                            <a href="{{ $orderItems->previousPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </a>
+                                        @endif
 
-                                        <button
-                                            class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
-                                            Selanjutnya <i class="ti-angle-right ms-1"></i>
-                                        </button>
+                                        {{-- Tombol Selanjutnya --}}
+                                        @if ($orderItems->hasMorePages())
+                                            <a href="{{ $orderItems->nextPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </a>
+                                        @else
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none ms-2 disabled">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </span>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>

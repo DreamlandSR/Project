@@ -11,13 +11,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-4">
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="{{ route('index') }}">Home</a>
+                    <a class="nav-link" href="{{ route('index') }}">Beranda</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="{{ route('about') }}">About</a>
+                    <a class="nav-link" href="{{ route('about') }}">Tentang</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="{{ route('product') }}">Product</a>
+                    <a class="nav-link" href="{{ route('product') }}">Produk</a>
                 </li>
             </ul>
             {{-- Jika user belum login, tampilkan tombol masuk --}}

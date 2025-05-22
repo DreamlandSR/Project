@@ -78,10 +78,12 @@
             </li>
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{ asset('/img/Frieren.jpeg') }}" alt="profile" />
+                    <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/kamira.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
+                        alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
+
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a href="{{ url ('/PengaturanPage') }}" class="dropdown-item">
+                    <a href="{{ url('/PengaturanPage') }}" class="dropdown-item">
                         <i class="ti-settings text-primary"></i>
                         Settings
                     </a>
@@ -106,5 +108,3 @@
         </button>
     </div>
 </nav>
-
-

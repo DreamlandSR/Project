@@ -160,12 +160,6 @@
                                             </a>
                                         @endif
 
-
-                                        {{-- Navigasi Angka --}}
-                                        <div>
-                                            {{ $orders->links('pagination::bootstrap-4') }}
-                                        </div>
-
                                         {{-- Tombol Selanjutnya --}}
                                         @if ($orders->hasMorePages())
                                             <a href="{{ $orders->nextPageUrl() }}"

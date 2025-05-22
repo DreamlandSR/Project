@@ -20,7 +20,7 @@
                                         data-bs-interval="5000">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
-                                                <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded"
+                                                <img src="{{ asset('/img/Batik 2.jpg') }}" class="d-block w-100 rounded"
                                                     style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen">
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <h5>Batik Kopi Ijen</h5>
@@ -29,7 +29,7 @@
                                             </div>
 
                                             <div class="carousel-item">
-                                                <img src="{{ asset('/img/frieren.jpeg') }}" class="d-block w-100 rounded"
+                                                <img src="{{ asset('/img/batik.1') }}" class="d-block w-100 rounded"
                                                     style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen 2">
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <h5>Batik Kopi Ijen 2</h5>
@@ -49,24 +49,6 @@
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                         </button>
                                     </div>
-
-
-                                    <!-- Weather Info -->
-                                    <div class="weather-info position-absolute" style="top: 30px; right: 20px; z-index: 2;">
-                                        <div class="d-flex align-items-center">
-                                            <div>
-                                                <h2 class="mb-0 font-weight-normal">
-                                                    <i class="icon-sun mr-2"></i>31<sup>°C</sup>
-                                                </h2>
-                                            </div>
-                                            <div class="ms-2">
-                                                <h4 class="location font-weight-normal mb-0">Bangalore</h4>
-                                                <h6 class="font-weight-normal">India</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Weather Info -->
-
                                 </div>
                             </div>
                         </div>
@@ -76,7 +58,7 @@
                                     <div class="card card-tale">
                                         <div class="card-body">
                                             <p class="mb-4">Total Omset</p>
-                                            <p class="fs-30 mb-2">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
+                                            <p class="mb-2" style="font-size: 24px">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
                                             <p>{{ $growthPembayaran }}% (30 days)</p>
                                         </div>
                                     </div>
@@ -119,27 +101,87 @@
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title">Detail Pertumbuhan</p>
-                                    <p class="font-weight-500">"Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                        consequat.</p>
+                                    <canvas id="growthChart" width="600" height="300"></canvas>
                                     <div class="d-flex flex-wrap mb-5">
-                                        <div class="mr-5 mt-3">
-                                            <p class="text-muted">Order bulan ini</p>
-                                            <h3 class="text-primary fs-30 font-weight-medium">12.3k</h3>
-                                        </div>
-                                        <div class="mr-5 mt-3">
-                                            <p class="text-muted">Pengguna Baru</p>
-                                            <h3 class="text-primary fs-30 font-weight-medium">14k</h3>
-                                        </div>
-                                        <div class="mr-5 mt-3">
-                                            <p class="text-muted">User Download</p>
-                                            <h3 class="text-primary fs-30 font-weight-medium">71.56%</h3>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- Masukkan data dari PHP ke JavaScript --}}
+                        @push('scripts')
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const growthChartData = @json($growthData);
+                                    console.log('Chart Data:', growthChartData); // Debug data
+
+                                    const ctx = document.getElementById('growthChart')?.getContext('2d');
+
+                                    if (ctx && window.Chart) {
+                                        // Hitung nilai maksimum yang dibulatkan ke kelipatan 20
+                                        const maxDataValue = Math.max(...growthChartData.orders);
+                                        const roundedMax = maxDataValue > 0 ? Math.ceil(maxDataValue / 20) * 20 : 20;
+
+                                        new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: growthChartData.labels,
+                                                datasets: [{
+                                                    label: 'Order Selesai perbulan',
+                                                    data: growthChartData.orders,
+                                                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                                    borderWidth: 1,
+                                                    borderRadius: 8
+                                                }]
+                                            },
+                                            options: {
+                                                responsive: true,
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true,
+                                                        max: roundedMax,
+                                                        ticks: {
+                                                            stepSize: 20,
+                                                            callback: function(value) {
+                                                                return value % 20 === 0 ? value : null;
+                                                            }
+                                                        },
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Jumlah Order Selesai'
+                                                        }
+                                                    },
+                                                    x: {
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Bulan'
+                                                        }
+                                                    }
+                                                },
+                                                plugins: {
+                                                    legend: {
+                                                        display: false
+                                                    },
+                                                    tooltip: {
+                                                        callbacks: {
+                                                            label: function(context) {
+                                                                return `Orders: ${context.raw}`;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        console.error("Chart.js tidak ditemukan atau canvas tidak tersedia.");
+                                    }
+                                });
+                            </script>
+                        @endpush
+
+
                         <div class="col-md-6 grid-margin stretch-card">
                             <div class="card product-favorite-card">
                                 <div class="card-body">
@@ -367,4 +409,10 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
+    <script>
+        const growthChartData = @json($growthData);
+    </script>
+
+
+
 @endsection

@@ -15,9 +15,9 @@
                         <div class="my-5 text-center text-xl-start">
                             <h1 class="display-5 fw-bolder text-black mb-2 text-start">Griya Batik</h1>
                             <p class="lead fw-normal text-black mb-4 pr-5" style="text-align:left; font-size: 18px;">
-                                platform e-learning terbaru untuk mendukung pengalaman belajar yang lebih modern,
-                                interaktif, dan fleksibel. Melalui aplikasi ini, siswa, guru, dan admin dapat berkolaborasi
-                                dalam satu sistem yang terintegrasi.
+                                Griya Batik Disabilitas adalah wadah kreatif bagi penyandang disabilitas untuk berkarya
+                                melalui seni batik. Mengusung nilai inklusif dan pemberdayaan, Griya Batik menyatukan budaya
+                                dan semangat kesetaraan dalam setiap motifnya.
                             </p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login">Get Started</a>
@@ -32,14 +32,14 @@
                             data-interval="6000">
                             <div class="carousel-inner">
                                 <div class="carousel-item active">
-                                    <img src="{{ asset('/img/Frieren.jpeg') }}" class="d-block w-100 rounded"
+                                    <img src="{{ asset('/img/Batik 2.jpg') }}" class="d-block w-100 rounded"
                                         alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/biru.jpeg') }}" class="d-block w-100 rounded" alt="...">
+                                    <img src="{{ asset('/img/batik 1.jpg') }}" class="d-block w-100 rounded" alt="...">
                                 </div>
                                 <div class="carousel-item">
-                                    <img src="{{ asset('/img/login.jpeg') }}" class="d-block w-100 rounded" alt="... ">
+                                    <img src="{{ asset('/img/batik 3.jpg') }}" class="d-block w-100 rounded" alt="... ">
                                 </div>
                             </div>
                             <button class="carousel-control-prev" type="button"
@@ -71,32 +71,30 @@
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-collection"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Pengumpulan tugas</h2>
-                                <p class="mb-0">Melakukan pengumpulan tugas yang diberikan oleh masing - masing guru.</p>
+                                <h2 class="h5 fw-bold">Promosi Produk</h2>
+                                <p class="mb-0">Melakukan promosi online melalui website resmi kami</p>
                             </div>
                             <div class="col-12 col-md-6 mb-5 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-building"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Quiz</h2>
-                                <p class="mb-0">Pengerjaan quiz (ujian) untuk mengukur kemampuan dari masing - masing
-                                    siswa.</p>
+                                <h2 class="h5 fw-bold">Informasi omset</h2>
+                                <p class="mb-0">Mengetahui informasi omset pada halaman admin</p>
                             </div>
                             <div class="col-12 col-md-6 mb-5 mb-md-0 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-toggles2"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Materi Pembelajaran Interaktif</h2>
-                                <p class="mb-0">Dengan adanya E - learning ini memudahkan pemberian materi untuk siswa.
+                                <h2 class="h5 fw-bold">Jumlah Produk terjual</h2>
+                                <p class="mb-0">Mengetahui jumlah produk yang terjual
                                 </p>
                             </div>
                             <div class="col-12 col-md-6 h-100">
                                 <div class="feature bg-primary text-white rounded-3 mb-4">
                                     <i class="bi bi-toggles2"></i>
                                 </div>
-                                <h2 class="h5 fw-bold">Jadwal dan Kalender Pembelajaran</h2>
-                                <p class="mb-0">Adanya jadwal memudahkan siswa untuk mengetahui pembelajaran setiap
-                                    harinya.</p>
+                                <h2 class="h5 fw-bold">Update status pembayaran</h2>
+                                <p class="mb-0">Memudahkan melakukan update status tanpa harus memberitahu melalui kontak</p>
                             </div>
                         </div>
                     </div>
@@ -106,14 +104,12 @@
 
         {{-- Deskripsi --}}
         <div class="py-5 slide-in">
-            <div class="container px-5">
+            <div class="container px-5 pb-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-10 col-xl-7">
                         <div class="text-center">
                             <h2 class="fw-bolder">Produk yang kami buat</h2>
-                            <div class="fs-4 mb-4">"Batik Bondowoso merupakan batik khas yang menonjolkan
-                                bagian dari Bondowoso itu sendiri misalnya kopi, kopi
-                                ijen dan daun singkong."</div>
+                            <div class="fs-4 mb-4">"Kami membuat berbagai macam batik misalnya Batik Daun Singkong, Batik Blufire, Batik Topeng Konah, dan lain - lain."</div>
                         </div>
                     </div>
                 </div>
@@ -179,17 +175,16 @@
                     <div class="col-lg-10 col-xl-7">
                         <div class="text-center">
                             <h2 class="fw-bolder">Tentang Kami</h2>
-                            <div class="fs-4 mb-4 fst-italic">"Kami adalah pembuat batik disabilitas yang berasal dari
+                            <div class="fs-5 mb-4 fst-italic">"Kami adalah pembuat batik disabilitas yang berasal dari
                                 Bondowoso dengan membuat berbagai macam
-                                inovasi yang nantinya akan membuat Bondowoso
-                                semakin terkenal"</div>
+                                inovasi dan berdaya saing global, dengan tetap menjaga nilai tradisi dalam mengembangkan batik."</div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <img class="rounded-circle me-3" style="width: 40px; height:40px; object-fit:cover;"
-                                    src="{{ asset('/img/nelson.jpg') }}" alt="Nelson Mandela" />
+                                    src="{{ asset('/img/char.png') }}" alt="Nelson Mandela" />
                                 <div class="fw-bold">
-                                    Nelson Mandela
+                                    Ryan Adi Saputra
                                     <span class="fw-bold text-primary mx-1">/</span>
-                                    1st President of South Africa
+                                    Pengembara
                                 </div>
                             </div>
                         </div>
@@ -220,7 +215,7 @@
                             $mime = $image ? (new \finfo(FILEINFO_MIME_TYPE))->buffer($image->image_product) : null;
                         @endphp
 
-                        <div class="product-card me-3 mx-3" style="flex: 0 0 22%;">
+                        <div class="product-card me-3 mx-3 mb-5" style="flex: 0 0 22%;">
                             <div class="card h-100 shadow-sm">
                                 @if ($image)
                                     <img class="card-img-top rounded"
@@ -234,8 +229,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <h5 class="card-title fw-bold mb-0 fs-6">{{ $product->nama }}</h5>
                                         <span class="badge bg-primary">
-                                            <i
-                                                class="bi bi-star-fill text-warning me-1"></i>{{ $product->rating ?? '0' }}
+                                            <i class="bi bi-star-fill text-warning me-1"></i>{{ $product->rating ?? '0' }}
                                         </span>
                                     </div>
                                     <p class="text-muted mb-0">
@@ -245,6 +239,38 @@
                             </div>
                         </div>
                     @endforeach
+                </div>
+
+                <!-- Call to action-->
+                <div class="py-5">
+                    <div class="row align-items-center">
+                        <!-- Kiri -->
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h4><strong>Download Sekarang juga !</strong></h4>
+                            <h4><strong><span class="text-primary">Pembayaran</span> bisa lewat sini</strong></h4>
+                            <p>Pembayaran bisa menggunakan Aplikasi kami pada tombol download di samping →</p>
+                        </div>
+
+                        <!-- Kanan -->
+                        <div class="col-12 col-md-4 ms-md-auto">
+                            <div
+                                class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4 border rounded shadow-sm bg-light p-4">
+                                <!-- Kiri: Teks -->
+                                <div class="text-center text-md-start">
+                                    <h5><strong>For Android</strong></h5>
+                                    <p class="mb-2 text-muted">Android 8.0+</p>
+                                    <a href="{{ url('downloads/Healthy.pdf') }}" class="btn btn-primary"
+                                        download>Download</a>
+                                </div>
+
+                                <!-- Kanan: QR Code -->
+                                <div>
+                                    <img src="{{ asset('img/qrcode.png') }}" alt="QR Code" class="img-fluid"
+                                        style="max-width: 100px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

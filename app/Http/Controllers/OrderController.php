@@ -12,7 +12,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Order::with('user')->paginate(5); 
+        $orders = Order::with('user')->paginate(5);
         return view('dashboard.pesanan', compact('orders'));
     }
 
@@ -53,7 +53,8 @@ class OrderController extends Controller
 
     public function DetailOrder()
     {
-        $orderItems = OrderItem::with(['order.user', 'product'])->get();
+        $orderItems = OrderItem::with(['order.user', 'product'])->paginate(5);
         return view('dashboard.detailOrder', compact('orderItems'));
     }
+
 }

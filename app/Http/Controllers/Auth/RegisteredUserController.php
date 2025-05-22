@@ -37,10 +37,6 @@ class RegisteredUserController extends Controller
 
     public function create()
     {
-        if (Auth::check()) {
-            return redirect('/AdminPage'); // user sudah login, redirect
-        }
-
         return view('auth.register'); // user belum login, tampilkan form register
     }
 }
