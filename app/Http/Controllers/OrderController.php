@@ -10,11 +10,27 @@ use App\Models\OrderItem;
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('user')->paginate(5);
+        $query = Order::with('user');
+
+        // Filter status (misalnya status_order)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan nama pembeli
+        if ($request->has('search') && $request->search !== '') {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $orders = $query->paginate(5)->withQueryString();
+
         return view('dashboard.pesanan', compact('orders'));
     }
+
 
 
     public function edit($id)
@@ -56,5 +72,4 @@ class OrderController extends Controller
         $orderItems = OrderItem::with(['order.user', 'product'])->paginate(5);
         return view('dashboard.detailOrder', compact('orderItems'));
     }
-
 }

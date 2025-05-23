@@ -20,8 +20,8 @@
                                 dan semangat kesetaraan dalam setiap motifnya.
                             </p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="login">Get Started</a>
-                                <a class="btn btn-light btn-lg px-4" href="guide">Learn More</a>
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href={{ url('/login') }}>Mulai</a>
+                                <a class="btn btn-light btn-lg px-4" href={{ url('/about') }}>Pelajari</a>
                             </div>
                         </div>
                     </div>

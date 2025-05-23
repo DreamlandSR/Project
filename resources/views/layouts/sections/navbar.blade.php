@@ -78,7 +78,7 @@
             </li>
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/kamira.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
+                    <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/Batik 2.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
                         alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
 
                 </a>

@@ -18,32 +18,6 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Status Pengiriman</h3>
                                 </div>
-
-
-                                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                                    {{-- Informasi jumlah data yang ditampilkan --}}
-                                    <div class="text-muted mr-5">
-                                        Menampilkan {{ $orders->firstItem() }} - {{ $orders->lastItem() }} dari total
-                                        {{ $orders->total() }} data
-                                    </div>
-
-                                    {{-- Dropdown pilih jumlah per halaman --}}
-                                    <form method="GET" id="perPageForm">
-                                        <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
-                                            <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
-                                            <select name="per_page" class="form-select border-0 bg-transparent pe-3"
-                                                onchange="document.getElementById('perPageForm').submit()">
-                                                <option value="10" {{ $orders->perPage() == 10 ? 'selected' : '' }}>10
-                                                </option>
-                                                <option value="25" {{ $orders->perPage() == 25 ? 'selected' : '' }}>25
-                                                </option>
-                                                <option value="50" {{ $orders->perPage() == 50 ? 'selected' : '' }}>50
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </form>
-                                </div>
-
                             </div>
                         </div>
                     </div>
@@ -53,15 +27,48 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
+                                        <div class="row mb-3">
+                                            {{-- Dropdown kiri --}}
+                                            <div class="col-12 col-md-6 mb-2 mb-md-0">
+                                                <form method="GET" action="{{ route('pesanan.page') }}"
+                                                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100">
+                                                    <label for="status" class="mb-1 mb-md-0 small fw-semibold text-muted mr-3">Filter Status</label>
+                                                    <select name="status" id="status" class="custom-select w-25 w-md-auto"
+                                                        onchange="this.form.submit()">
+                                                        <option value="">Semua</option>
+                                                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Ditunda</option>
+                                                        <option value="paid" {{ request('status') == 'paid' ? 'selected' : '' }}>Dibayar</option>
+                                                        <option value="shipped" {{ request('status') == 'shipped' ? 'selected' : '' }}>Dikirim</option>
+                                                        <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Selesai</option>
+                                                        <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Dibatalkan</option>
+                                                    </select>
+                                                </form>
+                                            </div>
+
+                                            {{-- Search kanan --}}
+                                            <div class="col-12 col-md-6">
+                                                <form method="GET" action="{{ route('pesanan.page') }}"
+                                                    class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center gap-2 w-100">
+                                                    <div class="input-group input-group-sm w-100" style="max-width: 300px;">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Cari nama..." value="{{ request('search') }}">
+                                                        <button type="submit" class="btn-primary btn-sm mx-3">
+                                                            <i class="ti-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
                                         <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
                                                     <th class="col-no">No</th>
                                                     <th class="col-nama">Nama</th>
                                                     <th class="col-tanggal">Tanggal Pesan</th>
-                                                    <th class="col-alamat">Alamat</th>
+
                                                     <th class="col-metode">Metode Pengiriman</th>
-                                                    <th class="col-catatan">Catatan</th>
+
                                                     <th class="col-status">Status</th>
                                                     <th class="col-action">Action</th>
                                                 </tr>
@@ -76,9 +83,9 @@
                                                         <td class="col-tanggal">
                                                             {{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
                                                         </td>
-                                                        <td class="col-alamat">{{ $order->alamat_pemesanan }}</td>
+
                                                         <td class="col-metode">{{ $order->metode_pengiriman ?? '-' }}</td>
-                                                        <td class="col-catatan">{{ $order->notes ?? '-' }}</td>
+
                                                         <td class="col-status">
                                                             @php
                                                                 $badgeClass = match ($order->status) {
@@ -93,17 +100,59 @@
                                                                 class="badge {{ $badgeClass }}">{{ ucfirst($order->status) }}</label>
                                                         </td>
                                                         <td class="col-action">
+                                                            <div class="d-flex justify-content-center gap-2">
                                                             <a href="{{ route('order.edit', $order->id) }}"
-                                                                class="btn btn-sm btn-primary">Edit</a>
+                                                                class="btn btn-sm btn-primary mr-1">Edit</a>
                                                             <form action="{{ route('order.destroy', $order->id) }}"
                                                                 method="POST" style="display:inline-block;">
                                                                 @csrf @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger"
+                                                                <button class="btn btn-sm btn-danger mr-1"
                                                                     onclick="return confirm('Yakin hapus produk ini?')">Hapus</button>
                                                             </form>
+                                                            <a href="#" class="btn btn-sm btn-info"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#detailModal{{ $order->id }}">
+                                                                Detail
+                                                            </a>
+                                                        </div>
                                                         </td>
                                                     </tr>
 
+                                                    <!-- Modal Detail -->
+                                                    <div class="modal fade" id="detailModal{{ $order->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="detailModalLabel{{ $order->id }}"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Detail Pesanan</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                                                </div>
+                                                                <div class="modal-body text-start">
+                                                                    <p><strong>Nama:</strong>
+                                                                        {{ $order->user->nama ?? 'Tidak Diketahui' }}</p>
+                                                                    <p><strong>Tanggal Pesan:</strong>
+                                                                        {{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
+                                                                    </p>
+                                                                    <p><strong>Alamat
+                                                                            Pemesanan:</strong><br>{{ $order->alamat_pemesanan ?? '-' }}
+                                                                    </p>
+                                                                    <p><strong>Catatan:</strong><br>{{ $order->notes ?? '-' }}
+                                                                    </p>
+                                                                    <p><strong>Metode Pengiriman:</strong>
+                                                                        {{ $order->metode_pengiriman ?? '-' }}</p>
+                                                                    <p><strong>Status:</strong>
+                                                                        {{ ucfirst($order->status) }}</p>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-sm  btn-secondary"
+                                                                        data-bs-dismiss="modal">Tutup</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                     <!-- Modal Konfirmasi Hapus -->
                                                     <div class="modal fade" id="deleteModal{{ $order->id }}"
@@ -143,9 +192,17 @@
                                         </table>
                                     </div>
 
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                        {{-- Informasi jumlah data yang ditampilkan --}}
+                                        <div class="text-muted ml-4 mt-3">
+                                            Menampilkan {{ $orders->firstItem() }} - {{ $orders->lastItem() }} dari total
+                                            {{ $orders->total() }} data
+                                        </div>
+                                    </div>
 
 
-                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
+
+                                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
 
                                         {{-- Tombol Kembali --}}
                                         @if ($orders->onFirstPage())

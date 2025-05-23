@@ -14,7 +14,7 @@
                     <a class="nav-link" href="{{ route('index') }}">Beranda</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link" href="{{ route('about') }}">Tentang</a>
+                    <a class="nav-link" href="{{ route('about') }}">Tentang Kami</a>
                 </li>
                 <li class="nav-item me-4">
                     <a class="nav-link" href="{{ route('product') }}">Produk</a>

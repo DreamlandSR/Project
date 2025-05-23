@@ -18,18 +18,7 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
-
-
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
-                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
-                                        <select class="form-select border-0 bg-transparent pe-3">
-                                            <option selected>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -39,6 +28,54 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
+                                        <div class="row mb-3 align-items-center">
+                                            {{-- Dropdown kiri --}}
+                                            <div class="col-md-6">
+                                                <form method="GET" action="{{ route('payment.page') }}"
+                                                    class="d-flex align-items-center gap-2">
+                                                    <label for="status"
+                                                        class="mr-3 mb-0 small fw-semibold text-muted">Filter
+                                                        Status </label>
+                                                    <div class="custom-select-wrapper">
+                                                        <select name="status" id="status" class="custom-select"
+                                                            onchange="this.form.submit()">
+                                                            <option value="">Semua</option>
+                                                            <option value="pending"
+                                                                {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                                                Ditunda</option>
+                                                            <option value="completed"
+                                                                {{ request('status') == 'completed' ? 'selected' : '' }}>
+                                                                Berhasil</option>
+                                                            <option value="failed"
+                                                                {{ request('status') == 'failed' ? 'selected' : '' }}>Gagal
+                                                            </option>
+                                                            <option value="refunded"
+                                                                {{ request('status') == 'refunded' ? 'selected' : '' }}>
+                                                                Pengembalian</option>
+                                                        </select>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            {{-- Search kanan --}}
+                                            <div class="col-md-6">
+                                                <form method="GET" action="{{ route('payment.page') }}"
+                                                    class="d-flex justify-content-end">
+                                                    <div class="input-group input-group-sm" style="max-width: 300px;">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Cari nama..." value="{{ request('search') }}">
+                                                        <button type="submit" class="btn-primary btn-sm mx-3">
+                                                            <i class="ti-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+
+
                                         <table class="table align-middle text-center">
                                             <thead>
                                                 <tr>
@@ -49,14 +86,30 @@
                                                     <th>Waktu pembayaran</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody>
                                                 @foreach ($payments as $index => $payment)
                                                     <tr>
-                                                        <td>{{ $index + 1 }}</td>
+                                                        <td>{{ $payments->firstItem() + $index }}</td>
                                                         <td>{{ $payment->order->user->nama ?? 'Tidak Diketahui' }}</td>
                                                         <td>{{ $payment->metode_pembayaran }}</td>
-                                                        <td>{{ $payment->status_pembayaran }}</td>
-                                                        <td>{{ $payment->waktu_pembayaran }}</td>
+                                                        <td>
+                                                            @php
+                                                                $badgeClass = match ($payment->status_pembayaran) {
+                                                                    'pending' => 'badge-warning',
+                                                                    'completed' => 'badge-success',
+                                                                    'failed' => 'badge-danger',
+                                                                    'refunded' => 'badge-secondary',
+                                                                    default => 'badge-light',
+                                                                };
+                                                            @endphp
+                                                            <label class="badge {{ $badgeClass }}">
+                                                                {{ ucfirst($payment->status_pembayaran) }}
+                                                            </label>
+                                                        </td>
+
+                                                        <td>{{ \Carbon\Carbon::parse($payment->waktu_pembayaran)->format('d M Y, H:i') }}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

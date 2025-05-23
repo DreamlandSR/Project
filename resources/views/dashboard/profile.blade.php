@@ -21,7 +21,7 @@
 
                                         <!-- Preview Foto -->
                                         <img
-                                            src="{{ asset(empty(Auth::user()->avatar) ? 'img/kamira.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
+                                            src="{{ asset(empty(Auth::user()->avatar) ? 'img/Batik 2.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
                                             class="rounded-circle img-fluid mb-4"
                                             style="width: 100px; height: 100px; object-fit: cover;" alt="Profile Photo"
                                             id="preview">

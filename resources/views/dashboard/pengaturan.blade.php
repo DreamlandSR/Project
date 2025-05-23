@@ -21,7 +21,7 @@
                                         <!-- Avatar Canvas -->
                                         <div class="d-flex justify-content-center align-items-center rounded-circle mb-4"
                                             style="width: 80px; height: 80px; margin: 0 auto;">
-                                            <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/kamira.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
+                                            <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/Batik 2.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
                                                 alt="Profile" class="rounded-circle"
                                                 style="width: 100%; height: 100%; object-fit: cover;" />
 
