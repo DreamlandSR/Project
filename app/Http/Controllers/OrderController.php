@@ -67,9 +67,25 @@ class OrderController extends Controller
         return redirect()->route('pesanan.page')->with('success', 'Pesanan berhasil dihapus.');
     }
 
-    public function DetailOrder()
-    {
-        $orderItems = OrderItem::with(['order.user', 'product'])->paginate(5);
-        return view('dashboard.detailOrder', compact('orderItems'));
+public function DetailOrder(Request $request)
+{
+    $query = OrderItem::with(['order.user', 'product']);
+
+    if ($request->has('search') && $request->search !== '') {
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('product', function ($sub) use ($search) {
+                $sub->where('nama', 'like', '%' . $search . '%');
+            })->orWhereHas('order.user', function ($sub) use ($search) {
+                $sub->where('nama', 'like', '%' . $search . '%');
+            });
+        });
     }
+
+    $orderItems = $query->paginate(5)->withQueryString();
+
+    return view('dashboard.detailOrder', compact('orderItems'));
+}
+
 }

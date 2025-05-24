@@ -28,7 +28,7 @@
         <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item dropdown">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
-                    data-toggle="dropdown">
+                    data-bs-toggle="dropdown">
                     <i class="icon-bell mx-0"></i>
                     <span class="count"></span>
                 </a>
@@ -76,31 +76,33 @@
                     </a>
                 </div>
             </li>
-            <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+            <li class="nav-item nav-profile">
+                <a class="nav-link" href="{{ url('/ProfilePage') }}">
                     <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/Batik 2.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
                         alt="Profile" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
+                </a>
+            </li>
 
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a href="{{ url('/PengaturanPage') }}" class="dropdown-item">
-                        <i class="ti-settings text-primary"></i>
-                        Settings
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="dropdown-item">
-                            <i class="ti-power-off text-primary"></i>
-                            Logout
-                        </button>
-                    </form>
-                </div>
-            </li>
-            <li class="nav-item nav-settings d-none d-lg-flex">
-                <a class="nav-link" href="#">
-                    <i class="icon-ellipsis"></i>
-                </a>
-            </li>
+            <li class="nav-item dropdown nav-settings d-none d-lg-flex">
+    <a class="nav-link dropdown-toggle" href="#" id="settingsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="icon-ellipsis"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="settingsDropdown">
+        <a href="{{ url('/PengaturanPage') }}" class="dropdown-item">
+            <i class="ti-settings text-primary"></i>
+            Settings
+        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+            </button>
+        </form>
+    </div>
+</li>
+
+
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
             data-toggle="offcanvas">

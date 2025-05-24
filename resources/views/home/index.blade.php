@@ -220,9 +220,9 @@
                                 @if ($image)
                                     <img class="card-img-top rounded"
                                         src="data:{{ $mime }};base64,{{ $base64 }}"
-                                        style="height: 200px; object-fit: cover;" alt="{{ $product->nama }}">
+                                        style="height: 200px; object-fit: cover ;" alt="{{ $product->nama }}">
                                 @else
-                                    <img class="card-img-top rounded" src="{{ asset('/img/default.jpg') }}"
+                                    <img class="card-img-top rounded" src="{{ asset('/img/batik 1.jpg') }}"
                                         style="height: 200px; object-fit: cover;" alt="Default Image">
                                 @endif
                                 <div class="card-body">
@@ -242,7 +242,7 @@
                 </div>
 
                 <!-- Call to action-->
-                <div class="py-5">
+                <div  id="android-download" class="py-5">
                     <div class="row align-items-center">
                         <!-- Kiri -->
                         <div class="col-md-6 mb-4 mb-md-0">

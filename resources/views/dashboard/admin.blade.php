@@ -29,7 +29,7 @@
                                             </div>
 
                                             <div class="carousel-item">
-                                                <img src="{{ asset('/img/batik.1') }}" class="d-block w-100 rounded"
+                                                <img src="{{ asset('/img/batik 1.jpg') }}" class="d-block w-100 rounded"
                                                     style="object-fit: cover; height: 300px;" alt="Batik Kopi Ijen 2">
                                                 <div class="carousel-caption d-none d-md-block">
                                                     <h5>Batik Kopi Ijen 2</h5>
@@ -409,9 +409,6 @@
         </div>
         <!-- page-body-wrapper ends -->
     </div>
-    <script>
-        const growthChartData = @json($growthData);
-    </script>
 
 
 

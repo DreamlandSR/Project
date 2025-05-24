@@ -17,12 +17,11 @@
                         <img src="data:image/jpeg;base64,{{ base64_encode($product->mainImage->image_product) }}"
                              alt="{{ $product->nama }}">
                     @else
-                        <img src="{{ asset('img/kamira.png') }}" alt="Default Image">
+                        <img src="{{ asset('img/batik 1.jpg') }}" alt="Default Image">
                     @endif
                     <div class="overlay">
                         <h5>{{ $product->nama }}</h5>
-                        <p>{{ $product->deskripsi }}</p>
-                        <button class="buy-btn">Buy Now</button>
+                        <a href="{{ url('/#android-download') }}" class="buy-btn">Buy Now</a>
                     </div>
                 </div>
             @endforeach

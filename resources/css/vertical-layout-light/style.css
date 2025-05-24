@@ -11834,6 +11834,12 @@ fieldset:disabled .wizard > .actions a,
     box-shadow: 0 0 0 0.2rem rgba(144, 145, 146, 0.5);
 }
 
+/* Menghilangkan panah dropdown default */
+a.dropdown-toggle::after {
+    display: none !important;
+}
+
+
 .btn-success {
     color: #fff;
     background-color: #57b657;

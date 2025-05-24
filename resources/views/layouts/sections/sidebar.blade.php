@@ -8,19 +8,13 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/register') }}">
-                <i class="icon-grid menu-icon"></i>
+                <i class="icon-head menu-icon"></i>
                 <span class="menu-title mt-1">Daftar Akun</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/ProfilePage') }}">
-                <i class="icon-layout menu-icon"></i>
-                <span class="menu-title mt-1">Profile Akun</span>
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="{{ url('/ProductPage') }}">
-                <i class="icon-columns menu-icon"></i>
+                <i class="icon-bag menu-icon"></i>
                 <span class="menu-title mt-1">Produk</span>
             </a>
         </li>
@@ -32,7 +26,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/DetailOrder') }}">
-                <i class="icon-columns menu-icon"></i>
+                <i class="icon-bar-graph-2 menu-icon"></i>
                 <span class="menu-title mt-1">Detail Pesanan</span>
             </a>
         </li>
@@ -44,13 +38,13 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/PengirimanPage') }}">
-                <i class="icon-bar-graph menu-icon"></i>
+                <i class="icon-content-left menu-icon"></i>
                 <span class="menu-title mt-1">Pengiriman</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/PengaturanPage') }}">
-                <i class="icon-grid-2 menu-icon"></i>
+                <i class="icon-cog menu-icon"></i>
                 <span class="menu-title mt-1">Pengaturan</span>
             </a>
         </li>

@@ -18,7 +18,7 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -28,41 +28,38 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <div class="row mb-3 align-items-center">
+                                        <div class="row mb-3">
                                             {{-- Dropdown kiri --}}
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-md-6 mb-2 mb-md-0">
                                                 <form method="GET" action="{{ route('payment.page') }}"
-                                                    class="d-flex align-items-center gap-2">
+                                                    class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100">
                                                     <label for="status"
-                                                        class="mr-3 mb-0 small fw-semibold text-muted">Filter
-                                                        Status </label>
-                                                    <div class="custom-select-wrapper">
-                                                        <select name="status" id="status" class="custom-select"
-                                                            onchange="this.form.submit()">
-                                                            <option value="">Semua</option>
-                                                            <option value="pending"
-                                                                {{ request('status') == 'pending' ? 'selected' : '' }}>
-                                                                Ditunda</option>
-                                                            <option value="completed"
-                                                                {{ request('status') == 'completed' ? 'selected' : '' }}>
-                                                                Berhasil</option>
-                                                            <option value="failed"
-                                                                {{ request('status') == 'failed' ? 'selected' : '' }}>Gagal
-                                                            </option>
-                                                            <option value="refunded"
-                                                                {{ request('status') == 'refunded' ? 'selected' : '' }}>
-                                                                Pengembalian</option>
-                                                        </select>
-
-                                                    </div>
+                                                        class="mb-1 mb-md-0 small fw-semibold text-muted mr-3">Filter
+                                                        Status</label>
+                                                    <select name="status" id="status"
+                                                        class="custom-select w-25 w-md-auto" onchange="this.form.submit()">
+                                                        <option value="">Semua</option>
+                                                        <option value="pending"
+                                                            {{ request('status') == 'pending' ? 'selected' : '' }}>
+                                                            Ditunda</option>
+                                                        <option value="completed"
+                                                            {{ request('status') == 'completed' ? 'selected' : '' }}>
+                                                            Berhasil</option>
+                                                        <option value="failed"
+                                                            {{ request('status') == 'failed' ? 'selected' : '' }}>Gagal
+                                                        </option>
+                                                        <option value="refunded"
+                                                            {{ request('status') == 'refunded' ? 'selected' : '' }}>
+                                                            Pengembalian</option>
+                                                    </select>
                                                 </form>
                                             </div>
 
                                             {{-- Search kanan --}}
-                                            <div class="col-md-6">
+                                            <div class="col-12 col-md-6">
                                                 <form method="GET" action="{{ route('payment.page') }}"
-                                                    class="d-flex justify-content-end">
-                                                    <div class="input-group input-group-sm" style="max-width: 300px;">
+                                                    class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center gap-2 w-100">
+                                                    <div class="input-group input-group-sm w-100" style="max-width: 300px;">
                                                         <input type="text" name="search" class="form-control"
                                                             placeholder="Cari nama..." value="{{ request('search') }}">
                                                         <button type="submit" class="btn-primary btn-sm mx-3">
@@ -73,17 +70,14 @@
                                             </div>
                                         </div>
 
-
-
-
-                                        <table class="table align-middle text-center">
+                                        <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Pembeli</th>
-                                                    <th>Metode pembayaran</th>
-                                                    <th>Status Pembayaran</th>
-                                                    <th>Waktu pembayaran</th>
+                                                    <th class="col-no">No</th>
+                                                    <th class="col-nama">Nama Pembeli</th>
+                                                    <th class="col-metode">Metode Pembayaran</th>
+                                                    <th class="col-status">Status Pembayaran</th>
+                                                    <th class="col-tanggal">Waktu Pembayaran</th>
                                                 </tr>
                                             </thead>
 
@@ -107,19 +101,24 @@
                                                                 {{ ucfirst($payment->status_pembayaran) }}
                                                             </label>
                                                         </td>
-
                                                         <td>{{ \Carbon\Carbon::parse($payment->waktu_pembayaran)->format('d M Y, H:i') }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-
                                     </div>
 
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                        {{-- Informasi jumlah data yang ditampilkan --}}
+                                        <div class="text-muted ml-4 mt-3">
+                                            Menampilkan {{ $payments->firstItem() }} - {{ $payments->lastItem() }} dari
+                                            total
+                                            {{ $payments->total() }} data
+                                        </div>
+                                    </div>
 
-                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-
+                                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
                                         {{-- Tombol Kembali --}}
                                         @if ($payments->onFirstPage())
                                             <span
@@ -145,7 +144,6 @@
                                                 Selanjutnya <i class="ti-angle-right ms-1"></i>
                                             </span>
                                         @endif
-
                                     </div>
                                 </div>
                             </div>
