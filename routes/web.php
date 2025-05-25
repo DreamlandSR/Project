@@ -18,8 +18,10 @@ use App\Http\Controllers\PaymentController;
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/terlaris', [AdminController::class, 'produkTerlaris'])->name('admin.terlaris');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/terlaris', [AdminController::class, 'produkTerlaris'])->name('admin.terlaris');
+});
 
 
 //route Product
@@ -62,7 +64,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 //route admin
-Route::middleware('auth')->get('/AdminPage', [AdminController::class, 'index'])->name('admin');
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/AdminPage', [AdminController::class, 'index'])->name('admin');
+    // Route admin lainnya bisa ditambahkan di sini
+});
 
 Route::get('PesananPage', [OrderController::class, 'index'])->name('pesanan.page');
 Route::get('/order/{order}/edit', [OrderController::class, 'edit'])->name('order.edit');

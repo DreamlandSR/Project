@@ -20,16 +20,11 @@
                     <a class="nav-link" href="{{ route('product') }}">Produk</a>
                 </li>
             </ul>
-            {{-- Jika user belum login, tampilkan tombol masuk --}}
             @guest
                 <a href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
+            @else
+                <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Masuk</a>
             @endguest
-
-            {{-- Jika sudah login, bisa tampilkan tombol ke dashboard --}}
-            @auth
-                <a href="/AdminPage" class="btn btn-primary">masuk</a>
-            @endauth
-
         </div>
     </div>
 </nav>

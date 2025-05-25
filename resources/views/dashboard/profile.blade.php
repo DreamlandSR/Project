@@ -25,8 +25,6 @@
                                             style="width: 100px; height: 100px; object-fit: cover;" alt="Profile Photo"
                                             id="preview">
 
-
-
                                         <!-- Input file tersembunyi -->
                                         <input type="file" name="avatar" id="photoInput" class="d-none" accept="image/*"
                                             onchange="document.getElementById('photoForm').submit();">

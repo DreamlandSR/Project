@@ -28,13 +28,25 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/AdminPage');
+            $user = Auth::user();
+
+            // Jika user bukan admin, langsung logout dan beri pesan error
+            if ($user->role !== 'admin') {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Hanya admin yang dapat login',
+                ]);
+            }
+
+            // Jika admin, redirect ke dashboard admin
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
             'email' => 'Email atau password salah.',
         ]);
     }
+
 
     public function destroy(Request $request)
     {
