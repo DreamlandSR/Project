@@ -5,9 +5,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Skydash Admin</title>
+    <title>Admin Page</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <link rel="icon" href="{{ asset('img/asset 7.png') }}">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
     <!-- Layout Content -->
     @yield('content')
     @stack('scripts')
-    
+
 
 </body>
 

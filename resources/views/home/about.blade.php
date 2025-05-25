@@ -57,28 +57,28 @@
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Junedi</h5>
-                        <div class="fst-italic text-muted">Kepala sekolah</div>
+                        <div class="fst-italic text-muted">Pemilik</div>
                     </div>
                 </div>
                 <div class="col mb-5 mb-xl-0">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Jaenedy</h5>
-                        <div class="fst-italic text-muted">Wakil Kepala sekolah</div>
+                        <div class="fst-italic text-muted">Manajer Keuangan</div>
                     </div>
                 </div>
                 <div class="col mb-5 mb-sm-0">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Fatimah</h5>
-                        <div class="fst-italic text-muted">Bendahara</div>
+                        <div class="fst-italic text-muted">Manajer Operasional</div>
                     </div>
                 </div>
                 <div class="col mb-5">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Manohara</h5>
-                        <div class="fst-italic text-muted">Sekertaris</div>
+                        <div class="fst-italic text-muted">Manajer Pemasaran</div>
                     </div>
                 </div>
             </div>

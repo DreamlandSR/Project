@@ -198,7 +198,7 @@
                                                 class="list-group-item d-flex justify-content-between align-items-center product-item">
                                                 <div class="d-flex align-items-center">
                                                     <span class="rank-badge">{{ $index + 1 }}</span>
-                                                    <span class="font-weight-bold ml-2">{{ $produk->nama_produk }}</span>
+                                                    <span class="font-weight-bold ml-4">{{ $produk->nama_produk }}</span>
                                                 </div>
                                                 <img src="{{ $produk->image_base64 }}" alt="{{ $produk->nama_produk }}"
                                                     class="product-image"

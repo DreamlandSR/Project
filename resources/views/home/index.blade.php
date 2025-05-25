@@ -21,7 +21,7 @@
                             </p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                 <a class="btn btn-primary btn-lg px-4 me-sm-3" href={{ url('/login') }}>Mulai</a>
-                                <a class="btn btn-light btn-lg px-4" href={{ url('/about') }}>Pelajari</a>
+                                <a class="btn btn-light btn-lg px-4" href={{ url('/about') }}>Baca Selengkapnya</a>
                             </div>
                         </div>
                     </div>
@@ -123,7 +123,7 @@
                             <h2 class="fw-bold" id="productName">{{ $products[0]->nama }}</h2>
                             <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> Bondowoso</p>
                             <p id="productDesc">{{ $products[0]->deskripsi }}</p>
-                            <a href="#" class="btn btn-primary mb-3">Learn more</a>
+                            <a href="#" class="btn btn-primary mb-3">Pelajari</a>
                         </div>
                     </div>
 
