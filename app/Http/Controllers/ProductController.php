@@ -17,7 +17,15 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::with('images')->orderBy('id', 'asc')->get();
-        return view('dashboard.product', compact('products'));
+        foreach ($products as $product) {
+            foreach ($product->images as $image) {
+                $image->base64 = base64_encode($image->image_product);
+                // atau jika kamu ingin dynamic MIME:
+                $mime = finfo_buffer(finfo_open(), $image->image_product, FILEINFO_MIME_TYPE);
+                $image->base64src = 'data:' . $mime . ';base64,' . base64_encode($image->image_product);
+        }
+    }
+    return view('dashboard.product', compact('products'));
     }
 
     //landing page
@@ -26,8 +34,6 @@ class ProductController extends Controller
         $products = Product::with('mainImage')->orderBy('id', 'asc')->get();
         return view('home.product', compact('products'));
     }
-
-
 
     public function create()
     {
@@ -62,19 +68,20 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
     }
 
-    public function showImage($id)
-    {
-        $image = ProductImages::find($id);
+    // public function showImage($id)
+    // {
+    //     $image = productimages::findOrFail($id);
 
-        if (!$image || empty($image->image_product)) {
-            return redirect('/img/kamira.png'); // atau gunakan: return $this->serveDefaultImage();
-        }
+    //     if (!$image || !$image->image_product) {
+    //     return $this->serveDefaultImage(); // fallback jika tidak ada gambar
+    // }
 
-        $mimeType = $this->detectImageType($image->image_product);
-        $base64 = base64_encode($image->image_product);
+    //     $mime = $this->detectImageType($image->image_product);
 
-        return view('dashboard.product', compact('mimeType', 'base64'));
-    }
+    //     return response($image->image_product)
+    //         ->header('Content-Type', $mime)
+    //         ->header('Cache-Control', 'public, max-age=86400');
+    // }
 
     protected function serveDefaultImage()
     {
