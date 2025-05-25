@@ -57,41 +57,61 @@
                                                     <th>No</th>
                                                     <th>Nama</th>
                                                     <th>Gambar</th>
-                                                    <th>Deskripsi</th>
-                                                    <th>Stok</th>
-                                                    <th>Harga</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @forelse ($products as $p)
                                                     <tr>
-                                                        <td>{{ $loop->iteration }}</td> <!-- Menampilkan nomor urut -->
+                                                        <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $p->nama }}</td>
-                                                        <td> {{-- Tampilkan gambar dari relasi --}}
+                                                        <td>
                                                             @foreach ($p->images as $image)
-                                                                <img src="{{ route('product.image', $image->id) }}"
-                                                                    width="60" height="60">
+                                                                <img src="{{ $image->base64src }}" alt="Gambar Produk" width="50" class="rounded-circle">
                                                             @endforeach
                                                         </td>
-                                                        <td>{{ $p->deskripsi }}</td>
-                                                        <td>{{ $p->stok_id }}</td>
-                                                        <td>Rp {{ number_format($p->harga, 0, ',', '.') }}</td>
-
                                                         <td>
-                                                            <a href="{{ route('products.edit', $p->id) }}"
-                                                                class="btn btn-sm btn-primary">Edit</a>
-                                                            <form action="{{ route('products.destroy', $p->id) }}"
-                                                                method="POST" style="display:inline-block;">
+                                                            <!-- Tombol Modal -->
+                                                            <button class="btn btn-sm btn-info mb-1" data-bs-toggle="modal" data-bs-target="#detailModal{{ $p->id }}">
+                                                                Detail
+                                                            </button>
+
+                                                            <a href="{{ route('products.edit', $p->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                            <form action="{{ route('products.destroy', $p->id) }}" method="POST" style="display:inline-block;">
                                                                 @csrf @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger"
-                                                                    onclick="return confirm('Yakin hapus produk ini?')">Hapus</button>
+                                                                <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin hapus produk ini?')">Hapus</button>
                                                             </form>
                                                         </td>
                                                     </tr>
+
+                                                    <!-- Modal Detail Produk -->
+                                                    <div class="modal fade" id="detailModal{{ $p->id }}" tabindex="-1" aria-labelledby="detailModalLabel{{ $p->id }}" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Detail Produk</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                                            </div>
+                                                            <div class="modal-body text-start">
+                                                                <p><strong>Nama:</strong> {{ $p->nama }}</p>
+                                                                <p><strong>Gambar:</strong><br>
+                                                                    @foreach ($p->images as $image)
+                                                                        <img src="{{ $image->base64src }}" alt="Gambar Produk" width="100" class="me-2 mb-2">
+                                                                    @endforeach
+                                                                </p>
+                                                                <p><strong>Deskripsi:</strong><br>{{ $p->deskripsi }}</p>
+                                                                <p><strong>Stok:</strong> {{ $p->stok_id }}</p>
+                                                                <p><strong>Harga:</strong> Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="8" class="text-center">Belum ada produk.</td>
+                                                        <td colspan="4" class="text-center">Belum ada produk.</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -101,6 +121,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
                         <button class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2">
