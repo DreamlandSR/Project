@@ -31915,6 +31915,21 @@ dl li {
 .col-action {
     width: 200px;
 }
+.col-produk {
+    width: 120px;
+}
+
+.col-total {
+    width: 120px;
+}
+
+.col-harga {
+    width: 120px;
+}
+
+.col-jumlah {
+    width: 120px;
+}
 
 .tab-content.tab-content-custom-pill {
     border: 0;
