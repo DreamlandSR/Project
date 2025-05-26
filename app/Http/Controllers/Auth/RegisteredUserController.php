@@ -31,7 +31,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         // Redirect ke halaman register dengan pesan sukses
-        return redirect('/register')->with('success', 'Registrasi berhasil! Anda telah login.');
+        return redirect('/register')->with('success', 'Registrasi berhasil!');
     }
 
     public function create()

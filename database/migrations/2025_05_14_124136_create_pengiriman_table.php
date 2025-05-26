@@ -11,18 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengiriman', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->date('tanggal_pesan');
-            $table->string('alamat');
-            $table->string('metode_pengiriman');
-            $table->string('catatan')->nullable();
-            $table->enum('status', ['Pending', 'In progress', 'Completed']);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('pengiriman')) {
+            Schema::create('pengiriman', function (Blueprint $table) {
+                $table->id(); // corresponds to 'id' column with AUTO_INCREMENT
+                $table->unsignedBigInteger('order_id')->nullable(false); // int not null
+                $table->enum('status_pengiriman', ['diproses', 'dikirim', 'dalam_perjalanan', 'sampai', 'gagal'])
+                      ->default('diproses')
+                      ->nullable();
+                $table->string('nomor_resi', 100)->nullable(); // varchar(100) nullable
+                $table->string('jasa_kurir', 100)->nullable(); // varchar(100) nullable
+                $table->date('tanggal_dikirim')->nullable(); // date nullable
+                $table->timestamp('created_at')->useCurrent(); // timestamp with CURRENT_TIMESTAMP default
+            });
+        }
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('pengiriman');

@@ -9,7 +9,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ url('/register') }}">
                 <i class="icon-head menu-icon"></i>
-                <span class="menu-title mt-1">Daftar Akun</span>
+                <span class="menu-title mt-1">Daftar Admin</span>
             </a>
         </li>
         <li class="nav-item">

@@ -180,7 +180,7 @@
                                 inovasi dan berdaya saing global, dengan tetap menjaga nilai tradisi dalam mengembangkan batik."</div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <img class="rounded-circle me-3" style="width: 40px; height:40px; object-fit:cover;"
-                                    src="{{ asset('/img/char.png') }}" alt="Nelson Mandela" />
+                                    src="{{ asset('/img/batik 2.jpg') }}" alt="Nelson Mandela" />
                                 <div class="fw-bold">
                                     Ryan Adi Saputra
                                     <span class="fw-bold text-primary mx-1">/</span>

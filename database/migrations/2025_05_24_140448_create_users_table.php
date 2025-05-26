@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        if (!Schema::hasTable('users')) {
+            Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 100)->nullable();
             $table->string('email', 100)->nullable()->unique();
@@ -20,6 +21,7 @@ return new class extends Migration {
             $table->timestamp('created_at')->useCurrent();
         });
     }
+}
 
     public function down(): void
     {
