@@ -9,6 +9,7 @@ class Pengiriman extends Model
 {
     use HasFactory;
     protected $table = 'pengiriman';
+    public $timestamps = false;
 
     protected $fillable = [
         'order_id',
@@ -16,8 +17,6 @@ class Pengiriman extends Model
         'nomor_resi',
         'jasa_kurir',
         'tanggal_dikirim',
-        'tanggal_sampai',
-        'catatan',
     ];
 
     public function order()

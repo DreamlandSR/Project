@@ -13,6 +13,7 @@ use App\Http\Controllers\PengirimanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Models\Pengiriman;
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -85,8 +86,10 @@ route::get('/ProfilePage', function () {
     return view("dashboard.profile");
 });
 
+//route pengiriman
 Route::get('/PengirimanPage', [PengirimanController::class, 'index'])->name('pengiriman.index');
-Route::resource('/dashboard/pengiriman', PengirimanController::class);
+Route::delete('pengiriman/{pengiriman}',[PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
+Route::put('/pengiriman/{pengiriman}/edit', [PengirimanController::class, 'update'])->name('pengiriman.update');
 
 
 route::get('/PengaturanPage', function () {

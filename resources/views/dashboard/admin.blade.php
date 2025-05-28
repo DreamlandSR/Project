@@ -304,15 +304,13 @@
                                                     <div
                                                         class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
                                                         <div class="ml-xl-4 mt-3">
-                                                            <p class="card-title">Detailed Reports</p>
+                                                            <p class="card-title">Detail Laporan</p>
                                                             <h3 class="text-primary font-weight-bold mb-3 fs-3">
                                                                 Rp {{ number_format($totalOmsetKeseluruhan, 0, ',', '.') }}
                                                             </h3>
                                                             <h6 class="font-weight-bold mb-xl-4 text-primary fs-4">Total
                                                                 Omset Keseluruhan</h6>
-                                                            <p class="mb-2 mb-xl-0">The total number of sessions within the
-                                                                date range. It is the period time a user is actively engaged
-                                                                with your website, page or app, etc</p>
+                                                            <p class="mb-2 mb-xl-0">Jumlah keseluruhan pendapatan dari penjualan batik serta pada detail di samping merupakan batik terlaris.</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 col-xl-9">
