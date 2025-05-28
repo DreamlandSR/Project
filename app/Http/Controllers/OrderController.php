@@ -10,11 +10,27 @@ use App\Models\OrderItem;
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::with('user')->paginate(5); 
+        $query = Order::with('user');
+
+        // Filter status (misalnya status_order)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan nama pembeli
+        if ($request->has('search') && $request->search !== '') {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $orders = $query->paginate(5)->withQueryString();
+
         return view('dashboard.pesanan', compact('orders'));
     }
+
 
 
     public function edit($id)
@@ -51,9 +67,25 @@ class OrderController extends Controller
         return redirect()->route('pesanan.page')->with('success', 'Pesanan berhasil dihapus.');
     }
 
-    public function DetailOrder()
-    {
-        $orderItems = OrderItem::with(['order.user', 'product'])->get();
-        return view('dashboard.detailOrder', compact('orderItems'));
+public function DetailOrder(Request $request)
+{
+    $query = OrderItem::with(['order.user', 'product']);
+
+    if ($request->has('search') && $request->search !== '') {
+        $search = $request->search;
+
+        $query->where(function ($q) use ($search) {
+            $q->whereHas('product', function ($sub) use ($search) {
+                $sub->where('nama', 'like', '%' . $search . '%');
+            })->orWhereHas('order.user', function ($sub) use ($search) {
+                $sub->where('nama', 'like', '%' . $search . '%');
+            });
+        });
     }
+
+    $orderItems = $query->paginate(5)->withQueryString();
+
+    return view('dashboard.detailOrder', compact('orderItems'));
+}
+
 }

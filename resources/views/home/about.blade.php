@@ -27,7 +27,7 @@
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
                 <div class="col-lg-6">
-                    <h2 class="fw-bolder">Our founding</h2>
+                    <h2 class="fw-bolder">Pendirian Kami</h2>
                     <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="row gx-5 align-items-center">
                 <div class="col-lg-6 order-first order-lg-last"><img class="img-fluid rounded mb-5 mb-lg-0" src="https://dummyimage.com/600x400/343a40/6c757d" alt="..." /></div>
                 <div class="col-lg-6">
-                    <h2 class="fw-bolder">Growth &amp; beyond</h2>
+                    <h2 class="fw-bolder">Pertumbuhan Mitra</h2>
                     <p class="lead fw-normal text-muted mb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto est, ut esse a labore aliquam beatae expedita. Blanditiis impedit numquam libero molestiae et fugit cupiditate, quibusdam expedita, maiores eaque quisquam.</p>
                 </div>
             </div>
@@ -57,28 +57,28 @@
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Junedi</h5>
-                        <div class="fst-italic text-muted">Kepala sekolah</div>
+                        <div class="fst-italic text-muted">Pemilik</div>
                     </div>
                 </div>
                 <div class="col mb-5 mb-xl-0">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Jaenedy</h5>
-                        <div class="fst-italic text-muted">Wakil Kepala sekolah</div>
+                        <div class="fst-italic text-muted">Manajer Keuangan</div>
                     </div>
                 </div>
                 <div class="col mb-5 mb-sm-0">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Fatimah</h5>
-                        <div class="fst-italic text-muted">Bendahara</div>
+                        <div class="fst-italic text-muted">Manajer Operasional</div>
                     </div>
                 </div>
                 <div class="col mb-5">
                     <div class="text-center">
                         <img class="img-fluid rounded-circle mb-4 px-4" src="https://dummyimage.com/150x150/ced4da/6c757d" alt="..." />
                         <h5 class="fw-bolder">Manohara</h5>
-                        <div class="fst-italic text-muted">Sekertaris</div>
+                        <div class="fst-italic text-muted">Manajer Pemasaran</div>
                     </div>
                 </div>
             </div>

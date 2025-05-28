@@ -18,18 +18,6 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
-
-
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
-                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
-                                        <select class="form-select border-0 bg-transparent pe-3">
-                                            <option selected>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -39,15 +27,32 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table align-middle text-center">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <form method="GET" action="{{ route('detail.page') }}"
+                                                    class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center gap-2 w-100">
+                                                    <div class="input-group input-group-sm w-100" style="max-width: 300px;">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Cari nama produk..."
+                                                            value="{{ request('search') }}">
+                                                        <button type="submit" class="btn-primary btn-sm mx-3">
+                                                            <i class="ti-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                        <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Pembeli</th>
-                                                    <th>Nama Produk</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Harga</th>
-                                                    <th>Total Harga</th>
+                                                    <th class="col-no">No</th>
+                                                    <th class="col-nama">Nama Pembeli</th>
+                                                    <th class="col-produk">Nama Produk</th>
+                                                    <th class="col-jumlah">Jumlah</th>
+                                                    <th class="col-harga">Harga</th>
+                                                    <th class="col-total">Total Harga</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -55,8 +60,7 @@
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
                                                         <td>{{ $item->order->user->nama ?? 'Tidak Diketahui' }}</td>
-                                                        <td>{{ $item->product->nama ?? 'Produk tidak ditemukan' }}
-                                                        </td>
+                                                        <td>{{ $item->product->nama ?? 'Produk tidak ditemukan' }}</td>
                                                         <td>{{ $item->kuantitas }}</td>
                                                         <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
                                                         <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
@@ -64,53 +68,43 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-
-
                                     </div>
 
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                        {{-- Informasi jumlah data yang ditampilkan --}}
+                                        <div class="text-muted ml-4 mt-3">
+                                            Menampilkan {{ $orderItems->firstItem() ? $orderItems->firstItem() : 0 }} -
+                                            {{ $orderItems->lastItem() ? $orderItems->lastItem() : 0 }} dari total
+                                            {{ $orderItems->total() }} data
+                                        </div>
+                                    </div>
 
-                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-                                        <button
-                                            class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2">
-                                            <i class="ti-angle-left me-1"></i> Kembali
-                                        </button>
+                                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
+                                        {{-- Tombol Kembali --}}
+                                        @if ($orderItems->onFirstPage())
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </span>
+                                        @else
+                                            <a href="{{ $orderItems->previousPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </a>
+                                        @endif
 
-                                        <nav class="my-2">
-                                            <ul class="pagination mb-0">
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">01</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link rounded bg-primary text-white border-0"
-                                                        href="#">02</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">03</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">04</a>
-                                                </li>
-                                                <li class="page-item disabled">
-                                                    <span class="page-link border-0 bg-transparent text-muted">...</span>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">10</a>
-                                                </li>
-                                                <li class="page-item">
-                                                    <a class="page-link border-0 bg-transparent text-muted"
-                                                        href="#">11</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-
-                                        <button
-                                            class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
-                                            Selanjutnya <i class="ti-angle-right ms-1"></i>
-                                        </button>
+                                        {{-- Tombol Selanjutnya --}}
+                                        @if ($orderItems->hasMorePages())
+                                            <a href="{{ $orderItems->nextPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </a>
+                                        @else
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none ms-2 disabled">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -119,17 +113,6 @@
 
                 </div>
                 <!-- content-wrapper ends -->
-
-                <footer class="footer">
-                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.
-                            Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a>
-                            from BootstrapDash. All rights reserved.</span>
-                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
-                            <i class="ti-heart text-danger ml-1"></i></span>
-                    </div>
-                </footer>
-                <!-- partial -->
             </div>
             <!-- main-panel ends -->
         </div>
