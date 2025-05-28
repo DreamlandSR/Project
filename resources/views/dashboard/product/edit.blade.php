@@ -36,14 +36,20 @@
 
                         <div class="mb-3">
                             <label for="stok_id" class="form-label">Stok (ID atau jumlah)</label>
-                            <input type="number" class="form-control" id="stok_id" name="stok_id"
-                                value="{{ $product->stok_id }}" required>
+                            <input type="number" class="form-control" id="stok" name="stok"
+                                value="{{ $product->stok }}" required>
                         </div>
 
                         <div class="mb-3">
                             <label for="harga" class="form-label">Harga</label>
                             <input type="number" class="form-control" id="harga" name="harga"
                                 value="{{ $product->harga }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="berat" class="form-label">Berat</label>
+                            <input type="number" class="form-control" id="berat" name="berat"
+                                value="{{ $product->berat }}" required>
                         </div>
 
                         <div class="mb-3">

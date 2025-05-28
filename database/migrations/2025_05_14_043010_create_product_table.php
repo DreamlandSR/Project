@@ -14,7 +14,7 @@ return new class extends Migration
                 $table->string('nama');
                 $table->string('deskripsi');
                 $table->decimal('harga', 10, 2);
-                $table->unsignedBigInteger('stok_id');
+                $table->unsignedBigInteger('stok');
                 $table->string('status');
                 $table->decimal('rating', 3, 1)->nullable();
                 $table->timestamps();

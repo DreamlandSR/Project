@@ -19,7 +19,8 @@
 
                 <div class="mb-3">
                     <label for="image" class="form-label">Upload Gambar</label>
-                    <input type="file" name="image_product[]" multiple>
+                    <input type="file" name="image_product[]" id="image-input" multiple class="form-control">
+                    <div id="preview-container" class="mt-2 d-flex flex-wrap gap-2"></div>
                 </div>
 
                 <div class="mb-3">
@@ -35,7 +36,12 @@
 
                 <div class="mb-3">
                     <label for="stok_id" class="form-label"> Stok</label>
-                    <input type="number" class="form-control" id="stok_id" name="stok_id" required>
+                    <input type="number" class="form-control" id="stok" name="stok" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="stok_id" class="form-label"> Berat (Gram)</label>
+                    <input type="number" class="form-control" id="bera" name="berat" required>
                 </div>
 
                 <div class="mb-3">

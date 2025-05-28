@@ -23,9 +23,9 @@ class ProductController extends Controller
                 // atau jika kamu ingin dynamic MIME:
                 $mime = finfo_buffer(finfo_open(), $image->image_product, FILEINFO_MIME_TYPE);
                 $image->base64src = 'data:' . $mime . ';base64,' . base64_encode($image->image_product);
+            }
         }
-    }
-    return view('dashboard.product', compact('products'));
+        return view('dashboard.product', compact('products'));
     }
 
     //landing page
@@ -46,9 +46,10 @@ class ProductController extends Controller
             'nama' => 'required|string',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric',
-            'stok_id' => 'required|integer',
+            'stok' => 'required|integer',
             'status' => 'required|string',
             'rating' => 'nullable|numeric',
+            'berat' => 'nullable|numeric',
             'image_product.*' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -150,9 +151,10 @@ class ProductController extends Controller
             'nama' => 'required',
             'deskripsi' => 'required',
             'harga' => 'required|numeric',
-            'stok_id' => 'required|integer',
+            'stok' => 'required|integer',
             'status' => 'required',
             'rating' => 'nullable|numeric',
+            'berat' => 'nullable|numeric',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
@@ -161,9 +163,10 @@ class ProductController extends Controller
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'harga' => $request->harga,
-            'stok_id' => $request->stok_id,
+            'stok' => $request->stok,
             'status' => $request->status,
             'rating' => $request->rating,
+            'berat' => $request->berat,
             'image' => $request->image,
         ]);
 
@@ -191,8 +194,8 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
         }
 
-        // Hapus semua stocks yang terkait
-        $product->stocks()->delete();
+        // // Hapus semua stocks yang terkait
+        // $product->stocks()->delete();
 
         // Hapus produk
         $product->delete();
