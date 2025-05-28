@@ -10,6 +10,7 @@ return new class extends Migration
 {
     if (!Schema::hasTable('products')) {
         Schema::create('products', function (Blueprint $table) {
+
             $table->id();
             $table->string('nama', 100)->nullable();
             $table->text('deskripsi')->nullable();
