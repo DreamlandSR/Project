@@ -21,7 +21,7 @@
                     @endif
                     <div class="overlay">
                         <h5>{{ $product->nama }}</h5>
-                        <a href="{{ url('/#android-download') }}" class="buy-btn">Buy Now</a>
+                        <a href="{{ url('/#android-download') }}" class="buy-btn">Beli Sekarang</a>
                     </div>
                 </div>
             @endforeach

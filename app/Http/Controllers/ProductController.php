@@ -16,7 +16,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = Product::with('images')->orderBy('id', 'asc')->get();
+        $products = Product::with('images')->orderBy('id', 'asc')->paginate(5);
         foreach ($products as $product) {
             foreach ($product->images as $image) {
                 $image->base64 = base64_encode($image->image_product);

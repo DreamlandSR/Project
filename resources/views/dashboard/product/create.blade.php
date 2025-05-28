@@ -4,85 +4,176 @@
     @include('layouts.sections.navbar')
 
     <div class="container-scroller">
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-
             @include('layouts.sections.sidebar')
-            <h2>Tambah Produk</h2>
-            <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
-                @csrf
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="card shadow-sm rounded p-4">
+                        <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row gx-4 gy-3">
+                                <div class="col-md-4 position-relative">
+                                    <input type="file" name="image_product[]" id="image-input" multiple hidden>
 
-                <div class="mb-3">
-                    <label for="nama" class="form-label"> Nama Produk</label>
-                    <input type="text" class="form-control" id="nama" name="nama" required>
+                                    <!-- Wadah upload dan preview -->
+                                    <div id="image-upload-wrapper">
+                                        <!-- Kotak Upload -->
+                                        <label id="upload-box" for="image-input"
+                                            class="upload-box d-flex align-items-center justify-content-center">
+                                            +
+                                        </label>
+
+                                        <!-- Preview Gambar -->
+                                        <div id="image-preview" class="d-none position-relative">
+                                            <img id="main-preview" class="img-fluid rounded"
+                                                style="width: 100%; height: 100%; object-fit: cover;" />
+                                            <!-- Tombol X -->
+                                            <button type="button" id="remove-image" class="btn btn-danger px-2 py-0"
+                                                style="position: absolute; top: 6px; right: 6px;">×</button>
+
+                                            <div id="image-count"
+                                                class="position-absolute end-0 bottom-0 me-2 mb-2 px-2 py-1 bg-primary text-white rounded small d-none">
+                                                +2</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <style>
+                                    .upload-box {
+                                        width: 100%;
+                                        height: 200px;
+                                        border: 2px dashed #ccc;
+                                        border-radius: 8px;
+                                        font-size: 2.5rem;
+                                        color: #999;
+                                        cursor: pointer;
+                                    }
+
+
+                                    #image-preview img {
+                                        border-radius: 8px;
+                                        max-height: 200px;
+                                        object-fit: cover;
+                                    }
+
+                                    #image-upload-wrapper {
+                                        position: relative;
+                                        width: 100%;
+                                        height: 200px;
+                                    }
+
+                                    .upload-box,
+                                    #image-preview {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                </style>
+
+
+                                <!-- Form Inputs -->
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nama" class="form-label fw-bold">Nama Produk</label>
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="harga" class="form-label fw-bold">Harga</label>
+                                            <input type="number" class="form-control" id="harga" name="harga"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="stok" class="form-label fw-bold">Stok</label>
+                                            <input type="number" class="form-control" id="stok" name="stok"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="berat" class="form-label fw-bold">Berat (Gram)</label>
+                                            <input type="number" class="form-control" id="berat" name="berat"
+                                                required>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="deskripsi" class="form-label fw-bold">Deskripsi</label>
+                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="status" class="form-label fw-bold">Status</label>
+                                            <select class="custom-select w-50 w-md-auto" id="status" name="status">
+                                                <option value="available">Tersedia</option>
+                                                <option value="unavailable">Habis</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary rounded shadow-sm mr-4"
+                                    style="padding: 12px 0; width:150px">Simpan</button>
+                                <a href="{{ route('products.index') }}"
+                                    class="btn btn-outline-secondary rounded shadow-sm text-center"
+                                    style="padding: 12px 0; width:150px">Batal</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="mb-3">
-                    <label for="image" class="form-label">Upload Gambar</label>
-                    <input type="file" name="image_product[]" id="image-input" multiple class="form-control">
-                    <div id="preview-container" class="mt-2 d-flex flex-wrap gap-2"></div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="deskripsi" class="form-label"> Deskripsi</label>
-                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="harga" class="form-label"> Harga</label>
-                    <input type="number" class="form-control" id="harga" name="harga" required>
-                </div>
-
-
-                <div class="mb-3">
-                    <label for="stok_id" class="form-label"> Stok</label>
-                    <input type="number" class="form-control" id="stok" name="stok" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="stok_id" class="form-label"> Berat (Gram)</label>
-                    <input type="number" class="form-control" id="bera" name="berat" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="status" class="form-label"> Status</label>
-                    <select class="form-select" id="status" name="status">
-                        <option value="available">Tersedia</option>
-                        <option value="unavailable">Habis</option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="rating" class="form-label"> Rating</label>
-                    <input type="number" class="form-control" id="rating" name="rating" step="0.1">
-                </div>
-
-                <div class="d-flex justify-content-between">
-                    <button type="submit" class="form btn-primary">Simpan</button>
-                    <a href="{{ route('products.index') }}" class="btn btn-secondary">Batal</a>
-                </div>
-            </form>
-
-            <script>
-                document.getElementById('image-input').addEventListener('change', function(e) {
-                    const previewContainer = document.getElementById('preview-container');
-                    previewContainer.innerHTML = ''; // Bersihkan container sebelumnya
-
-                    const files = e.target.files;
-
-                    Array.from(files).forEach(file => {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            const img = document.createElement('img');
-                            img.src = event.target.result;
-                            img.style.height = '100px';
-                            img.style.marginRight = '10px';
-                            img.classList.add('rounded');
-                            previewContainer.appendChild(img);
-                        };
-                        reader.readAsDataURL(file);
-                    });
-                });
-            </script>
-        @endsection
+            </div>
+        </div>
     </div>
+
+    <!-- Script untuk preview gambar dan hitung jumlah -->
+    <script>
+        const input = document.getElementById('image-input');
+        const uploadBox = document.getElementById('upload-box');
+        const previewContainer = document.getElementById('image-preview');
+        const mainPreview = document.getElementById('main-preview');
+        const removeButton = document.getElementById('remove-image');
+        const countBadge = document.getElementById('image-count');
+
+        let fileList = [];
+
+        input.addEventListener('change', function(e) {
+            fileList = Array.from(e.target.files);
+
+            if (fileList.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    mainPreview.src = e.target.result;
+                    previewContainer.classList.remove('d-none');
+                    uploadBox.classList.add('d-none'); // HILANGKAN kotak upload
+                };
+                reader.readAsDataURL(fileList[0]);
+
+                // Tampilkan badge jika gambar lebih dari 1
+                if (fileList.length > 1) {
+                    countBadge.innerText = `+${fileList.length - 1}`;
+                    countBadge.classList.remove('d-none');
+                } else {
+                    countBadge.classList.add('d-none');
+                }
+            } else {
+                resetPreview();
+            }
+        });
+
+        removeButton.addEventListener('click', function() {
+            resetPreview();
+        });
+
+        function resetPreview() {
+            previewContainer.classList.add('d-none');
+            uploadBox.classList.remove('d-none');
+            input.value = ""; // reset input file
+            fileList = [];
+            mainPreview.src = '';
+            countBadge.classList.add('d-none');
+        }
+    </script>
+@endsection

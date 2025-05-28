@@ -8,7 +8,7 @@
           <ul class="ftco-footer-social p-0 d-flex">
             <li class="ftco-animate mr-3"><a href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><span class="ion-logo-twitter"></span></a></li>
             <li class="ftco-animate mr-3"><a href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><span class="ion-logo-facebook"></span></a></li>
-            <li class="ftco-animate"><a href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><span class="ion-logo-instagram"></span></a></li>
+            <li class="ftco-animate"><a href={{ url('https://www.instagram.com/p/C-xTA7XzFro/?utm_source=ig_web_copy_link') }} data-toggle="tooltip" data-placement="top" title="Instagram"><span class="ion-logo-instagram"></span></a></li>
           </ul>
         </div>
 

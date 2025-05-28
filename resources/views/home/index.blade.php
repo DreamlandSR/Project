@@ -123,7 +123,7 @@
                             <h2 class="fw-bold" id="productName">{{ $products[0]->nama }}</h2>
                             <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> Bondowoso</p>
                             <p id="productDesc">{{ $products[0]->deskripsi }}</p>
-                            <a href="#" class="btn btn-primary mb-3">Pelajari</a>
+                            <a href="#" class="btn btn-primary mb-3">Baca selengkapnya</a>
                         </div>
                     </div>
 

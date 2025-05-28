@@ -38,7 +38,7 @@
                                     <!-- Tombol Tambah Produk Buka Modal -->
                                     <a href="{{ route('products.create') }}"
                                         class="btn btn-primary d-flex align-items-center rounded-pill">
-                                        <i class="icon-plus me-2"></i>
+                                        <i class="icon-plus mr-2 mb-1"></i>
                                         <span class="d-none d-md-block">Tambah produk</span>
                                     </a>
                                 </div>
@@ -73,7 +73,7 @@
                                                         </td>
                                                         <td>
                                                             <!-- Tombol Modal -->
-                                                            <button class="btn btn-sm btn-info mb-1" data-bs-toggle="modal"
+                                                            <button class="btn btn-sm btn-info" data-bs-toggle="modal"
                                                                 data-bs-target="#detailModal{{ $p->id }}">
                                                                 Detail
                                                             </button>
@@ -131,47 +131,51 @@
                                             </tbody>
                                         </table>
                                     </div>
+
+                                    {{-- paginate --}}
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                                        {{-- Informasi jumlah data yang ditampilkan --}}
+                                        <div class="text-muted ml-4 mt-3">
+                                            Menampilkan {{ $products->firstItem() }} - {{ $products->lastItem() }} dari
+                                            total
+                                            {{ $products->total() }} data
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
+                                        {{-- Tombol Kembali --}}
+                                        @if ($products->onFirstPage())
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </span>
+                                        @else
+                                            <a href="{{ $products->previousPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
+                                                <i class="ti-angle-left me-1"></i> Kembali
+                                            </a>
+                                        @endif
+
+                                        {{-- Tombol Selanjutnya --}}
+                                        @if ($products->hasMorePages())
+                                            <a href="{{ $products->nextPageUrl() }}"
+                                                class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </a>
+                                        @else
+                                            <span
+                                                class="btn btn-link text-muted d-flex align-items-center text-decoration-none ms-2 disabled">
+                                                Selanjutnya <i class="ti-angle-right ms-1"></i>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
-                        <button class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2">
-                            <i class="ti-angle-left me-1"></i> Kembali
-                        </button>
 
-                        <nav class="my-2">
-                            <ul class="pagination mb-0">
-                                <li class="page-item">
-                                    <a class="page-link border-0 bg-transparent text-muted" href="#">01</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link rounded bg-primary text-white border-0" href="#">02</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link border-0 bg-transparent text-muted" href="#">03</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link border-0 bg-transparent text-muted" href="#">04</a>
-                                </li>
-                                <li class="page-item disabled">
-                                    <span class="page-link border-0 bg-transparent text-muted">...</span>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link border-0 bg-transparent text-muted" href="#">10</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link border-0 bg-transparent text-muted" href="#">11</a>
-                                </li>
-                            </ul>
-                        </nav>
-
-                        <button class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
-                            Selanjutnya <i class="ti-angle-right ms-1"></i>
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
