@@ -115,7 +115,7 @@
                             </div>
 
                             <div class="mt-4 d-flex gap-2">
-                                <button type="submit" class="btn btn-primary rounded shadow-sm mr-4"
+                                <button type="submit" class="btn btn-primary rounded shadow-sm mr-3"
                                     style="padding: 12px 0; width:150px">Simpan</button>
                                 <a href="{{ route('products.index') }}"
                                     class="btn btn-outline-secondary rounded shadow-sm text-center"

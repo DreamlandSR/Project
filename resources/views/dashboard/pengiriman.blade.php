@@ -19,6 +19,28 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Status Pengiriman</h3>
                                 </div>
+                                <div class="d-flex flex-wrap gap-3">
+                                    {{-- <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
+                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
+                                        <select class="form-select border-0 bg-transparent pe-3">
+                                            <option selected>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div> --}}
+                                    {{--
+                                    <button class="btn btn-outline-primary d-flex align-items-center rounded-pill">
+                                        <i class="icon-download me-2"></i>
+                                        <span class="d-none d-md-block">Export</span>
+                                    </button> --}}
+
+                                    <!-- Tombol Tambah Produk Buka Modal -->
+                                    <a href="{{ route('pengiriman.create') }}"
+                                        class="btn btn-primary d-flex align-items-center rounded-pill">
+                                        <i class="icon-plus mr-2 mb-1"></i>
+                                        <span class="d-none d-md-block">Tambah produk</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

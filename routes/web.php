@@ -90,7 +90,8 @@ route::get('/ProfilePage', function () {
 Route::get('/PengirimanPage', [PengirimanController::class, 'index'])->name('pengiriman.index');
 Route::delete('pengiriman/{pengiriman}',[PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
 Route::put('/pengiriman/{pengiriman}/edit', [PengirimanController::class, 'update'])->name('pengiriman.update');
-
+Route::get('/pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create');
+Route::post('/pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store');
 
 route::get('/PengaturanPage', function () {
     return view('dashboard.pengaturan');
