@@ -50,7 +50,7 @@
                                                     <th class="col-no">No</th>
                                                     <th class="col-nama">Nama Pembeli</th>
                                                     <th class="col-produk">Nama Produk</th>
-                                                    <th class="col-jumlah">Jumlah</th>
+                                                    <th class="col-jumlah">Jumlah(pcs)</th>
                                                     <th class="col-harga">Harga</th>
                                                     <th class="col-total">Total Harga</th>
                                                 </tr>

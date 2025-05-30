@@ -79,8 +79,8 @@
                                 </div>
 
                                 <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary px-4">Simpan</button>
-                                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary px-4">Cancel</a>
+                                    <button type="submit" class="btn btn-primary rounded shadow-sm mr-3">Simpan</button>
+                                    <a href="{{ route('profile.edit') }}" class="btn btn-outline-secondary rounded shadow-sm text-center">Cancel</a>
                                 </div>
                             </form>
 

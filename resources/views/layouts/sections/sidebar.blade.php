@@ -19,6 +19,12 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{ url('/PesananPage') }}">
+                <i class="icon-bar-graph menu-icon"></i>
+                <span class="menu-title mt-1">Pesanan</span>
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{{ url('/PaymentPage') }}">
                 <i class="icon-layout menu-icon"></i>
                 <span class="menu-title mt-1">Pembayaran</span>
@@ -28,12 +34,6 @@
             <a class="nav-link" href="{{ url('/DetailOrder') }}">
                 <i class="icon-bar-graph-2 menu-icon"></i>
                 <span class="menu-title mt-1">Detail Pesanan</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ url('/PesananPage') }}">
-                <i class="icon-bar-graph menu-icon"></i>
-                <span class="menu-title mt-1">Pesanan</span>
             </a>
         </li>
         <li class="nav-item">

@@ -38,7 +38,7 @@
                                     <a href="{{ route('pengiriman.create') }}"
                                         class="btn btn-primary d-flex align-items-center rounded-pill">
                                         <i class="icon-plus mr-2 mb-1"></i>
-                                        <span class="d-none d-md-block">Tambah produk</span>
+                                        <span class="d-none d-md-block">Tambah data</span>
                                     </a>
                                 </div>
                             </div>

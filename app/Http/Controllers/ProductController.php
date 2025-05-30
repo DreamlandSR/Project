@@ -84,62 +84,6 @@ class ProductController extends Controller
     //         ->header('Cache-Control', 'public, max-age=86400');
     // }
 
-    protected function serveDefaultImage()
-    {
-        try {
-            $defaultPath = public_path('img/kamira.png');
-
-            if (file_exists($defaultPath)) {
-                return response()->file($defaultPath, [
-                    'Content-Type' => mime_content_type($defaultPath),
-                    'Cache-Control' => 'public, max-age=86400'
-                ]);
-            }
-
-            $img = imagecreatetruecolor(200, 200);
-            $bgColor = imagecolorallocate($img, 245, 245, 245);
-            $textColor = imagecolorallocate($img, 150, 150, 150);
-            imagefill($img, 0, 0, $bgColor);
-            imagestring($img, 5, 30, 90, 'Image Not Available', $textColor);
-
-            ob_start();
-            imagepng($img);
-            $imageData = ob_get_clean();
-            imagedestroy($img);
-
-            return response($imageData, 200)->header('Content-Type', 'image/png');
-        } catch (\Exception $e) {
-            Log::critical('Default image failed: ' . $e->getMessage());
-            abort(500, 'Could not load image');
-        }
-    }
-
-    protected function detectImageType($imageData)
-    {
-        try {
-            $signatures = [
-                'ffd8ff' => 'image/jpeg',
-                '89504e47' => 'image/png',
-                '47494638' => 'image/gif',
-                '52494646' => 'image/webp'
-            ];
-
-            $hex = bin2hex(substr($imageData, 0, 4));
-
-            foreach ($signatures as $sig => $mime) {
-                if (str_starts_with($hex, $sig)) {
-                    return $mime;
-                }
-            }
-
-            $finfo = new \finfo(FILEINFO_MIME_TYPE);
-            return $finfo->buffer($imageData) ?: 'image/jpeg';
-        } catch (\Exception $e) {
-            Log::error('MIME detection failed: ' . $e->getMessage());
-            return 'image/jpeg';
-        }
-    }
-
     public function edit(Product $product)
     {
         return view('dashboard.product.edit', compact('product'));
@@ -153,7 +97,6 @@ class ProductController extends Controller
             'harga' => 'required|numeric',
             'stok' => 'required|integer',
             'status' => 'required',
-            'rating' => 'nullable|numeric',
             'berat' => 'nullable|numeric',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -165,7 +108,6 @@ class ProductController extends Controller
             'harga' => $request->harga,
             'stok' => $request->stok,
             'status' => $request->status,
-            'rating' => $request->rating,
             'berat' => $request->berat,
             'image' => $request->image,
         ]);

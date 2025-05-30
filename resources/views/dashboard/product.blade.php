@@ -39,7 +39,7 @@
                                     <a href="{{ route('products.create') }}"
                                         class="btn btn-primary d-flex align-items-center rounded-pill">
                                         <i class="icon-plus mr-2 mb-1"></i>
-                                        <span class="d-none d-md-block">Tambah produk</span>
+                                        <span class="d-none d-md-block">Tambah Data</span>
                                     </a>
                                 </div>
                             </div>
@@ -91,14 +91,13 @@
 
                                                     <!-- Modal Detail Produk -->
                                                     <div class="modal fade" id="detailModal{{ $p->id }}"
-                                                        tabindex="-1" aria-labelledby="detailModalLabel{{ $p->id }}"
+                                                        tabindex="-1" role="dialog"
+                                                        aria-labelledby="detailModalLabel{{ $p->id }}"
                                                         aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                        <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title">Detail Produk</h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal" aria-label="Tutup"></button>
                                                                 </div>
                                                                 <div class="modal-body text-start">
                                                                     <p><strong>Nama:</strong> {{ $p->nama }}</p>
@@ -117,7 +116,7 @@
                                                                         {{ number_format($p->harga, 0, ',', '.') }}</p>
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
+                                                                    <button type="button" class="btn btn-sm btn-secondary"
                                                                         data-bs-dismiss="modal">Tutup</button>
                                                                 </div>
                                                             </div>

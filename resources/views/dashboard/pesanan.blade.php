@@ -17,7 +17,7 @@
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
                                 <div class="mb-2 mb-md-0">
-                                    <h3 class="fw-bold mb-0" style="color: #000;">Status Pengiriman</h3>
+                                    <h3 class="fw-bold mb-0" style="color: #000;">Status Pesanan</h3>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                                     <th class="col-metode">Metode Pengiriman</th>
 
                                                     <th class="col-status">Status</th>
-                                                    <th class="col-action">Action</th>
+                                                    <th class="col-action">Aksi</th>
                                                 </tr>
                                             </thead>
 
@@ -121,7 +121,7 @@
                                                         </td>
                                                         <td class="col-action">
                                                             <div class="d-flex justify-content-center gap-2">
-                                                                <button class="btn btn-sm btn-primary mr-1"
+                                                                {{-- <button class="btn btn-sm btn-primary mr-1"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $order->id }}">
                                                                     Edit
@@ -132,7 +132,7 @@
                                                                     @csrf @method('DELETE')
                                                                     <button class="btn btn-sm btn-danger mr-1"
                                                                         onclick="return confirm('Yakin hapus produk ini?')">Hapus</button>
-                                                                </form>
+                                                                </form> --}}
                                                                 <a href="#" class="btn btn-sm btn-info"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#detailModal{{ $order->id }}">
@@ -176,7 +176,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Modal Edit -->
+                                                    {{-- <!-- Modal Edit -->
                                                     <div class="modal fade" id="editModal{{ $order->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="editModalLabel{{ $order->id }}"
@@ -256,12 +256,12 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
 
 
                                                     <!-- Modal Konfirmasi Hapus -->
-                                                    <div class="modal fade" id="deleteModal{{ $order->id }}"
+                                                    {{-- <div class="modal fade" id="deleteModal{{ $order->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="deleteModalLabel{{ $order->id }}"
                                                         aria-hidden="true">
@@ -292,7 +292,7 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 @endforeach
                                             </tbody>
                                         </table>

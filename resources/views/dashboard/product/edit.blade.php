@@ -62,12 +62,6 @@
                             </select>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="rating" class="form-label">Rating (opsional)</label>
-                            <input type="number" class="form-control" id="rating" name="rating" step="0.1"
-                                value="{{ $product->rating }}">
-                        </div>
-
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">Update</button>
                             <a href="{{ route('products.index') }}" class="btn btn-secondary">Batal</a>

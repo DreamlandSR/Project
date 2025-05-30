@@ -101,6 +101,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title">Detail Pertumbuhan</p>
+                                    <p>Detail chart di bawah ini merupakan data dari pesanan yang telah selesai diterima dalam setiap bulan selama 1 tahun</p>
                                     <canvas id="growthChart" width="600" height="300"></canvas>
                                     <div class="d-flex flex-wrap mb-5">
 

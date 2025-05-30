@@ -16,7 +16,7 @@
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
                                 <div class="mb-2 mb-md-0">
-                                    <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
+                                    <h3 class="fw-bold mb-0" style="color: #000;">Detail Pembayaran</h3>
                                 </div>
 
                             </div>
