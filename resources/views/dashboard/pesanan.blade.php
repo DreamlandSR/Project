@@ -121,13 +121,13 @@
                                                         </td>
                                                         <td class="col-action">
                                                             <div class="d-flex justify-content-center gap-2">
-                                                                {{-- <button class="btn btn-sm btn-primary mr-1"
+                                                                <button class="btn btn-sm btn-primary mr-1"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $order->id }}">
                                                                     Edit
                                                                 </button>
 
-                                                                <form action="{{ route('order.destroy', $order->id) }}"
+                                                                {{-- <form action="{{ route('order.destroy', $order->id) }}"
                                                                     method="POST" style="display:inline-block;">
                                                                     @csrf @method('DELETE')
                                                                     <button class="btn btn-sm btn-danger mr-1"
@@ -176,7 +176,7 @@
                                                         </div>
                                                     </div>
 
-                                                    {{-- <!-- Modal Edit -->
+                                                    <!-- Modal Edit -->
                                                     <div class="modal fade" id="editModal{{ $order->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="editModalLabel{{ $order->id }}"
@@ -256,7 +256,7 @@
                                                                 </form>
                                                             </div>
                                                         </div>
-                                                    </div> --}}
+                                                    </div>
 
 
 

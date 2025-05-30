@@ -31894,6 +31894,9 @@ dl li {
 .col-no {
     width: 40px;
 }
+.col-gambar {
+    width: 200px;
+}
 .col-nama {
     width: 120px;
 }
@@ -31913,7 +31916,7 @@ dl li {
     width: 100px;
 }
 .col-action {
-    width: 200px;
+    width: 180px;
 }
 .col-produk {
     width: 120px;

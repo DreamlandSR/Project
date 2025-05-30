@@ -16,7 +16,7 @@
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
                                 <div class="mb-2 mb-md-0">
-                                    <h3 class="fw-bold mb-0" style="color: #000;">Produk Kami</h3>
+                                    <h3 class="fw-bold mb-0" style="color: #000;">Data Produk</h3>
                                 </div>
 
 
@@ -51,13 +51,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table align-middle text-center">
+                                        <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Nama</th>
-                                                    <th>Gambar</th>
-                                                    <th>Action</th>
+                                                    <th class="col-no">No</th>
+                                                    <th class="col-nama">Nama</th>
+                                                    <th class="col-gambar">Gambar</th>
+                                                    <th class="col-action">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
