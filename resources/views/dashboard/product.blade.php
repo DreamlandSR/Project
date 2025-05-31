@@ -19,7 +19,6 @@
                                     <h3 class="fw-bold mb-0" style="color: #000;">Produk Kami</h3>
                                 </div>
 
-
                                 <div class="d-flex flex-wrap gap-3">
                                     <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
                                         <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
@@ -29,11 +28,6 @@
                                             <option>50</option>
                                         </select>
                                     </div>
-
-                                    <button class="btn btn-outline-primary d-flex align-items-center rounded-pill">
-                                        <i class="icon-download me-2"></i>
-                                        <span class="d-none d-md-block">Export</span>
-                                    </button>
 
                                     <!-- Tombol Tambah Produk Buka Modal -->
                                     <a href="{{ route('products.create') }}"
@@ -100,7 +94,7 @@
                                                                     @endforeach
                                                                 </p>
                                                                 <p><strong>Deskripsi:</strong><br>{{ $p->deskripsi }}</p>
-                                                                <p><strong>Stok:</strong> {{ $p->stok_id }}</p>
+                                                                <p><strong>Stok:</strong> {{ $p->stock ? $p->stock->quantity : 0 }}</p>
                                                                 <p><strong>Harga:</strong> Rp {{ number_format($p->harga, 0, ',', '.') }}</p>
                                                             </div>
                                                             <div class="modal-footer">
