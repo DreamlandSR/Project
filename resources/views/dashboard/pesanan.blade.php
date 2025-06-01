@@ -17,7 +17,9 @@
                         <div class="col-lg-12">
                             <div class="d-flex flex-wrap justify-content-between align-items-center p-3">
                                 <div class="mb-2 mb-md-0">
+
                                     <h3 class="fw-bold mb-0" style="color: #000;">Status Pesanan</h3>
+
                                 </div>
                             </div>
                         </div>
@@ -40,6 +42,7 @@
                                             <div class="col-12 col-md-6 mb-2 mb-md-0">
                                                 <form method="GET" action="{{ route('pesanan.page') }}"
                                                     class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 w-100">
+
                                                     <label for="status"
                                                         class="mb-1 mb-md-0 small fw-semibold text-muted mr-3">Filter
                                                         Status</label>
@@ -61,6 +64,7 @@
                                                         <option value="cancelled"
                                                             {{ request('status') == 'cancelled' ? 'selected' : '' }}>
                                                             Dibatalkan</option>
+
                                                     </select>
                                                 </form>
                                             </div>
@@ -87,13 +91,13 @@
                                                     <th class="col-nama">Nama</th>
                                                     <th class="col-tanggal">Tanggal Pesan</th>
 
+
                                                     <th class="col-metode">Metode Pengiriman</th>
 
                                                     <th class="col-status">Status</th>
                                                     <th class="col-action">Aksi</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 @foreach ($orders as $index => $order)
                                                     <tr>
@@ -104,7 +108,9 @@
                                                             {{ \Carbon\Carbon::parse($order->waktu_order)->format('d/m/Y') }}
                                                         </td>
 
+
                                                         <td class="col-metode">{{ $order->metode_pengiriman ?? '-' }}</td>
+
 
                                                         <td class="col-status">
                                                             @php
@@ -121,6 +127,7 @@
                                                         </td>
                                                         <td class="col-action">
                                                             <div class="d-flex justify-content-center gap-2">
+
                                                                 <button class="btn btn-sm btn-primary mr-1"
                                                                     data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $order->id }}">
@@ -139,6 +146,7 @@
                                                                     Detail
                                                                 </a>
                                                             </div>
+
                                                         </td>
                                                     </tr>
 
@@ -151,6 +159,7 @@
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h5 class="modal-title">Detail Pesanan</h5>
+
                                                                 </div>
                                                                 <div class="modal-body text-start">
                                                                     <p><strong>Nama:</strong>
@@ -175,6 +184,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                     <!-- Modal Edit -->
                                                     <div class="modal fade" id="editModal{{ $order->id }}"
@@ -258,8 +268,6 @@
                                                         </div>
                                                     </div>
 
-
-
                                                     <!-- Modal Konfirmasi Hapus -->
                                                     {{-- <div class="modal fade" id="deleteModal{{ $order->id }}"
                                                         tabindex="-1" role="dialog"
@@ -305,8 +313,6 @@
                                             {{ $orders->total() }} data
                                         </div>
                                     </div>
-
-
 
                                     <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
 

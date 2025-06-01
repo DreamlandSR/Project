@@ -19,7 +19,6 @@
                                     <h3 class="fw-bold mb-0" style="color: #000;">Data Produk</h3>
                                 </div>
 
-
                                 <div class="d-flex flex-wrap gap-3">
                                     {{-- <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
                                         <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
@@ -28,12 +27,14 @@
                                             <option>25</option>
                                             <option>50</option>
                                         </select>
+
                                     </div> --}}
                                     {{--
                                     <button class="btn btn-outline-primary d-flex align-items-center rounded-pill">
                                         <i class="icon-download me-2"></i>
                                         <span class="d-none d-md-block">Export</span>
                                     </button> --}}
+
 
                                     <!-- Tombol Tambah Produk Buka Modal -->
                                     <a href="{{ route('products.create') }}"
@@ -90,6 +91,7 @@
                                                     </tr>
 
                                                     <!-- Modal Detail Produk -->
+
                                                     <div class="modal fade" id="detailModal{{ $p->id }}"
                                                         tabindex="-1" role="dialog"
                                                         aria-labelledby="detailModalLabel{{ $p->id }}"
@@ -119,6 +121,7 @@
                                                                     <button type="button" class="btn btn-sm btn-secondary"
                                                                         data-bs-dismiss="modal">Tutup</button>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>

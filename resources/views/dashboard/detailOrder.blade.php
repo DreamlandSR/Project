@@ -18,6 +18,18 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
+
+                                <div class="d-flex flex-wrap gap-3">
+                                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
+                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
+                                        <select class="form-select border-0 bg-transparent pe-3">
+                                            <option selected>10</option>
+                                            <option>25</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -56,46 +68,72 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($orderItems as $index => $item)
+                                                @php
+                                                    $no = ($groupedOrders->currentPage() - 1) * $groupedOrders->perPage() + 1;
+                                                @endphp
+                                                @foreach ($groupedOrders as $order)
                                                     <tr>
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $item->order->user->nama ?? 'Tidak Diketahui' }}</td>
-                                                        <td>{{ $item->product->nama ?? 'Produk tidak ditemukan' }}</td>
-                                                        <td>{{ $item->kuantitas }}</td>
-                                                        <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                                        <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+
+                                                        <td>{{ $no++ }}</td>
+                                                        <td>{{ $order->user->nama ?? 'Tidak Diketahui' }}</td>
+                                                        <td>
+                                                            @if($order->orderItems->count() > 1)
+                                                                <div class="text-start">
+                                                                    @foreach($order->orderItems as $item)
+                                                                        <div class="mb-1">
+                                                                            • {{ $item->product->nama ?? 'Produk tidak ditemukan' }} 
+                                                                            ({{ $item->kuantitas }}x)
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @else
+                                                                {{ $order->orderItems->first()->product->nama ?? 'Produk tidak ditemukan' }}
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $order->orderItems->sum('kuantitas') }}</td>
+                                                        <td>
+                                                            @if($order->orderItems->count() > 1)
+                                                                <div class="text-start">
+                                                                    @foreach($order->orderItems as $item)
+                                                                        <div class="mb-1">
+                                                                            Rp {{ number_format($item->harga, 0, ',', '.') }}
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            @else
+                                                                Rp {{ number_format($order->orderItems->first()->harga, 0, ',', '.') }}
+                                                            @endif
+                                                        </td>
+                                                        <td>Rp {{ number_format($order->orderItems->sum('subtotal'), 0, ',', '.') }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
 
-                                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                                        {{-- Informasi jumlah data yang ditampilkan --}}
-                                        <div class="text-muted ml-4 mt-3">
-                                            Menampilkan {{ $orderItems->firstItem() ? $orderItems->firstItem() : 0 }} -
-                                            {{ $orderItems->lastItem() ? $orderItems->lastItem() : 0 }} dari total
-                                            {{ $orderItems->total() }} data
-                                        </div>
-                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
 
-                                    <div class="d-flex justify-content-between align-items-center mt-2 flex-wrap">
                                         {{-- Tombol Kembali --}}
-                                        @if ($orderItems->onFirstPage())
+                                        @if ($groupedOrders->onFirstPage())
+
                                             <span
                                                 class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
                                                 <i class="ti-angle-left me-1"></i> Kembali
                                             </span>
                                         @else
-                                            <a href="{{ $orderItems->previousPageUrl() }}"
+
+                                            <a href="{{ $groupedOrders->previousPageUrl() }}"
+
                                                 class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
                                                 <i class="ti-angle-left me-1"></i> Kembali
                                             </a>
                                         @endif
 
                                         {{-- Tombol Selanjutnya --}}
-                                        @if ($orderItems->hasMorePages())
-                                            <a href="{{ $orderItems->nextPageUrl() }}"
+
+                                        @if ($groupedOrders->hasMorePages())
+                                            <a href="{{ $groupedOrders->nextPageUrl() }}"
+
                                                 class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
                                                 Selanjutnya <i class="ti-angle-right ms-1"></i>
                                             </a>
@@ -105,6 +143,7 @@
                                                 Selanjutnya <i class="ti-angle-right ms-1"></i>
                                             </span>
                                         @endif
+
                                     </div>
                                 </div>
                             </div>

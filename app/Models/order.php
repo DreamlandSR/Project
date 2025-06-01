@@ -2,33 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory;
-
-    protected $table = 'orders'; // sesuai dengan nama tabel di database
-
-    // Di dalam model Order.php
+    protected $table = 'orders';
     public $timestamps = false;
-
     protected $fillable = [
         'user_id',
-        'waktu_order',
         'status',
-        'total_harga',
         'alamat_pemesanan',
         'metode_pengiriman',
         'notes',
+        'total_amount',
+
     ];
 
     /**
-     * Relasi ke user (many-to-one)
+     * Relasi ke User (pembeli)
      */
-
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -40,15 +32,44 @@ class Order extends Model
 
 
     /**
-     * Relasi ke pengiriman (one-to-many)
+     * Relasi ke OrderItem (items dalam pesanan)
+     * RELASI INI YANG DIBUTUHKAN UNTUK MENGATASI ERROR
      */
-    public function pengirimans()
+    public function orderItems()
     {
-        return $this->hasMany(Pengiriman::class, 'order_id');
+        return $this->hasMany(OrderItem::class);
     }
 
-    public function items()
+    /**
+     * Accessor untuk mendapatkan total harga pesanan
+     * (dihitung dari sum subtotal semua order items)
+     */
+    public function getTotalAmountAttribute()
     {
-        return $this->hasMany(OrderItem::class, 'order_id');
+        return $this->orderItems->sum('subtotal');
+    }
+
+    /**
+     * Accessor untuk mendapatkan total kuantitas items
+     */
+    public function getTotalQuantityAttribute()
+    {
+        return $this->orderItems->sum('kuantitas');
+    }
+
+    /**
+     * Scope untuk filter berdasarkan status
+     */
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    /**
+     * Scope untuk filter berdasarkan tanggal
+     */
+    public function scopeByDateRange($query, $startDate, $endDate)
+    {
+        return $query->whereBetween('created_at', [$startDate, $endDate]);
     }
 }

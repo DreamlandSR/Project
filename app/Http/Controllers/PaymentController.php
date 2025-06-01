@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -27,8 +26,5 @@ class PaymentController extends Controller
 
     return view('dashboard.payment', compact('payments'));
 }
-
-
-
 
 }
