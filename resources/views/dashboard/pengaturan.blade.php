@@ -21,8 +21,10 @@
                                         <!-- Avatar Canvas -->
                                         <div class="d-flex justify-content-center align-items-center rounded-circle mb-4"
                                             style="width: 80px; height: 80px; margin: 0 auto;">
-                                            <img src="{{ url('img/Frieren.jpeg') }}" alt="Avatar" class="rounded-circle"
-                                                style="width: 100%; height: 100%; object-fit: cover;">
+                                            <img src="{{ asset(empty(Auth::user()->avatar) ? 'img/Batik 2.jpg' : 'storage/avatars/' . Auth::user()->avatar) }}"
+                                                alt="Profile" class="rounded-circle"
+                                                style="width: 100%; height: 100%; object-fit: cover;" />
+
                                         </div>
 
                                         <!-- Title -->
@@ -50,9 +52,11 @@
                                         <div class="d-flex justify-content-start pb-2"> <!-- Align kiri -->
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary btn-sm mr-3 px-4">Keluar</button>
+                                                <button type="submit"
+                                                    class="btn btn-primary btn-sm mr-3 px-4">Keluar</button>
                                             </form>
-                                             <a href="{{ url ('/AdminPage') }}"><button class="btn btn-outline-secondary btn-sm px-4">Cancel</button></a>
+                                            <a href="{{ url('/AdminPage') }}"><button
+                                                    class="btn btn-outline-secondary btn-sm px-4">Cancel</button></a>
                                         </div>
 
                                     </div>

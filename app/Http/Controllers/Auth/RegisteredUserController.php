@@ -27,20 +27,16 @@ class RegisteredUserController extends Controller
             'role' => 'admin',
         ]);
 
+        // Login user secara otomatis setelah registrasi
+        Auth::login($user);
 
-
-        Session::flash('email', $request->email);
-        Session::flash('password', $request->password);
-
-        return redirect()->route('login')->with('success', 'Pendaftaran berhasil. Silakan login.');
+        // Redirect ke halaman register dengan pesan sukses
+        return redirect('/register')->with('success', 'Registrasi berhasil!');
     }
 
     public function create()
     {
-        if (Auth::check()) {
-            return redirect('/AdminPage'); // user sudah login, redirect
-        }
-
-        return view('auth.register'); // user belum login, tampilkan form register
+        // Jika user sudah login, tetap tampilkan halaman register
+        return view('auth.register');
     }
 }

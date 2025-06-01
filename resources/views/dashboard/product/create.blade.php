@@ -4,40 +4,41 @@
     @include('layouts.sections.navbar')
 
     <div class="container-scroller">
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
-
             @include('layouts.sections.sidebar')
 
             <div class="main-panel">
                 <div class="content-wrapper">
-                    <h2 class="mb-4">Tambah Produk</h2>
-                    
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+                    <div class="card shadow-sm rounded p-4">
+                        <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row gx-4 gy-3">
+                                <div class="col-md-4 position-relative">
+                                    <input type="file" name="image_product[]" id="image-input" multiple hidden>
 
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                                    <!-- Wadah upload dan preview -->
+                                    <div id="image-upload-wrapper">
+                                        <!-- Kotak Upload -->
+                                        <label id="upload-box" for="image-input"
+                                            class="upload-box d-flex align-items-center justify-content-center">
+                                            +
+                                        </label>
 
-                    @if($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                                        <!-- Preview Gambar -->
+                                        <div id="image-preview" class="d-none position-relative">
+                                            <img id="main-preview" class="img-fluid rounded"
+                                                style="width: 100%; height: 100%; object-fit: cover;" />
+                                            <!-- Tombol X -->
+                                            <button type="button" id="remove-image" class="btn btn-danger px-2 py-0"
+                                                style="position: absolute; top: 6px; right: 6px;">×</button>
 
-                    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" 
-                          class="p-4 bg-white shadow rounded" style="max-width: 600px;">
-                        @csrf
+                                            <div id="image-count"
+                                                class="position-absolute end-0 bottom-0 me-2 mb-2 px-2 py-1 bg-primary text-white rounded small d-none">
+                                                +2</div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Produk</label>
@@ -48,209 +49,144 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="image_product" class="form-label">Upload Gambar</label>
-                            <input type="file" class="form-control @error('image_product.*') is-invalid @enderror" 
-                                   name="image_product[]" id="image-input" accept="image/*" multiple>
-                            <div class="form-text">Pilih satu atau lebih gambar. Format yang didukung: JPG, JPEG, PNG. Maksimal 2MB per file.</div>
-                            @error('image_product.*')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                            
-                            <!-- Preview Container -->
-                            <div id="preview-container" class="row mt-3"></div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="deskripsi" class="form-label">Deskripsi</label>
-                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                      id="deskripsi" name="deskripsi" rows="3" required>{{ old('deskripsi') }}</textarea>
-                            @error('deskripsi')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                <style>
+                                    .upload-box {
+                                        width: 100%;
+                                        height: 200px;
+                                        border: 2px dashed #ccc;
+                                        border-radius: 8px;
+                                        font-size: 2.5rem;
+                                        color: #999;
+                                        cursor: pointer;
+                                    }
 
-                        <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
-                            <input type="number" class="form-control @error('harga') is-invalid @enderror" 
-                                   id="harga" name="harga" value="{{ old('harga') }}" step="0.01" min="0" required>
-                            @error('harga')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="quantity" class="form-label">Stok/Quantity</label>
-                            <input type="number" class="form-control @error('quantity') is-invalid @enderror" 
-                                   id="quantity" name="quantity" value="{{ old('quantity', 0) }}" min="0" required>
-                            <div class="form-text">Masukkan jumlah stok produk</div>
-                            @error('quantity')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                    #image-preview img {
+                                        border-radius: 8px;
+                                        max-height: 200px;
+                                        object-fit: cover;
+                                    }
 
-                        <div class="mb-3">
-                            <label for="status" class="form-label">Status</label>
-                            <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
-                                <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>Tersedia</option>
-                                <option value="unavailable" {{ old('status') == 'unavailable' ? 'selected' : '' }}>Habis</option>
-                                <option value="out_of_stock" {{ old('status') == 'out_of_stock' ? 'selected' : '' }}>Stok Habis</option>
-                                <option value="hidden" {{ old('status') == 'hidden' ? 'selected' : '' }}>Disembunyikan</option>
-                            </select>
-                            @error('status')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </div>
+                                    #image-upload-wrapper {
+                                        position: relative;
+                                        width: 100%;
+                                        height: 200px;
+                                    }
 
-                        <!-- Info Preview untuk gambar yang akan diupload -->
-                        <div class="mb-3" id="upload-info" style="display: none;">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <h6 class="card-title">Info Upload</h6>
-                                    <small class="text-muted">
-                                        <strong>Total Gambar:</strong> <span id="total-images">0</span> gambar dipilih<br>
-                                        <strong>Status:</strong> Siap untuk disimpan
-                                    </small>
+                                    .upload-box,
+                                    #image-preview {
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+                                </style>
+
+
+                                <!-- Form Inputs -->
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="nama" class="form-label fw-bold">Nama Produk</label>
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="harga" class="form-label fw-bold">Harga</label>
+                                            <input type="number" class="form-control" id="harga" name="harga"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="stok" class="form-label fw-bold">Stok</label>
+                                            <input type="number" class="form-control" id="stok" name="stok"
+                                                required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="berat" class="form-label fw-bold">Berat (Gram)</label>
+                                            <input type="number" class="form-control" id="berat" name="berat"
+                                                required>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="deskripsi" class="form-label fw-bold">Deskripsi</label>
+                                            <textarea class="form-control" id="deskripsi" name="deskripsi" rows="5" required></textarea>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="status" class="form-label fw-bold">Status</label>
+                                            <select class="custom-select w-50 w-md-auto" id="status" name="status">
+                                                <option value="available">Tersedia</option>
+                                                <option value="unavailable">Habis</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="d-flex justify-content-between">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save"></i> Simpan Produk
-                            </button>
-                            <a href="{{ route('products.index') }}" class="btn btn-secondary">
-                                <i class="fas fa-times"></i> Batal
-                            </a>
-                        </div>
-                    </form>
+                            <div class="mt-4 d-flex gap-2">
+                                <button type="submit" class="btn btn-primary rounded shadow-sm mr-3"
+                                    style="padding: 12px 0; width:150px">Simpan</button>
+                                <a href="{{ route('products.index') }}"
+                                    class="btn btn-outline-secondary rounded shadow-sm text-center"
+                                    style="padding: 12px 0; width:150px">Batal</a>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
+
+    <!-- Script untuk preview gambar dan hitung jumlah -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const imageInput = document.getElementById('image-input');
-            const previewContainer = document.getElementById('preview-container');
-            const uploadInfo = document.getElementById('upload-info');
-            const totalImagesSpan = document.getElementById('total-images');
-            let selectedFiles = [];
+        const input = document.getElementById('image-input');
+        const uploadBox = document.getElementById('upload-box');
+        const previewContainer = document.getElementById('image-preview');
+        const mainPreview = document.getElementById('main-preview');
+        const removeButton = document.getElementById('remove-image');
+        const countBadge = document.getElementById('image-count');
 
-            imageInput.addEventListener('change', function(e) {
-                previewContainer.innerHTML = ''; // Bersihkan container sebelumnya
-                selectedFiles = Array.from(e.target.files);
+        let fileList = [];
 
-                if (selectedFiles.length > 0) {
-                    uploadInfo.style.display = 'block';
-                    totalImagesSpan.textContent = selectedFiles.length;
+        input.addEventListener('change', function(e) {
+            fileList = Array.from(e.target.files);
+
+            if (fileList.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    mainPreview.src = e.target.result;
+                    previewContainer.classList.remove('d-none');
+                    uploadBox.classList.add('d-none'); // HILANGKAN kotak upload
+                };
+                reader.readAsDataURL(fileList[0]);
+
+                // Tampilkan badge jika gambar lebih dari 1
+                if (fileList.length > 1) {
+                    countBadge.innerText = `+${fileList.length - 1}`;
+                    countBadge.classList.remove('d-none');
                 } else {
-                    uploadInfo.style.display = 'none';
+                    countBadge.classList.add('d-none');
                 }
-
-                selectedFiles.forEach((file, index) => {
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            const div = document.createElement('div');
-                            div.className = 'col-md-4 mb-3';
-                            div.innerHTML = `
-                                <div class="position-relative">
-                                    <img src="${event.target.result}" 
-                                         class="img-thumbnail" 
-                                         style="width: 150px; height: 150px; object-fit: cover;">
-                                    <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 remove-preview" 
-                                            data-file-index="${index}" style="z-index: 10;">
-                                        <i class="fa fa-times"></i> ×
-                                    </button>
-                                    <div class="position-absolute top-0 start-0 m-1">
-                                        <span class="badge bg-primary">Baru</span>
-                                    </div>
-                                    <small class="d-block text-center mt-1 text-truncate" style="max-width: 150px;">${file.name}</small>
-                                    <small class="d-block text-center text-muted">${(file.size / 1024 / 1024).toFixed(2)} MB</small>
-                                </div>
-                            `;
-                            previewContainer.appendChild(div);
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-
-                // Handle remove preview
-                setTimeout(() => {
-                    document.querySelectorAll('.remove-preview').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const fileIndex = parseInt(this.getAttribute('data-file-index'));
-                            
-                            if (confirm('Hapus preview gambar ini?')) {
-                                // Remove from visual display
-                                this.closest('.col-md-4').remove();
-                                
-                                // Remove from selectedFiles array
-                                selectedFiles.splice(fileIndex, 1);
-                                
-                                // Update file input (create new file list)
-                                updateFileInput();
-                                
-                                // Update info
-                                if (selectedFiles.length > 0) {
-                                    totalImagesSpan.textContent = selectedFiles.length;
-                                } else {
-                                    uploadInfo.style.display = 'none';
-                                }
-                            }
-                        });
-                    });
-                }, 100);
-            });
-
-            // Function to update file input with remaining files
-            function updateFileInput() {
-                const dt = new DataTransfer();
-                selectedFiles.forEach(file => dt.items.add(file));
-                imageInput.files = dt.files;
+            } else {
+                resetPreview();
             }
-
-            // Auto-update status based on stock
-            const quantityInput = document.getElementById('quantity');
-            const statusSelect = document.getElementById('status');
-            
-            quantityInput.addEventListener('input', function() {
-                const quantityValue = parseInt(this.value) || 0;
-                
-                if (quantityValue === 0) {
-                    if (statusSelect.value === 'available') {
-                        if (confirm('Quantity bernilai 0, ubah status menjadi "Stok Habis"?')) {
-                            statusSelect.value = 'out_of_stock';
-                        }
-                    }
-                } else if (statusSelect.value === 'out_of_stock' || statusSelect.value === 'unavailable') {
-                    if (confirm('Quantity tersedia, ubah status menjadi "Tersedia"?')) {
-                        statusSelect.value = 'available';
-                    }
-                }
-            });
-
-            // Form validation before submit
-            document.querySelector('form').addEventListener('submit', function(e) {
-                const quantity = parseInt(quantityInput.value) || 0;
-                const status = statusSelect.value;
-                
-                // Warning if status doesn't match quantity
-                if (quantity === 0 && status === 'available') {
-                    if (!confirm('Warning: Status "Tersedia" dengan quantity 0. Lanjutkan?')) {
-                        e.preventDefault();
-                        return false;
-                    }
-                }
-                
-                if (quantity > 0 && (status === 'out_of_stock' || status === 'unavailable')) {
-                    if (!confirm('Warning: Ada quantity tersedia tapi status menunjukkan tidak tersedia. Lanjutkan?')) {
-                        e.preventDefault();
-                        return false;
-                    }
-                }
-            });
         });
+
+        removeButton.addEventListener('click', function() {
+            resetPreview();
+        });
+
+        function resetPreview() {
+            previewContainer.classList.add('d-none');
+            uploadBox.classList.remove('d-none');
+            input.value = ""; // reset input file
+            fileList = [];
+            mainPreview.src = '';
+            countBadge.classList.add('d-none');
+        }
     </script>
 @endsection
+

@@ -64,7 +64,7 @@
                         {{-- Image Section --}}
                         <div class="col-12 col-md-6 d-none d-md-flex justify-content-center align-items-center pr-1">
                             <div class="w-100 h-100 rounded overflow-hidden" style="position: relative;">
-                                <img src="{{ asset('img/Screen.jpg') }}" alt="Batik" class="img-fluid w-100 h-100"
+                                <img src="{{ asset('img/Batik 2.jpg') }}" alt="Batik" class="img-fluid w-100 h-100"
                                     style="object-fit: cover; position: absolute; top: 0; left: 0;">
                             </div>
                         </div>

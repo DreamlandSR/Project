@@ -48,6 +48,7 @@ class ProfileController extends Controller
             Storage::disk('public')->delete('avatars/' . $user->avatar);
         }
 
+
         $file = $request->file('avatar');
         $filename = uniqid() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('avatars', $filename, 'public');

@@ -7,32 +7,26 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up(): void
-    {
-        if (!Schema::hasTable('products')) {
-            Schema::create('products', function (Blueprint $table) {
-                $table->id();
-                $table->string('nama');
-                $table->string('deskripsi');
-                $table->decimal('harga', 10, 2);
-                $table->unsignedBigInteger('stok_id');
-                $table->string('status');
-                $table->decimal('rating', 3, 1)->nullable();
-                $table->timestamps();
-            });
-        }
-
-        Schema::create('product_images', function (Blueprint $table) {
+{
+    if (!Schema::hasTable('products')) {
+        Schema::create('products', function (Blueprint $table) {
+            
             $table->id();
-            $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->longBlob('image_product')->nullable(false);
-            $table->boolean('is_main')->default(true);
-            $table->timestamps();
+            $table->string('nama', 100)->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->decimal('harga', 10, 2)->nullable();
+            $table->integer('stok_id')->nullable();
+            $table->enum('status', ['available', 'out_of_stock', 'hidden'])
+                  ->default('available')
+                  ->nullable();
+            $table->float('rating')->default(0)->nullable();
+            $table->integer('berat')->nullable();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
-
+}
     public function down(): void
     {
         Schema::dropIfExists('products');
-        Schema::dropIfExists('products_images');
     }
 };

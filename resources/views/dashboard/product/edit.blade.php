@@ -4,13 +4,13 @@
     @include('layouts.sections.navbar')
 
     <div class="container-scroller">
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
 
             @include('layouts.sections.sidebar')
 
             <div class="main-panel">
                 <div class="content-wrapper">
+
                     <h2 class="mb-4">Edit Produk</h2>
                     
                     @if(session('error'))
@@ -156,9 +156,11 @@
                                         <strong>Gambar Baru:</strong> <span id="total-new-images">0</span> gambar dipilih<br>
                                         <strong>Status:</strong> Siap untuk disimpan
                                     </small>
+
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="d-flex justify-content-between">
                             <button type="submit" class="btn btn-primary">
@@ -167,11 +169,15 @@
                             <a href="{{ route('products.index') }}" class="btn btn-secondary">
                                 <i class="fas fa-arrow-left"></i> Batal
                             </a>
+
                         </div>
                     </form>
                 </div>
+                {{-- content-wrapper ends --}}
             </div>
+            {{-- main-panel ends --}}
         </div>
+        {{-- page-body-wrapper ends --}}
     </div>
 
     <script>
@@ -331,3 +337,4 @@
         });
     </script>
 @endsection
+

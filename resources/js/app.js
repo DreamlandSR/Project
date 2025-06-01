@@ -6,11 +6,10 @@ window.Popper = createPopper;
 
 import 'bootstrap';
 
-import DataTable from 'datatables.net-bs4';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.css';
 import 'datatables.net-select';
 
-// Perubahan utama di bagian Chart.js
+
 import { Chart } from 'chart.js';
 window.Chart = Chart;
 

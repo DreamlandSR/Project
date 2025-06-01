@@ -13,7 +13,7 @@ class HomeController extends Controller
         $products = Product::with('images')->get();
 
         return view('home.index', [
-            'judul' => 'Home',
+            'judul' => 'Beranda',
             'css' => ['nav.css', 'styles.css', 'ionicons.min.css'],
             'minimal_header' => true,
             'products' => $products

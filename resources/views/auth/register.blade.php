@@ -19,13 +19,18 @@
 
                                 @if ($errors->any())
                                     <div class="mb-4">
-                                        <ul class="list-disc list-inside text-sm text-red-600">
+                                        <ul class="alert alert-danger">
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach
                                         </ul>
                                     </div>
                                 @endif
+                                @if (session('success'))
+                                        <div class="alert alert-success mt-3">
+                                            {{ session('success') }}
+                                        </div>
+                                    @endif
 
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
@@ -73,13 +78,6 @@
                                             Daftar
                                         </button>
                                     </div>
-
-                                    <div class="text-center">
-                                        <small>
-                                            sudah punya akun?
-                                            <a href="{{ route('login') }}">login</a>
-                                        </small>
-                                    </div>
                                 </form>
                             </div>
 
@@ -89,7 +87,7 @@
 
                                 <div class="w-100 h-100 rounded overflow-hidden"
                                     style="position: relative; background-color: #f5f5f5;">
-                                    <img src="{{ asset('img/Screen.jpg') }}" alt="Batik Cicilia"
+                                    <img src="{{ asset('img/Batik 2.jpg') }}" alt="Batik Cicilia"
                                         class="img-fluid w-100 h-100"
                                         style="object-fit: cover; position: absolute; top: 0; left: 0;">
                                 </div>

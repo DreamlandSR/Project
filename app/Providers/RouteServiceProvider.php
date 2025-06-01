@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public const HOME = '/admin';
+    public const HOME = '/register';
 
     protected $namespace = null;
 

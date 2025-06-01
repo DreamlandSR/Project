@@ -5,31 +5,56 @@ namespace App\Http\Controllers;
 use App\Models\Pengiriman;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class PengirimanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pengiriman =  Pengiriman::latest()->paginate(10);
+        $query = Pengiriman::with(['order.user']);
+
+        // Filter status pengiriman
+        if ($request->filled('status_pengiriman')) {
+            $query->where('status_pengiriman', $request->status_pengiriman);
+        }
+
+        // Filter berdasarkan nama pembeli
+        if ($request->has('search') && $request->search !== '') {
+            $query->whereHas('order.user', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        $pengiriman = $query->paginate(5)->withQueryString();
+
         return view('dashboard.pengiriman', compact('pengiriman'));
     }
 
     public function create()
     {
-        $orders = Order::all(); // ambil semua order
-        return view('dashboard.pengiriman', compact('orders'));
+        // Ambil order dengan status 'paid' dan sertakan data user terkait
+        // Juga, filter order yang belum memiliki data pengiriman (opsional tapi direkomendasikan)
+        $orders = Order::with('user') // Eager load relasi user
+                       ->where('status', 'paid') // Filter berdasarkan status order
+                       ->whereDoesntHave('pengirimans') // Hanya order yang belum ada di tabel pengiriman
+                       ->orderBy('id', 'desc')
+                       ->get();
+
+        // Kirim variabel $orders ke view
+        return view('dashboard.pengiriman.create', compact('orders'));
     }
+
 
     public function store(Request $request)
     {
         $request->validate([
-            'order_id' => 'required|exists:orders,id',
-            'status_pengiriman' => 'required|in:diproses,dikirim,dalam perjalanan,sampai',
-            'nomor_resi' => 'nullable|string|max:100',
-            'jasa_kurir' => 'nullable|string|max:100',
-            'tanggal_dikirim' => 'nullable|date',
-            'tanggal_sampai' => 'nullable|date|after_or_equal:tanggal_dikirim',
-            'catatan' => 'nullable|string',
+            'order_id'          => 'required|exists:orders,id|unique:pengiriman,order_id', // unique agar 1 order hanya 1 pengiriman
+            'status_pengiriman' => 'required|in:diproses,dikirim,dalam_perjalanan,sampai,gagal', // Disesuaikan dengan ENUM tabel
+            'nomor_resi'        => 'nullable|string|max:100',
+            'jasa_kurir'        => 'nullable|string|max:100',
+            'tanggal_dikirim'   => 'nullable|date',
+            // 'tanggal_sampai' => 'nullable|date|after_or_equal:tanggal_dikirim', // Hapus jika tidak ada kolomnya di tabel
+            // 'catatan'        => 'nullable|string', // Hapus jika tidak ada kolomnya di tabel
         ]);
 
         Pengiriman::create($request->all());
@@ -37,31 +62,35 @@ class PengirimanController extends Controller
         return redirect()->route('pengiriman.index')->with('success', 'Data pengiriman berhasil ditambahkan.');
     }
 
+
     public function edit(Pengiriman $pengiriman)
     {
-        return view('dashboard.pengiriman.edit', compact('orders'));
+        return view('dashboard.pengiriman.edit', compact('pengiriman'));
     }
 
-    public function update(Request $request, Pengiriman $pengiriman)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'order_id' => 'required|exists:orders,id',
-            'status_pengiriman' => 'required|in:diproses,dikirim,dalam perjalanan,sampai',
-            'nomor_resi' => 'nullable|string|max:100',
+            'status_pengiriman' => 'required|in:diproses,dikirim,dalam_perjalanan,sampai,gagal',
+            'nomor_resi' => 'required|string|max:100',
             'jasa_kurir' => 'nullable|string|max:100',
-            'tanggal_dikirim' => 'nullable|date',
-            'tanggal_sampai' => 'nullable|date|after_or_equal:tanggal_dikirim',
-            'catatan' => 'nullable|string',
         ]);
 
-        $pengiriman->update($request->all());
+        $pengiriman = Pengiriman::findOrFail($id);
+        $pengiriman->update([
+            'status_pengiriman' => $request->status_pengiriman,
+            'nomor_resi' => $request->nomor_resi,
+            'jasa_kurir' => $request->jasa_kurir,
+        ]);
 
         return redirect()->route('pengiriman.index')->with('success', 'Data pengiriman berhasil diperbarui.');
     }
 
+
+
     public function destroy(Pengiriman $pengiriman)
     {
         $pengiriman->delete();
-        return redirect()->route('pengiriman.index')->with('success', 'Data pengiriman berhasil dihapus.');
+        return redirect()->route('pengiriman.index')->with('success', 'Data berhasil dihapus.');
     }
 }

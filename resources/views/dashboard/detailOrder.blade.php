@@ -29,6 +29,7 @@
                                         </select>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -38,15 +39,32 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table align-middle text-center">
+                                        <div class="row mb-3">
+                                            <div class="col-12">
+                                                <form method="GET" action="{{ route('detail.page') }}"
+                                                    class="d-flex flex-column flex-md-row justify-content-end align-items-start align-items-md-center gap-2 w-100">
+                                                    <div class="input-group input-group-sm w-100" style="max-width: 300px;">
+                                                        <input type="text" name="search" class="form-control"
+                                                            placeholder="Cari nama produk..."
+                                                            value="{{ request('search') }}">
+                                                        <button type="submit" class="btn-primary btn-sm mx-3">
+                                                            <i class="ti-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                        <table class="table table-sm align-middle text-center custom-table">
                                             <thead>
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Nama Pembeli</th>
-                                                    <th>Nama Produk</th>
-                                                    <th>Jumlah</th>
-                                                    <th>Harga</th>
-                                                    <th>Total Harga</th>
+                                                    <th class="col-no">No</th>
+                                                    <th class="col-nama">Nama Pembeli</th>
+                                                    <th class="col-produk">Nama Produk</th>
+                                                    <th class="col-jumlah">Jumlah(pcs)</th>
+                                                    <th class="col-harga">Harga</th>
+                                                    <th class="col-total">Total Harga</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -55,6 +73,7 @@
                                                 @endphp
                                                 @foreach ($groupedOrders as $order)
                                                     <tr>
+
                                                         <td>{{ $no++ }}</td>
                                                         <td>{{ $order->user->nama ?? 'Tidak Diketahui' }}</td>
                                                         <td>
@@ -91,24 +110,30 @@
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap">
 
                                         {{-- Tombol Kembali --}}
                                         @if ($groupedOrders->onFirstPage())
+
                                             <span
                                                 class="btn btn-link text-muted d-flex align-items-center text-decoration-none me-2 disabled">
                                                 <i class="ti-angle-left me-1"></i> Kembali
                                             </span>
                                         @else
+
                                             <a href="{{ $groupedOrders->previousPageUrl() }}"
+
                                                 class="btn btn-link text-dark d-flex align-items-center text-decoration-none me-2">
                                                 <i class="ti-angle-left me-1"></i> Kembali
                                             </a>
                                         @endif
 
                                         {{-- Tombol Selanjutnya --}}
+
                                         @if ($groupedOrders->hasMorePages())
                                             <a href="{{ $groupedOrders->nextPageUrl() }}"
+
                                                 class="btn btn-link text-dark d-flex align-items-center text-decoration-none ms-2">
                                                 Selanjutnya <i class="ti-angle-right ms-1"></i>
                                             </a>

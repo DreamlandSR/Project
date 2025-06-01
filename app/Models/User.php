@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'no_hp',
         'role',
+        'avatar'
     ];
 
     /**
@@ -50,5 +51,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }
