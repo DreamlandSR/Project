@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\OrderItem;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -51,6 +52,13 @@ class OrderController extends Controller
             'metode_pengiriman' => $request->metode_pengiriman,
             'notes' => $request->notes,
         ]);
+
+        if ($request->status === 'paid') {
+            DB::table('payments')
+                ->where('order_id', $id)
+                ->update(['status_pembayaran' => 'completed']);
+        }
+
 
         return redirect()->route('pesanan.page')->with('success', 'Pesanan berhasil diperbarui.');
     }

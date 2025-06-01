@@ -6,6 +6,7 @@ use App\Models\Pengiriman;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class PengirimanController extends Controller
 {
@@ -35,10 +36,10 @@ class PengirimanController extends Controller
         // Ambil order dengan status 'paid' dan sertakan data user terkait
         // Juga, filter order yang belum memiliki data pengiriman (opsional tapi direkomendasikan)
         $orders = Order::with('user') // Eager load relasi user
-                       ->where('status', 'paid') // Filter berdasarkan status order
-                       ->whereDoesntHave('pengirimans') // Hanya order yang belum ada di tabel pengiriman
-                       ->orderBy('id', 'desc')
-                       ->get();
+            ->where('status', 'paid') // Filter berdasarkan status order
+            ->whereDoesntHave('pengirimans') // Hanya order yang belum ada di tabel pengiriman
+            ->orderBy('id', 'desc')
+            ->get();
 
         // Kirim variabel $orders ke view
         return view('dashboard.pengiriman.create', compact('orders'));
@@ -48,16 +49,22 @@ class PengirimanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'order_id'          => 'required|exists:orders,id|unique:pengiriman,order_id', // unique agar 1 order hanya 1 pengiriman
-            'status_pengiriman' => 'required|in:diproses,dikirim,dalam_perjalanan,sampai,gagal', // Disesuaikan dengan ENUM tabel
+            'order_id'          => 'required|exists:orders,id|unique:pengiriman,order_id',
+            'status_pengiriman' => 'required|in:diproses,dikirim,dalam_perjalanan,sampai,gagal',
             'nomor_resi'        => 'nullable|string|max:100',
             'jasa_kurir'        => 'nullable|string|max:100',
             'tanggal_dikirim'   => 'nullable|date',
-            // 'tanggal_sampai' => 'nullable|date|after_or_equal:tanggal_dikirim', // Hapus jika tidak ada kolomnya di tabel
-            // 'catatan'        => 'nullable|string', // Hapus jika tidak ada kolomnya di tabel
         ]);
 
+        // Simpan data pengiriman
         Pengiriman::create($request->all());
+
+        // Jika status pengiriman adalah "dikirim", update status order ke "shipped"
+        if ($request->status_pengiriman === 'dikirim') {
+            DB::table('orders')
+                ->where('id', $request->order_id)
+                ->update(['status' => 'shipped']);
+        }
 
         return redirect()->route('pengiriman.index')->with('success', 'Data pengiriman berhasil ditambahkan.');
     }

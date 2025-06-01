@@ -110,7 +110,7 @@
                                             <input type="number" class="form-control" id="harga" name="harga"
                                                 required>
                                         </div>
-                                        <div class="form-group">
+                                        <div class="col-md-6 mb-3">
                                             <label for="quantity">Jumlah Stok</label>
                                             <input type="number" id="quantity" name="quantity"
                                                 class="form-control @error('quantity') is-invalid @enderror"
