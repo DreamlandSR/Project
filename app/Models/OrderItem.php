@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
+
     protected $table = 'order_items';
 
     protected $fillable = [
@@ -16,41 +17,28 @@ class OrderItem extends Model
         'subtotal',
     ];
 
-    /**
-     * Relasi ke Product
-     */
     public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
+{
+    return $this->belongsTo(Product::class);
+}
 
-    /**
-     * Relasi ke Order
-     */
-    public function order()
-    {
-        return $this->belongsTo(Order::class);
-    }
 
-    /**
-     * Accessor untuk memastikan subtotal dihitung otomatis
-     * jika tidak diset manual
-     */
-    public function getSubtotalAttribute($value)
+public function order()
+{
+    return $this->belongsTo(Order::class);
+}
+
+public function getSubtotalAttribute($value)
     {
         // Jika subtotal sudah ada, gunakan nilai tersebut
         if ($value) {
             return $value;
         }
-        
+
         // Jika tidak ada, hitung otomatis
         return $this->kuantitas * $this->harga;
     }
 
-    /**
-     * Mutator untuk mengupdate subtotal otomatis
-     * ketika kuantitas atau harga berubah
-     */
     public function setKuantitasAttribute($value)
     {
         $this->attributes['kuantitas'] = $value;

@@ -95,18 +95,18 @@ class ProductController extends Controller
         $product->load('images');
 
         $product->load('stock');
-        
+
         // Convert binary images to base64 for display
         foreach ($product->images as $image) {
             $mime = finfo_buffer(finfo_open(), $image->image_product, FILEINFO_MIME_TYPE);
             $image->base64src = 'data:' . $mime . ';base64,' . base64_encode($image->image_product);
         }
-        
+
         // Load stock relationship if exists (for backward compatibility)
         if (method_exists($product, 'stock')) {
             $product->load('stock');
         }
-        
+
         return view('dashboard.product.edit', compact('product'));
     }
 
@@ -242,64 +242,5 @@ class ProductController extends Controller
     }
 
 
-    public function edit(Product $product)
-    {
-        return view('dashboard.product.edit', compact('product'));
-    }
 
-    public function update(Request $request, Product $product)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'deskripsi' => 'required',
-            'harga' => 'required|numeric',
-            'stok' => 'required|integer',
-            'status' => 'required',
-            'berat' => 'nullable|numeric',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ]);
-
-        // Update product fields
-        $product->update([
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'harga' => $request->harga,
-            'stok' => $request->stok,
-            'status' => $request->status,
-            'berat' => $request->berat,
-            'image' => $request->image,
-        ]);
-
-        // Jika ada file gambar baru
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/product_images', $filename);
-
-            // Simpan ke tabel product_images
-            productimages::create([
-                'product_id' => $product->id,
-                'image_path' => $filename,
-            ]);
-        }
-
-        $product->update($request->all());
-        return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate!');
-    }
-
-    public function destroy(Product $product)
-    {
-        // Hapus gambar jika ada
-        if ($product->image) {
-            Storage::disk('public')->delete($product->image);
-        }
-
-        // // Hapus semua stocks yang terkait
-        // $product->stocks()->delete();
-
-        // Hapus produk
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
-    }
 }

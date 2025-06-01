@@ -112,7 +112,7 @@
                                                                     </p>
                                                                     <p><strong>Deskripsi:</strong><br>{{ $p->deskripsi }}
                                                                     </p>
-                                                                    <p><strong>Stok:</strong> {{ $p->stok }}</p>
+                                                                    <p><strong>Stok:</strong> {{ $p->stock ? $p->stock->quantity : 0 }}</p>
                                                                     <p><strong>Berat:</strong> {{ $p->berat }}</p>
                                                                     <p><strong>Harga:</strong> Rp
                                                                         {{ number_format($p->harga, 0, ',', '.') }}</p>

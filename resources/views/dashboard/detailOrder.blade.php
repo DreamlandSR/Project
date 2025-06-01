@@ -81,7 +81,7 @@
                                                                 <div class="text-start">
                                                                     @foreach($order->orderItems as $item)
                                                                         <div class="mb-1">
-                                                                            • {{ $item->product->nama ?? 'Produk tidak ditemukan' }} 
+                                                                            • {{ $item->product->nama ?? 'Produk tidak ditemukan' }}
                                                                             ({{ $item->kuantitas }}x)
                                                                         </div>
                                                                     @endforeach

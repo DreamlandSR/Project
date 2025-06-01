@@ -25,13 +25,9 @@ class OrderController extends Controller
                 $q->where('nama', 'like', '%' . $request->search . '%');
             });
         }
-
         $orders = $query->paginate(5)->withQueryString();
-
         return view('dashboard.pesanan', compact('orders'));
     }
-
-
 
     public function edit($id)
     {
@@ -67,25 +63,13 @@ class OrderController extends Controller
         return redirect()->route('pesanan.page')->with('success', 'Pesanan berhasil dihapus.');
     }
 
-public function DetailOrder(Request $request)
-{
-    $query = OrderItem::with(['order.user', 'product']);
+    public function DetailOrder()
+    {
+        $groupedOrders = Order::with(['user', 'orderItems.product'])
+            ->whereHas('orderItems') // Pastikan ada order items
+            ->paginate(5);
 
-    if ($request->has('search') && $request->search !== '') {
-        $search = $request->search;
-
-        $query->where(function ($q) use ($search) {
-            $q->whereHas('product', function ($sub) use ($search) {
-                $sub->where('nama', 'like', '%' . $search . '%');
-            })->orWhereHas('order.user', function ($sub) use ($search) {
-                $sub->where('nama', 'like', '%' . $search . '%');
-            });
-        });
+        return view('dashboard.detailOrder', compact('groupedOrders'));
+        // return view('dashboard.detailOrder', compact('orderItems'));
     }
-
-    $orderItems = $query->paginate(5)->withQueryString();
-
-    return view('dashboard.detailOrder', compact('orderItems'));
-}
-
 }
