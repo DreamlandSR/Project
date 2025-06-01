@@ -10,6 +10,27 @@
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="card shadow-sm rounded p-4">
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                                @if (session('errors') && session('errors')->has('exception'))
+                                    <div class="text-muted small mt-2">
+                                        {{ session('errors')->first('exception') }}
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="row gx-4 gy-3">
@@ -89,10 +110,14 @@
                                             <input type="number" class="form-control" id="harga" name="harga"
                                                 required>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="stok" class="form-label fw-bold">Stok</label>
-                                            <input type="number" class="form-control" id="stok" name="stok"
-                                                required>
+                                        <div class="form-group">
+                                            <label for="quantity">Jumlah Stok</label>
+                                            <input type="number" id="quantity" name="quantity"
+                                                class="form-control @error('quantity') is-invalid @enderror"
+                                                value="{{ old('quantity') }}" required min="0">
+                                            @error('quantity')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <div class="col-md-6 mb-3">
                                             <label for="berat" class="form-label fw-bold">Berat (Gram)</label>
@@ -180,4 +205,3 @@
         }
     </script>
 @endsection
-

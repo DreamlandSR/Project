@@ -7,19 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $table = 'products';
-
     use HasFactory;
 
-    protected $fillable = ['nama', 'deskripsi', 'harga', 'stok_id', 'status', 'rating', 'berat'];
+    protected $table = 'products';
     public $timestamps = false;
 
-    // Relasi: 1 produk memiliki banyak stocks
+    protected $fillable = ['nama', 'deskripsi', 'harga', 'stok_id', 'status', 'rating', 'berat'];
+
+    // Relasi ke Stock
     public function stock()
     {
-        return $this->belongsTo(Stock::class, 'stok_id');
+        return $this->belongsTo(Stock::class, 'stok_id', 'id');
     }
 
+    // Relasi ke Images
     public function images()
     {
         return $this->hasMany(ProductImages::class, 'product_id');

@@ -43,50 +43,49 @@ class ProductController extends Controller
             'nama' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
+            'quantity' => 'required|integer|min:0', // Pastikan quantity ada di validasi
+            'berat' => 'required|integer|min:0',
             'status' => 'required|string|in:available,unavailable,out_of_stock,hidden',
             'image_product.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
+        DB::beginTransaction();
+
         try {
-    DB::beginTransaction();
+            // 1. Buat stok terlebih dahulu
+            $stock = Stock::create([
+                'quantity' => $validated['quantity']
+            ]);
 
-    // Step 1: Buat produk dulu dengan stok_id = 0 atau NULL
-    $product = Product::create([
-        'nama' => $validated['nama'],
-        'deskripsi' => $validated['deskripsi'],
-        'harga' => $validated['harga'],
-        'stok_id' => 0, // atau coba NULL jika boleh
-        'status' => $validated['status'],
-    ]);
+            // 2. Buat produk dengan mengacu ke stok yang baru dibuat
+            $product = Product::create([
+                'nama' => $validated['nama'],
+                'deskripsi' => $validated['deskripsi'],
+                'harga' => $validated['harga'],
+                'stok_id' => $stock->id, // Hubungkan ke stok
+                'berat' => $validated['berat'],
+                'status' => $validated['status'],
+            ]);
 
-    // Step 2: Update stok_id dengan product ID
-    $product->update(['stok_id' => $product->id]);
+            // 3. Simpan gambar jika ada
+            if ($request->hasFile('image_product')) {
+                foreach ($request->file('image_product') as $file) {
+                    $image = new ProductImages();
+                    $image->product_id = $product->id;
+                    $image->image_product = file_get_contents($file->getRealPath());
+                    $image->save();
+                }
+            }
 
-    // Step 3: Baru buat stock dengan ID yang sama
-    $stock = new Stock();
-    $stock->id = $product->id;
-    $stock->quantity = $validated['quantity'];
-    $stock->save();
-
-    // Simpan gambar jika ada
-    if ($request->hasFile('image_product')) {
-        foreach ($request->file('image_product') as $file) {
-            $image = new productimages();
-            $image->product_id = $product->id;
-            $image->image_product = file_get_contents($file->getRealPath());
-            $image->save();
+            DB::commit();
+            return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error creating product: ' . $e->getMessage());
+            return redirect()->back()
+                ->with('error', 'Gagal menambahkan produk: ' . $e->getMessage())
+                ->withInput();
         }
-    }
-
-    DB::commit();
-    return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
-
-} catch (\Exception $e) {
-    DB::rollBack();
-    Log::error('Error creating product: ' . $e->getMessage());
-    return redirect()->back()->with('error', 'Gagal menambahkan produk: ' . $e->getMessage())->withInput();
-}
     }
 
     public function edit(Product $product)
@@ -124,7 +123,7 @@ class ProductController extends Controller
 
         try {
             DB::beginTransaction();
-           // Update stock yang sudah ada
+            // Update stock yang sudah ada
             if ($product->stok_id) {
                 Stock::where('id', $product->stok_id)->update([
                     'quantity' => $validated['quantity']
@@ -161,7 +160,6 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->route('products.index')->with('success', 'Produk berhasil diupdate!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error updating product: ' . $e->getMessage());
@@ -182,7 +180,6 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error deleting product: ' . $e->getMessage());
@@ -233,14 +230,10 @@ class ProductController extends Controller
 
             DB::commit();
             return redirect()->route('products.index')->with('success', 'Produk berhasil ditambahkan!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error creating product: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Gagal menambahkan produk: ' . $e->getMessage())->withInput();
         }
     }
-
-
-
 }
