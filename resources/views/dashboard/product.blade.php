@@ -64,7 +64,7 @@
                                             <tbody>
                                                 @forelse ($products as $p)
                                                     <tr>
-                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $products->firstItem() + $loop->index }}</td>
                                                         <td>{{ $p->nama }}</td>
                                                         <td>
                                                             @foreach ($p->images as $image)
