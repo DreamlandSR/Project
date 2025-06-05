@@ -14,14 +14,19 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Http\Request;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
+        api: __DIR__.'/../routes/api.php',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        
         // Middleware aliases
         $middleware->alias([
             'auth' => Authenticate::class,
@@ -40,14 +45,18 @@ return Application::configure(basePath: dirname(__DIR__))
             ValidateCsrfToken::class,
             SubstituteBindings::class,
         ]);
+
+       
         
         // Middleware groups lainnya jika diperlukan
         $middleware->api([
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
+            'throttle:60,1', // 60 requests per minute
             SubstituteBindings::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // Custom exception handling
     })->create();
+
+    
