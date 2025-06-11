@@ -58,7 +58,8 @@
                                     <div class="card card-tale">
                                         <div class="card-body">
                                             <p class="mb-4">Total Omset</p>
-                                            <p class="mb-2" style="font-size: 24px">Rp {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
+                                            <p class="mb-2" style="font-size: 24px">Rp
+                                                {{ number_format($totalPembayaran, 0, ',', '.') }}</p>
                                             <p>{{ $growthPembayaran }}% (30 days)</p>
                                         </div>
                                     </div>
@@ -101,7 +102,8 @@
                             <div class="card">
                                 <div class="card-body">
                                     <p class="card-title">Detail Pertumbuhan</p>
-                                    <p>Detail chart di bawah ini merupakan data dari pesanan yang telah selesai diterima dalam setiap bulan selama 1 tahun</p>
+                                    <p>Detail chart di bawah ini merupakan data dari pesanan yang telah selesai diterima
+                                        dalam setiap bulan selama 1 tahun</p>
                                     <canvas id="growthChart" width="600" height="300"></canvas>
                                     <div class="d-flex flex-wrap mb-5">
 
@@ -301,6 +303,52 @@
                                         data-ride="carousel">
                                         <div class="carousel-inner">
                                             <div class="carousel-item active">
+                                                <div class="d-flex gap-2 justify-content-end">
+                                                    <div class="dropdown">
+                                                        <a class="btn btn-primary rounded shadow-sm dropdown-toggle"
+                                                            href="#" role="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            Export
+                                                        </a>
+
+                                                        <ul class="dropdown-menu">
+                                                            <form action="{{ route('export.pesanan.pdf') }}"
+                                                                method="GET" class="d-flex gap-2">
+                                                                <select name="bulan" required>
+                                                                    <option value="">Pilih Bulan</option>
+                                                                    @for ($i = 1; $i <= 12; $i++)
+                                                                        <option value="{{ $i }}">
+                                                                            {{ \Carbon\Carbon::create()->month($i)->locale('id')->monthName }}
+                                                                        </option>
+                                                                    @endfor
+                                                                </select>
+
+                                                                <select name="tahun" required>
+                                                                    <option value="">Pilih Tahun</option>
+                                                                    @for ($y = now()->year; $y >= 2023; $y--)
+                                                                        <option value="{{ $y }}">
+                                                                            {{ $y }}</option>
+                                                                    @endfor
+                                                                </select>
+                                                                <button type="submit">Export PDF</button>
+                                                            </form>
+
+                                                            <form action="{{ route('export.pesanan.tahunan') }}"
+                                                            method="GET" class="d-flex gap-2">
+                                                            <select name="tahun" class="form-select form-select-sm"
+                                                                required>
+                                                                <option value="">Pilih Tahun</option>
+                                                                @for ($y = now()->year; $y >= 2023; $y--)
+                                                                    <option value="{{ $y }}"
+                                                                        {{ request('tahun') == $y ? 'selected' : '' }}>
+                                                                        {{ $y }}</option>
+                                                                @endfor
+                                                            </select>
+                                                            <button type="submit" class="btn btn-sm btn-info">Export
+                                                                Tahunan</button>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div
                                                         class="col-md-12 col-xl-3 d-flex flex-column justify-content-start">
@@ -311,7 +359,9 @@
                                                             </h3>
                                                             <h6 class="font-weight-bold mb-xl-4 text-primary fs-4">Total
                                                                 Omset Keseluruhan</h6>
-                                                            <p class="mb-2 mb-xl-0">Jumlah keseluruhan pendapatan dari penjualan batik serta pada detail di samping merupakan batik terlaris.</p>
+                                                            <p class="mb-2 mb-xl-0">Jumlah keseluruhan pendapatan dari
+                                                                penjualan batik serta pada detail di samping merupakan batik
+                                                                terlaris.</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 col-xl-9">
@@ -386,16 +436,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="carousel-control-prev" href="#detailedReports" role="button"
-                                            data-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Previous</span>
-                                        </a>
-                                        <a class="carousel-control-next" href="#detailedReports" role="button"
-                                            data-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="sr-only">Next</span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
