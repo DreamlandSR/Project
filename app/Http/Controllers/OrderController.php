@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProdukTerjualExport;
+use App\Exports\RekapTahunanExport;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Models\User;
 use App\Models\OrderItem;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -79,5 +83,49 @@ class OrderController extends Controller
 
         return view('dashboard.detailOrder', compact('groupedOrders'));
         // return view('dashboard.detailOrder', compact('orderItems'));
+    }
+
+    public function exportPDF(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        $tahun = $request->input('tahun');
+
+        // Validasi: jika tidak ada bulan/tahun, redirect
+        if (!$bulan || !$tahun) {
+            return redirect()->back()->with('error', 'Pilih bulan dan tahun terlebih dahulu.');
+        }
+
+        // Ambil awal dan akhir bulan
+        $startDate = Carbon::create($tahun, $bulan)->startOfMonth();
+        $endDate = Carbon::create($tahun, $bulan)->endOfMonth();
+
+        // Ambil data OrderItem yang ada pada bulan dan tahun tersebut
+        $produkTerjual = OrderItem::with(['product', 'order'])
+            ->whereHas('order', function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            })
+            ->selectRaw('product_id, SUM(kuantitas) as total_kuantitas, MAX(harga) as harga_satuan, SUM(kuantitas * harga) as total_harga')
+            ->groupBy('product_id')
+            ->get();
+
+        $totalKeseluruhan = $produkTerjual->sum('total_harga');
+
+        $pdf = Pdf::loadView('dashboard.pdf.rekap-produk', [
+            'produkTerjual' => $produkTerjual,
+            'totalKeseluruhan' => $totalKeseluruhan,
+            'bulan' => $bulan,
+            'tahun' => $tahun
+        ])->setPaper('A4', 'landscape');
+
+        return $pdf->download("rekap_produk_{$bulan}_{$tahun}.pdf");
+    }
+
+    public function exportRekapTahunan(Request $request)
+    {
+        $tahun = $request->input('tahun', now()->year);
+
+        $namaFile = 'rekap_produk_perbulan_' . $tahun . '.xlsx';
+
+        return Excel::download(new RekapTahunanExport($tahun), $namaFile);
     }
 }

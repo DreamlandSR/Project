@@ -18,18 +18,6 @@
                                 <div class="mb-2 mb-md-0">
                                     <h3 class="fw-bold mb-0" style="color: #000;">Detail Pesanan</h3>
                                 </div>
-
-                                <div class="d-flex flex-wrap gap-3">
-                                    <div class="d-flex align-items-center bg-white rounded-pill px-3 py-1 shadow-sm">
-                                        <span class="text-muted me-2 d-none d-sm-block">Tampilkan</span>
-                                        <select class="form-select border-0 bg-transparent pe-3">
-                                            <option selected>10</option>
-                                            <option>25</option>
-                                            <option>50</option>
-                                        </select>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
